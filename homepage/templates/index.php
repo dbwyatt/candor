@@ -1,7 +1,5 @@
-<%inherit file="base.htm" />
-
-<%block name="content">
-    <html>
+<!DOCTYPE html>
+<html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Candor Contracts strives to provide the easiest way to buy and sell apartment contracts, making a student's life much less hectic.">
@@ -123,4 +121,3 @@
 	<script src="js/index.js"></script>
 </body>
 </html>
-</%block>

@@ -1,0 +1,310 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,800");
+@font-face {
+	font-family: felix-titling;
+	src: url(../fonts/felix-titling-mt.ttf);
+}
+
+// variables
+@navbar-color: rgba(255,255,255, .9);
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Open Sans';
+}
+
+body {
+	background-color: rgb(7, 23, 39);
+	text-align: center;
+}
+
+.navbar-margin {
+	width: 100%;
+	background-color: @navbar-color;
+	border-bottom: solid 1px lightgrey;
+}
+.navbar {
+	margin-bottom: 0;
+	text-align: left;
+
+	&.navbar-default {
+		background-color: transparent;
+		border: none;
+	}
+	
+	.navbar-brand {
+		height: initial;
+		padding: 0;
+
+		img {
+			height: auto;
+			width: 130px;
+			display: inline-block;
+			margin-right: 10px;
+		}
+	}
+
+	a.social {
+		padding: 19px 5px 20px;
+		display: inline-block;
+
+		img {
+			height: 30px;
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	nav.navbar .nav > li > a {
+		padding-top: 24px;
+		padding-bottom: 25px;
+	}
+	.navbar {
+		// padding-top: 30px;
+		// padding-bottom: 30px;
+		max-width: 75%;
+		margin: 0 auto;
+		position: relative;
+	}
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+	background-color: rgba(0,0,0, .6);
+	color: white;
+}
+
+#main-container {
+	// font-size: 55px;
+	width: 100%;
+	/*position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;*/
+	// padding: 60px 0px;
+	/*box-shadow: 0px 0px 2px 0px black;*/
+	background: rgba(255,255,255, 1);
+	// max-height: 700px;
+	min-height: 700px;
+	position: relative;
+
+	.home-background {
+		background-image: url(../img/apartment.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+
+	.overlay {
+		background-color: rgba(255,255,255,.5);
+		min-height: 700px;
+		width: 100%;
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		padding-bottom: 50px;
+
+		#sign-up {
+			display: inline-block;
+			vertical-align: middle;
+			text-align: left;
+			margin-top: 70px;
+			padding: 20px;
+			max-width: 485px;
+			position: relative;
+
+			label {
+				display: block;
+				text-align: left;
+				font-size: 31px;
+			}
+
+			::-webkit-input-placeholder {
+				color: white;
+			}
+
+			::-moz-placeholder { /* Firefox 19+ */ 
+				color: white;
+			} 
+			:-ms-input-placeholder { 
+				color: white;
+			}
+
+			input[type="text"], input[type="email"] {
+				height: 40px;
+				border: none;
+				box-shadow: inset 0px 0px 0px 1px lightgrey;
+				padding: 0 10px;
+				background-color: rgba(0,0,0, .4);
+				color: white;
+
+				&.required {
+					border: none;
+					box-shadow: inset 0px 0px 0px 2px red;
+				}
+			}
+
+			input[type="text"] {
+				width: 49%;
+			}
+			input#first-name {
+				float: left;
+			}
+			input#last-name {
+				float: right;
+			}
+
+			#email {
+				display: block;
+				width: 100%;
+				margin: 10px 0;
+				clear: both;
+				float: left;
+			}
+
+			sup {
+				font-size: 12px;
+				font-weight: bold;
+			}
+
+			.btn {
+				display: block;
+				margin: 0 auto;
+			}
+
+			.success {
+				color: lighten(rgb(7, 23, 39), 20%);
+				display: inline-block;
+				font-weight: bold;
+				position: absolute;
+				bottom: 25%;
+				left: 0;
+				margin-left: 20px;
+				margin-right: 20px;
+			}
+		}
+
+		.space {
+			position: relative;
+			width: 10%;
+			display: inline-block;
+		}
+
+		#candor-container {
+			display: inline-block;
+			// margin-top: -5px;
+			// margin-right: 150px;
+			font-family: felix-titling;
+			// margin-bottom: 50px;
+			text-align: center;
+			vertical-align: middle;
+			margin-top: 70px;
+
+			img {
+				display: block;
+				height: auto;
+				width: 100%;
+				max-width: 480px;
+				margin-bottom: -50px;
+			}
+
+			#candor {
+				// color: rgb(200,0,0);
+				display: block;
+				font-size: 100px;
+				font-weight: 600;
+			}
+
+			#contracts {
+				display: block;
+				font-size: 41px;
+				font-weight: 600;
+				// margin-left: 200px;
+				margin-top: -35px;
+				margin-bottom: 20px;
+			}
+		}
+	
+		#coming-soon {
+			color: rgb(79,79,79);
+			vertical-align: top;
+			position: relative;
+			margin: 0 auto;
+			top: 20px;
+			font-size: 55px;
+			// height: 100%;
+			// line-height: 160px;
+			display: block;
+			vertical-align: middle;
+		}
+	}
+}
+
+@media screen and (max-width: 1095px) {
+	.space {
+		display: block !important;
+	}
+}
+@media screen and (max-width: 490px) {
+	#sign-up {
+		margin-top: 0px !important;
+	}
+	#candor-container {
+		margin-top: 20px !important;
+		
+		img {
+			margin-bottom: -25px !important;
+		}
+	}
+	#candor {
+		font-size: 60px !important;
+	}
+	#contracts {
+		font-size: 25px !important;
+		margin-top: -20px !important;
+	}
+}
+
+#main-page {
+	max-width: 700px;
+	position: relative;
+	margin: 0 auto;
+
+	h1.page-header {
+		color: white;
+		max-width: 700px;
+		display: block;
+		position: relative;
+		margin-left: 20px;
+		margin-right: 20px;
+		text-align: left;
+	}
+
+	#description {
+		max-width: 700px;
+		text-align: left;
+		position: relative;
+		margin: 0 auto;
+		font-size: 17px;
+		color: white;
+		padding: 0 20px 65px;
+	}
+
+	iframe {
+		width: 100%;
+	}
+}
+
+footer {
+	padding: 50px;
+	color: white;
+	box-shadow: 0px -1px 0px 0px black;
+	background-color: rgba(0,0,0, .5);
+}
