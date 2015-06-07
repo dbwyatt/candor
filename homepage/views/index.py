@@ -13,7 +13,7 @@ templater = get_renderer('homepage')
 @view_function
 def process_request(request):
     items = {}
-    print('hi')
+    print('hi this is dev')
     print(os.path.dirname(os.path.dirname(__file__)))
 
     return templater.render_to_response(request, 'index.html', items)
