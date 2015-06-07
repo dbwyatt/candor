@@ -6,7 +6,7 @@ $(function () {
 	// 	$("#main-container").css({height: $(window).height()});
 	// }); // resize
 
-	var image = ['img/apartment.jpg','img/apartment2.jpg','img/apartment3.jpg'];
+	var image = ['static/homepage/media/apartment.jpg','static/homepage/media/apartment2.jpg','static/homepage/media/apartment3.jpg'];
 	var image_count = 1;
 	setInterval(function() {
 		var container = $('.home-background');

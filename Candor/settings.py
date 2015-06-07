@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Set the environment
+ENVIRONMENT = 'dev'
+if os.path.dirname(BASE_DIR) == '/var/www/candor':
+    ENVIRONMENT = 'production'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -19,7 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'w58yt2*jmvxdwh-n3o*nf66#4+rl6^5172o&)gx69t04(5*8ow'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'dev':
+    DEBUG = True
+else:
+    DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -57,17 +65,28 @@ WSGI_APPLICATION = 'Candor.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'candor',                     
-        'USER': 'postgres',
-        'PASSWORD': 'Candorthis@db',
-        'HOST': '162.243.150.208',   
-        'PORT': '5432', 
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'candor',
+            'USER': 'postgres',
+            'PASSWORD': 'Candorthis@db',
+            'HOST': '162.243.150.208',
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'candordev',
+            'USER': 'postgres',
+            'PASSWORD': 'Candorthis@db',
+            'HOST': '162.243.150.208',
+            'PORT': '5432',
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -89,7 +108,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     # SECURITY WARNING: this next line must be commented out at deployment
-    BASE_DIR,  
+    BASE_DIR,
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -98,31 +117,32 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {
-    'simple': {
-        'format': '%(levelname)s %(message)s'
+        'simple': {
+            'format': '%(levelname)s %(message)s'
         },
     },
     'handlers': {
-    'console':{
-        'level':'DEBUG',
-        'class':'logging.StreamHandler',
-        'formatter': 'simple'
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
         },
     },
     'loggers': {
-    'django_mako_plus': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
-        'propagate': False,
+        'django_mako_plus': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }
 
 ###############################################################
-###   Specific settings for the Django-Mako-Plus app
+# Specific settings for the Django-Mako-Plus app
 
 DJANGO_MAKO_PLUS = {
-    # identifies where the Mako template cache will be stored, relative to each app
+    # identifies where the Mako template cache will be stored,
+    # relative to each app
     'TEMPLATES_CACHE_DIR': 'cached_templates',
 
     # the default app and page to render in Mako when the url is too short
@@ -134,7 +154,7 @@ DJANGO_MAKO_PLUS = {
 
     # these are included in every template by default - if you put your most-used libraries here, you won't have to import them exlicitly in templates
     'DEFAULT_TEMPLATE_IMPORTS': [
-    'import os, os.path, re, json',
+        'import os, os.path, re, json',
     ],
 
     # see the DMP online tutorial for information about this setting
@@ -149,10 +169,10 @@ DJANGO_MAKO_PLUS = {
     'MINIFY_JS_CSS': True,
 
     # see the DMP online tutorial for information about this setting
-    'TEMPLATES_DIRS': [ 
-    # '/var/somewhere/templates/',
+    'TEMPLATES_DIRS': [
+        # '/var/somewhere/templates/',
     ],
 }
 
-###  End of settings for the Django-Mako-Plus
+#  End of settings for the Django-Mako-Plus
 ################################################################

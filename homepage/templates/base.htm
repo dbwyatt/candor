@@ -4,32 +4,103 @@
 <%! from django_mako_plus.controller import static_files %>
 <%  static_renderer = static_files.StaticRenderer(self) %>
 
+<%! from datetime import datetime %>
+
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Candor Contracts strives to provide the easiest way to buy and sell apartment contracts, making a student's life much less hectic.">
+    <meta name="keywords" content="Candor, Candor Contracts, contract, contracts, apartment, apartment contracts, student, students">
+    <meta name="author" content="Daniel Wyatt">
     
-    <title>homepage</title>
+    <%block name="title">
+        <title>homepage</title>
+    </%block>
+
+    <link type="image/png" rel="icon" href="${ STATIC_URL }homepage/media/logo.png">
     
     ## add any site-wide scripts or CSS here; for example, jquery:
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    
     ## render the css with the same name as this page
     ${ static_renderer.get_template_css(request, context)  }
+
+
+</head>
+<body cz-shortcut-listen="true">
   
-  </head>
-  <body>
-  
-    <header>
-      Welcome to the homepage app!
-    </header>
-  
+    <%block name="navigation">
+        <div class="navbar-margin">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="${ STATIC_URL }homepage/media/candor.png" />Candor Contracts</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <!-- <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li> -->
+                            <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+                            <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+                            <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </%block>
+
     <%block name="content">
-      Site content goes here in sub-templates.
+        Site content goes here in sub-templates.
     </%block>  
-  
+
+    <%block name="footer">
+        <footer>
+            Copyright &copy; ${ datetime.now().year } Candor Contracts
+        </footer>
+    </%block>
+
     ## render the JS with the same name as this page
     ${ static_renderer.get_template_js(request, context)  }
-  
-  </body>
+
+</body>
 </html>
