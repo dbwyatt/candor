@@ -5,18 +5,17 @@ from django.http import HttpRequest
 from django_mako_plus.controller import view_function
 import homepage.models as hmod
 from django_mako_plus.controller.router import get_renderer
-import os
+import os, helpers
 
 templater = get_renderer('homepage')
 
 
 @view_function
 def process_request(request):
-    items = {}
-    print('hi this is dev')
-    print(os.path.dirname(os.path.dirname(__file__)))
+    params = {}
+    params['environment'] = helpers.get_environment()
 
-    return templater.render_to_response(request, 'index.html', items)
+    return templater.render_to_response(request, 'index.html', params)
 
 
 @view_function
