@@ -24,6 +24,7 @@ if os.path.dirname(BASE_DIR) == '/var/www/candor':
 SECRET_KEY = 'w58yt2*jmvxdwh-n3o*nf66#4+rl6^5172o&)gx69t04(5*8ow'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 if ENVIRONMENT == 'dev':
     DEBUG = True
 else:

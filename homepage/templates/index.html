@@ -1,5 +1,4 @@
 <%inherit file="base.htm" />
-<% from django.conf import settings %>
 
 <%block name="title">
 	<title>Candor Contracts</title>
@@ -10,7 +9,7 @@
 	<div id="main-container">
 		<div class="home-background"></div>
 		<div class="overlay">
-			% if settings.ENVIRONMENT == 'dev':
+			% if os.path.dirname(BASE_DIR) == '/var/www/dev':
 				<span id="coming-soon">coming soon - this is dev and more and extra</span>
 			% else:
 				<span id="coming-soon">coming soon</span>
