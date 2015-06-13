@@ -16,6 +16,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 ENVIRONMENT = 'dev'
 if os.path.dirname(BASE_DIR) == '/var/www/candor':
     ENVIRONMENT = 'production'
+elif os.path.dirname(BASE_DIR) == '/var/www/dev':
+    ENVIRONMENT = 'devsite'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -76,7 +78,18 @@ if ENVIRONMENT == 'production':
             'NAME': 'candor',
             'USER': 'postgres',
             'PASSWORD': 'Candorthis@db',
-            'HOST': '162.243.150.208',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+elif ENVIRONMENT == 'devsite':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'candordev',
+            'USER': 'postgres',
+            'PASSWORD': 'Candorthis@db',
+            'HOST': '127.0.0.1',
             'PORT': '5432',
         }
     }
