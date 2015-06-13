@@ -17,13 +17,20 @@
 				<span id="contracts">Contracts</span>
 			</div>
 			<span class="space"></span>
-			<form id="sign-up">
+			<!-- <form id="sign-up" method="POST" action="/homepage/index.register/">
 				<label>Sign up for early registration</label>
 				<span><input type="text" name="firstname" id="first-name" placeholder="First Name"/></span>
 				<span><input type="text" name="lastname" id="last-name" placeholder="Last Name" /></span>
 				<span><input type="email" name="email" id="email" placeholder="Email" /></span>
 				<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
 				<input type="submit" class="btn btn-primary" value="Sign Up" />
+			</form> -->
+			<form id="sign-up" method="POST" action="/homepage/index.register/">
+				<label>Sign up for early registration</label>
+				${ form }
+				<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
+				<input type="submit" class="btn btn-primary" value="Sign Up" />
+				<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
 			</form>
 		</div>
 	</div>

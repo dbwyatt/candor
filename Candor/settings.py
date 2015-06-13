@@ -33,9 +33,7 @@ else:
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = [
-    'candorcontracts.com',
-    'www.candorcontracts.com',
-    'dev.candorcontracts.com'
+    '.candorcontracts.com',
 ]
 
 
