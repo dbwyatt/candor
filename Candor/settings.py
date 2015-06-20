@@ -27,10 +27,10 @@ SECRET_KEY = 'w58yt2*jmvxdwh-n3o*nf66#4+rl6^5172o&)gx69t04(5*8ow'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-if ENVIRONMENT == 'dev':
-    DEBUG = True
-else:
-    DEBUG = False
+# if ENVIRONMENT == 'dev':
+#     DEBUG = True
+# else:
+#     DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -104,17 +104,6 @@ else:
             'PORT': '5432',
         }
     }
-
-
-# Email
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 443
-EMAIL_HOST_USER = 'candorcontracts@gmail.com'
-EMAIL_HOST_PASSWORD = 'candorthis'
-EMAIL_USE_SSL = True
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
