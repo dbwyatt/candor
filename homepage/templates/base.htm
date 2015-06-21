@@ -33,12 +33,12 @@
 
 
 </head>
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" id="home">
   
     <%block name="navigation">
-        <div class="navbar-margin">
+        ## <div class="navbar-margin">
             <nav class="navbar navbar-default">
-                <div class="container-fluid">
+                <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -86,14 +86,17 @@
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
                             </li> -->
-                            <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
-                            <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
-                            <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            ## <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+                            ## <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+                            ## <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-        </div>
+        ## </div>
     </%block>
 
     <%block name="content">
