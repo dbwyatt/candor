@@ -108,10 +108,10 @@ else:
 
 # Email
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 443
-EMAIL_HOST_USER = 'candorcontracts@gmail.com'
-EMAIL_HOST_PASSWORD = 'candorthis'
-EMAIL_USE_SSL = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'candorcontractscontact@gmail.com'
+EMAIL_HOST_PASSWORD = 'candorthiscontact'
+EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER

@@ -265,11 +265,10 @@
 
 	.founder {
 		position: relative;
-		margin: 50px auto;
+		margin: 0 auto;
 
 		.founder-img {
 			border-radius: 100%;
-			border: solid 1px black;
 			height: 200px;
 			width: 200px;
 			display: inline-block;
@@ -278,17 +277,39 @@
 		}
 
 		.founder-description {
-			border-top: solid 2px lightgrey;
-			margin: 30px auto 0;
-			padding-top: 30px;
+			margin: 15px auto 0;
+			// padding-top: 30px;
 			max-width: 200pt;
 			text-align: left;
+
+			.name {
+				font-size: 21px;
+				font-weight: bold;
+				display: block;
+				text-align: center;
+			}
+			
+			.title {
+				font-size: 15px;
+				font-weight: 600;
+				color: rgb(62, 92, 162);
+				display: block;
+				text-align: center;
+				margin-bottom: 15px;
+			}			
+		}
+	}
+
+	> div:last-child {
+
+		.founder-img {
+			background-size: 110%;
+			background-position: 50% 25%;
 		}
 	}
 }
 
 #contact {
-	background-color: white;
 	margin: 0 auto;
 
 	.page-header {

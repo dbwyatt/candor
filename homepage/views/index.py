@@ -55,20 +55,22 @@ def contact(request):
         if form.is_valid():
             email = {}
 
+            email['sender'] = form.cleaned_data['name']
+            email['sender_email'] = form.cleaned_data['email']
             email['message'] = form.cleaned_data['message']
 
             emailsubject = form.cleaned_data['subject']
             to_email = 'candorcontracts@gmail.com'
             from_email = form.cleaned_data['email']
             emailbody = templater.render(request, 'contact_email.html', email)
-            send_mail(emailsubject, emailbody, from_email, [to_email.email], html_message=emailbody, fail_silently=False)
+            send_mail(emailsubject, emailbody, from_email, [to_email], html_message=emailbody, fail_silently=False)
 
             params = True
             return HttpResponse(params)
 
-            params['contact'] = form
+    params['contact'] = form
 
-            return templater.render_to_response(request, 'contact_form.html', params)
+    return templater.render_to_response(request, 'contact_form.html', params)
 
 
 class registrationForm(forms.Form):
