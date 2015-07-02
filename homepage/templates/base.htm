@@ -69,11 +69,13 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="/"><img src="${ STATIC_URL }homepage/media/candor.png" />
-                            % if environment != '/var/www/candor':
-                                Candor Contracts Dev
-                            % else:
-                                Candor Contracts
-                            % endif
+                            <span class="brand-text">
+                                % if environment != '/var/www/candor':
+                                    Candor Contracts Dev
+                                % else:
+                                    Candor Contracts
+                                % endif
+                            </span>
                         </a>
                     </div>
 
@@ -94,6 +96,11 @@
                                     <li><a href="#">One more separated link</a></li>
                                 </ul>
                             </li> -->
+                            <li class="social-links">
+                                <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+                                <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+                                <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <!-- <li><a href="#">Link</a></li>
@@ -112,9 +119,6 @@
                             <li><a href="#contact">Contact</a></li>
                             <li><a href="#" class="sign-in">Sign In</a></li>
                             ## <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div></li>
-                            ## <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
-                            ## <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
-                            ## <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->

@@ -45,6 +45,12 @@ body {
 		// background-color: transparent;
 		border: none;
 	}
+
+	.navbar-toggle {
+		border-color: transparent !important;
+		margin-top: 17px;
+		margin-bottom: 17px;
+	}
 	
 	.navbar-brand {
 		height: initial;
@@ -59,12 +65,22 @@ body {
 	}
 
 	a.social {
-		padding: 19px 5px 20px;
+		padding: 19px 5px 20px !important;
 		display: inline-block;
 
 		img {
 			height: 30px;
 		}
+
+		&:first-child {
+			padding-left: 30px !important;
+		}
+	}
+}
+
+@media screen and (max-width: 410px) {
+	.brand-text {
+		display: none;
 	}
 }
 
@@ -79,6 +95,13 @@ body {
 		// max-width: 75%;
 		margin: 0 auto;
 		// position: relative;
+	}
+
+	.social-links {
+		position: absolute !important;
+		top: 100%;
+		left: 25px;
+		z-index: 2;
 	}
 }
 
