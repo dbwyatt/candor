@@ -9,13 +9,13 @@
 	<div id="main-container">
 		<div class="home-background"></div>
 		<div class="overlay">
-			<span id="coming-soon">coming soon</span>
+			## <span id="coming-soon">coming soon</span>
 			<div id="candor-container">
 				<img src="${ STATIC_URL }homepage/media/candor.png" />
 				<span id="candor">Candor</span>
 				<span id="contracts">Contracts</span>
 			</div>
-			<span class="space"></span>
+			## <span class="space"></span>
 			<!-- <form id="sign-up" method="POST" action="/homepage/index.register/">
 				<label>Sign up for early registration</label>
 				<span><input type="text" name="firstname" id="first-name" placeholder="First Name"/></span>
@@ -24,20 +24,46 @@
 				<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
 				<input type="submit" class="btn btn-primary" value="Sign Up" />
 			</form> -->
-			<form id="sign-up" method="POST" action="/homepage/index.register/">
-				<label>Sign up for early registration</label>
-				${ form }
-				<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
-				<input type="submit" class="btn btn-primary" value="Sign Up" />
-				<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
-			</form>
+			## <form id="sign-up" method="POST" action="/homepage/index.register/">
+			## 	<label>Sign up for early registration</label>
+			## 	${ form }
+			## 	<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
+			## 	<input type="submit" class="btn btn-primary" value="Sign Up" />
+			## 	<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+			## </form>
+			<span class="freedom">Freedom is just around the corner</span>
+			<button class="start-here">Start Here</button>
+			<div id="login-slide">
+                <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/font-awesome.css" />
+                <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
+				<div class="close">x</div>
+
+				<div id="login-container">
+					<span class="login-text">Login with your Google or Facebook account</span>
+					<div class="btn-wrapper">	
+						<div class="btn btn-block btn-social btn-google" data-onsuccess="onSignIn">
+							<i class="fa fa-google"></i> Sign in with Google
+						</div>
+						
+						<span class="spacer"></span>
+
+						<a class="btn btn-block btn-social btn-facebook" data-onsuccess="onSignIn">
+							<i class="fa fa-facebook"></i> Sign in with Facebook
+						</a>
+					</div>
+				</div>
+
+                ## <li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+                ## <li><a href="https://accounts.google.com/o/oauth2/auth?client_id=267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad&redirect_uri=${ request.META['wsgi.url_scheme']}://${ request.META['HTTP_HOST'] }&response_type=code&scope=openid+email+profile">Google</a></li>
+
+			</div>
 		</div>
 	</div>
 
 	<div class="page-panel blue">
 		<div id="about" class="container">
 			<div class="col-sm-12 col-md-6">
-				<h2 class="page-header">Welcome to Candor!</h2>
+				<h2 class="page-header">What is Candor?</h2>
 
 				Candor is a platform that strives to deliver the greatest, simplest, most beautiful way to escape or find your apartment contract. Candor started because one afternoon two students were trying to solve a problem that they themselves had dealt with, along with many of their friends.
 
@@ -63,6 +89,66 @@
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/UkDhSjSuJfM" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-panel white">
+		<div class="container">
+			<div class="col-sm-12 col-md-6">
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<h2 class="page-header">Sell your contract faster</h2>
+
+				Candor can help you sell faster by posting to KSL, Facebook, and Craigslist all at the same time!
+			</div>
+			<div>
+				<div class="list-item">
+					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
+					<div class="list-item-description">
+						<span class="title">Post to everywhere you need</span>
+						Candor will automatically post to KSL, Facebook, and Craigslist so that you don't need to
+					</div>
+				</div>
+				<div class="list-item">
+					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
+					<div class="list-item-description">
+						<span class="title">Focused traffic</span>
+						Candor is built to bring qualified buyers and sellers from all over the internet together in one location
+					</div>
+				</div>
+				<div class="list-item">
+					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
+					<div class="list-item-description">
+						<span class="title">Easy messaging</span>
+						Manage all the messages sent to you regarding your contract from one location
+					</div>
+				</div>
+				<div class="list-item">
+					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
+					<div class="list-item-description">
+						<span class="title">Bruce Peck</span>
+						This is Bruce.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-panel off">
+		<div class="container">
+			<div class="col-sm-12 col-md-6">
+				<h2 class="page-header">Find available contracts instantly</h2>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="page-panel white">
+		<div class="container">
+			<div class="col-sm-12 col-md-6">
+				<h2 class="page-header">What is Candor?</h2>
+
 			</div>
 		</div>
 	</div>

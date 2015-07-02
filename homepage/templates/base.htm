@@ -13,6 +13,7 @@
     <meta name="description" content="Candor Contracts strives to provide the easiest way to buy and sell apartment contracts, making a student's life much less hectic.">
     <meta name="keywords" content="Candor, Candor Contracts, contract, contracts, apartment, apartment contracts, student, students">
     <meta name="author" content="Daniel Wyatt">
+    <meta name="google-signin-client_id" content="267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad.apps.googleusercontent.com">
     
     <%block name="title">
         <title>homepage</title>
@@ -25,6 +26,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="${ STATIC_URL }homepage/scripts/jquery.form.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     
@@ -34,7 +36,26 @@
 
 </head>
 <body cz-shortcut-listen="true" id="home">
-  
+
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1639785522934996',
+                xfbml      : true,
+                version    : 'v2.3'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <%block name="navigation">
         ## <div class="navbar-margin">
             <nav class="navbar navbar-default">
@@ -89,6 +110,8 @@
                             <li><a href="#home">Home</a></li>
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a href="#" class="sign-in">Sign In</a></li>
+                            ## <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div></li>
                             ## <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
                             ## <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
                             ## <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>

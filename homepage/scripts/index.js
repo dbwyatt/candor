@@ -121,4 +121,28 @@ $(function () {
 		}
 	}); //contact submit
 
+	$('.start-here, .sign-in').on('click', function() {
+		$('#login-slide')
+			.show('slide', {direction: 'left'}, function() {
+				setTimeout(function() {
+					$('#login-container').addClass('slide');
+				}, 100);
+			})
+			.on('click', '.close', function() {
+				$('#login-container').removeClass('slide');
+				setTimeout(function() {
+					$('#login-slide').hide('slide', {direction: 'left'});
+				}, 300);
+			});
+
+	}); // start click
+
+	// $('.start-here, .sign-in').on('click', function() {
+	// 	$('#login-slide')
+	// 		.addClass('slide')
+	// 		.on('click', '.close', function() {
+	// 			$('#login-slide').removeClass('slide');
+	// 		});
+	// }); // start click
+
 }); // ready
