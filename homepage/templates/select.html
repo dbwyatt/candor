@@ -1,0 +1,29 @@
+<%inherit file="base.htm" />
+
+<%block name="title">
+	<title>Candor Contracts</title>
+</%block>
+
+<%block name="content">
+	<link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/index.css" />
+    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
+
+    <div id="main-container">
+		<div id="login-container">
+			<span class="login-text">Are you a buyer or seller</span>
+			<div class="btn-wrapper">	
+				<a href="/buy/" class="btn btn-block btn-social btn-google">
+					<i class="fa fa-home"></i> Buy
+				</a>
+
+				<span class="spacer"></span>
+
+				<a href="/sell/" class="btn btn-block btn-social btn-facebook">
+					<i class="fa fa-usd"></i> Sell
+				</a>
+			</div>
+		</div>
+	</div>
+
+</%block>

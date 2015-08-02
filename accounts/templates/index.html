@@ -1,0 +1,36 @@
+<%inherit file="base.htm" />
+<%! import datetime %>
+
+<%block name="content">
+	<div class="content">
+	    <address>
+			<img class="user-img" src="${ request.session['user']['image'] }" /><br><br>
+			<strong><span class="name">${ request.session['user']['name'][0] } ${ request.session['user']['name'][1] }</span></strong><br>
+		</address>
+		<address>
+			<strong>Username</strong><br>
+			<span class="username">${ request.session['user']['email'] }</span><br>
+			<br>
+			<strong>Email</strong><br>
+			<span class="email">${ request.session['user']['email'] }</span><br>
+			## <br>
+			## <strong>Phone</strong><br>
+			## <span class="phone"></span><br>
+			## <br>
+			## <strong>Address</strong><br>
+			## <span class="address1"></span><br>
+			## ## %if user.address.address2 is not null:
+			## ## 	<span class="address2">${ user.address.address2 }</span>
+			## ## %endif
+			## <span class="city-state-zip"></span><br>
+			<br>
+			<strong>Last Login</strong><br>
+			<span class="creation-date">
+				## ${ datetime.datetime.strftime(request.session['user']['last_login'], '%A, %B %d, %Y') }<br>${ datetime.datetime.strftime(request.session['user']['last_login'], '%I:%M %p') }
+				${ request.session['user']['last_login'] }
+			</span>
+		</address>
+	</div>
+	## <button class="change-password btn btn-primary" data-id="${ request.session['user_id'] }">Change Password</button>
+ ##   	<button class="update-info btn btn-primary" data-id="${ request.session['user_id'] }">Update Information</button>
+</%block>

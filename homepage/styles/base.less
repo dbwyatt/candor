@@ -78,6 +78,20 @@ body {
 	}
 }
 
+a .name {
+	position: absolute;
+	top: 15px;
+	font-size: 13px;
+	color: lighten(black, 10%);
+}
+a:focus .name {
+	color: inherit;
+}
+.account {
+	position: relative;
+	top: 8px;
+}
+
 @media screen and (max-width: 410px) {
 	.brand-text {
 		display: none;
@@ -105,6 +119,12 @@ body {
 	}
 }
 
+@media screen and (max-width: 767px) {
+	.navbar .name {
+		top: 2px !important;
+	}
+}
+
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
 	background-color: rgba(0,0,0, .6);
 	color: white;
@@ -115,4 +135,5 @@ footer {
 	color: white;
 	box-shadow: 0px -1px 0px 0px black;
 	background-color: rgba(0,0,0, .5);
+	text-align: center;
 }

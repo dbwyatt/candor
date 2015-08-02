@@ -194,6 +194,8 @@
 			text-align: center;
 			padding: 10px 50px;
 			margin-top: 20px;
+			display: inline-block;
+			text-decoration: none;
 		}
 	}
 }
@@ -557,7 +559,7 @@
 		// background-color: rgba(0,0,0, .5);
 		background-color: white;
 		border-radius: 5px;
-		box-shadow: inset 0px 0px 15px 1px #808080;
+		// box-shadow: inset 0px 0px 15px 1px #808080;
 		transition: left .3s ease;
 
 		&.slide {
@@ -570,6 +572,7 @@
 			font-size: 25px;
 			margin: 7% auto;
 			position: relative;
+			font-weight: 600;
 		}
 
 		.btn-wrapper {
@@ -589,10 +592,13 @@
 			.btn-social {
 				padding-left: 54px;
 
-				i {
+				i:first-child {
 					line-height: 42px;
 					width: 45px;
 				}
+				// i:last-child {
+				// 	float: right;
+				// }
 			}
 
 			.spacer {

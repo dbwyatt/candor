@@ -1,0 +1,83 @@
+#main-container {
+	// font-size: 55px;
+	width: 100%;
+	/*position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;*/
+	// padding: 60px 0px;
+	/*box-shadow: 0px 0px 2px 0px black;*/
+	background: rgba(255,255,255, 1);
+	// max-height: 700px;
+	min-height: 700px;
+	position: relative;
+}
+
+#login-container {
+	max-width: 500px;
+	max-height: 45%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
+	margin: auto !important;
+	// background-color: rgba(0,0,0, .5);
+	background-color: white;
+	border-radius: 5px;
+	// box-shadow: inset 0px 0px 15px 1px #808080;
+	transition: left .3s ease;
+
+	&.slide {
+		left: 0;
+	}
+
+	.login-text {
+		display: inline-block;
+		max-width: 75%;
+		font-size: 25px;
+		margin: 7% auto;
+		position: relative;
+		font-weight: 600;
+	}
+
+	.btn-wrapper {
+		position: absolute;
+		// top: 0;
+		bottom: 15%;
+		left: 0;
+		right: 0;
+		margin: auto;
+		max-height: 155px;
+		max-width: 75%;
+
+		.btn {
+			padding: 10px 12px;
+		}
+
+		.btn-social {
+			padding-left: 54px;
+
+			i:first-child {
+				line-height: 42px;
+				width: 45px;
+			}
+			// i:last-child {
+			// 	float: right;
+			// }
+		}
+
+		.spacer {
+			padding: 0px 0;
+			margin: 25px auto;
+			max-width: 500px;
+			width: 80%;
+			height: 1px;
+			background-color: lightgrey;
+			display: inline-block;
+			// box-shadow: 0px 0px 2px 1px black;
+		}
+	}
+}

@@ -8,6 +8,8 @@ from django_mako_plus.controller.router import get_renderer
 import os, helpers, json
 from django.core.mail import send_mail
 # from django.core.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 templater = get_renderer('homepage')
 
@@ -18,6 +20,39 @@ def process_request(request):
     params['environment'] = helpers.get_environment()
     params['form'] = registrationForm()
     params['contact'] = contactForm()
+    if request.method == 'POST':
+        if request.POST.get('set') == 'true':
+            user = request.POST
+            print(user)
+            try:
+                users = hmod.Users.objects.get(email=user['email'])
+                users.name = user['name']
+                users.first_name = user['name'].split()[0]
+                users.last_name = user['name'].split()[1]
+                users.email = user['email']
+                users.image = user['image']
+                users.reference_id = user['id_token']
+                users.save()
+            except hmod.Users.DoesNotExist:
+                users = hmod.Users()
+                users.name = user['name']
+                users.first_name = user['name'].split()[0]
+                users.last_name = user['name'].split()[1]
+                users.email = user['email']
+                users.image = user['image']
+                users.reference_id = user['id_token']
+                users.save()
+
+            request.session['user'] = {}
+            request.session['user']['name'] = user['name'].split()
+            request.session['user']['email'] = user['email']
+            request.session['user']['image'] = user['image']
+            request.session['user']['last_login'] = datetime.now().strftime("%Y-%m-%d %I:%M %p")
+            request.session['user']['logged_in'] = True
+        else:
+            del request.session['user']
+
+        return HttpResponse(True)
 
     return templater.render_to_response(request, 'index.html', params)
 
@@ -84,3 +119,22 @@ class contactForm(forms.Form):
     email = forms.EmailField(label='Email', required=True, widget=forms.TextInput(attrs={'placeholder': 'Your email', 'type': 'email', 'name': 'email', 'id': 'contact-email'}))
     subject = forms.CharField(label='Subject', required=True, widget=forms.TextInput(attrs={'placeholder': 'Subject', 'type': 'text', 'name': 'subject', 'id': 'subject'}))
     message = forms.CharField(label='Message', required=True, widget=forms.Textarea(attrs={'placeholder': 'Message', 'type': 'text', 'name': 'message', 'id': 'message'}))
+
+
+@view_function
+def set_user(request):
+    user = request.POST
+    print(user)
+    request.session['user'] = {}
+    request.session['user']['name'] = user['name']
+    request.session['user']['email'] = user['email']
+    request.session['user']['image'] = user['image']
+    request.session['user']['loggin_in'] = True
+
+    return HttpResponse(True)
+
+
+@view_function
+def select(request):
+    params = {}
+    return templater.render_to_response(request, "select.html", params)

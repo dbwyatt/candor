@@ -14,6 +14,10 @@ $(function() {
 		}
 	});	//nav link click
 
+	// $('a[href=#]').click(function() {
+	// 	return false;
+	// });	//nav link click
+
 	// $(window).on('scroll', function() {
 	// 	if ( $(window).scrollTop() > 70 ) {
 	// 		$('.navbar').addClass('navbar-transition').show({'slide': 'top'}).addClass('navbar-fixed-top').removeClass('navbar-transition');
