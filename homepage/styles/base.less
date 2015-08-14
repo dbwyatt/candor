@@ -130,6 +130,71 @@ a:focus .name {
 	color: white;
 }
 
+
+/*****************************************************************
+******************************************************************
+							
+							Inputs
+
+******************************************************************
+*****************************************************************/
+
+.label-float {
+	position: absolute;
+	top: 22px;
+	left: 10px;
+	bottom: 0;
+	transition: all .2s ease;
+	pointer-events: none;
+
+	&.fixed {
+		top: 0;
+		font-size: 11px;
+		color: #263E56;
+		font-weight: bold;
+	}
+}
+
+input:focus + .label-float {
+	top: 0;
+	font-size: 11px;
+	color: #263E56;
+	font-weight: bold;
+}
+
+.input-container {
+	position: relative;
+}
+
+input:not([type='radio']), select, textarea {
+	display: block;
+	background-color: transparent;
+	color: white;
+	width: 100%;
+	padding: 20px 10px 10px;
+	margin-top: 10px;
+	border: none;
+	border-bottom: solid 2px white;
+	outline: none;
+	font-size: 15px;
+
+	&.error {
+		border-bottom: solid 2px red;
+
+		& + .label-float {
+			color: red;
+		}
+	}
+}
+
+input[type='radio'] {
+	display: inline-block;
+}
+
+
+/****************************************************************/
+
+
 footer {
 	padding: 50px;
 	color: white;

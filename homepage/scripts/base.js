@@ -29,4 +29,44 @@ $(function() {
 	// 	}
 	// }); //nav adjust on scroll
 
+
+
+
+	/***************************************************
+	****************************************************
+
+							Inputs
+
+	****************************************************
+	***************************************************/
+
+	/**** Handle the label animation ****/
+
+	$('input').keyup(function() {
+
+		if ( $(this).val() != '' ) {
+			$(this).next().addClass('fixed');
+		}
+		else {
+			$(this).next().removeClass('fixed');
+		}
+
+	});
+
+	/**** Validation ****/
+
+
 }); //ready
+
+
+function validateInput( $inputs ) {
+	var validated = true;
+	$inputs.each(function() {
+		if ( $(this).val() == '' ) {
+			$(this).addClass('error').on('focus', function(){ $(this).removeClass('error') });
+			validated = false;
+		}
+	});
+
+	return validated;
+}
