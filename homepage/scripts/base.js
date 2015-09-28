@@ -14,6 +14,10 @@ $(function() {
 		}
 	});	//nav link click
 
+	// $('a[href=#]').click(function() {
+	// 	return false;
+	// });	//nav link click
+
 	// $(window).on('scroll', function() {
 	// 	if ( $(window).scrollTop() > 70 ) {
 	// 		$('.navbar').addClass('navbar-transition').show({'slide': 'top'}).addClass('navbar-fixed-top').removeClass('navbar-transition');
@@ -25,4 +29,44 @@ $(function() {
 	// 	}
 	// }); //nav adjust on scroll
 
+
+
+
+	/***************************************************
+	****************************************************
+
+							Inputs
+
+	****************************************************
+	***************************************************/
+
+	/**** Handle the label animation ****/
+
+	$('input, select, textarea').on('keyup mouseup change', function() {
+
+		if ( $(this).val() && !$(this).hasClass('fixed') ) {
+			$(this).next().addClass('fixed');
+		}
+		else {
+			$(this).next().removeClass('fixed');
+		}
+
+	});
+
+	/**** Validation ****/
+
+
 }); //ready
+
+
+function validateInput( $inputs ) {
+	var validated = true;
+	$inputs.each(function() {
+		if ( $(this).val() == '' && !$(this).hasClass('empty') ) {
+			$(this).addClass('error').on('focus', function(){ $(this).removeClass('error') });
+			validated = false;
+		}
+	});
+
+	return validated;
+}

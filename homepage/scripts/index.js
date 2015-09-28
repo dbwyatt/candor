@@ -6,7 +6,7 @@ $(function () {
 	// 	$("#main-container").css({height: $(window).height()});
 	// }); // resize
 
-	var image = ['static/homepage/media/apartment.jpg','static/homepage/media/apartment2.jpg','static/homepage/media/apartment3.jpg'];
+	var image = ['/static/homepage/media/apartment.jpg','/static/homepage/media/apartment2.jpg','/static/homepage/media/apartment3.jpg'];
 	var image_count = 1;
 	setInterval(function() {
 		var container = $('.home-background');
@@ -121,21 +121,22 @@ $(function () {
 		}
 	}); //contact submit
 
-	$('.start-here, .sign-in').on('click', function() {
-		$('#login-slide')
-			.show('slide', {direction: 'left'}, function() {
-				setTimeout(function() {
-					$('#login-container').addClass('slide');
-				}, 100);
-			})
-			.on('click', '.close', function() {
-				$('#login-container').removeClass('slide');
-				setTimeout(function() {
-					$('#login-slide').hide('slide', {direction: 'left'});
-				}, 300);
-			});
-
-	}); // start click
+	if ($('#login-slide').length) {
+		$('.start-here, .sign-in').on('click', function() {
+			$('#login-slide')
+				.show('slide', {direction: 'left'}, function() {
+					setTimeout(function() {
+						$('#login-container').addClass('slide');
+					}, 100);
+				})
+				.on('click', '.close', function() {
+					$('#login-container').removeClass('slide');
+					setTimeout(function() {
+						$('#login-slide').hide('slide', {direction: 'left'});
+					}, 300);
+				});
+		}); // start click
+	}
 
 	// $('.start-here, .sign-in').on('click', function() {
 	// 	$('#login-slide')
