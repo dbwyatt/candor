@@ -95,12 +95,14 @@
 				<span class="spacer"></span>
 				<li class="toolbar-button" data-target="dashboard"><i class="fa fa-dashboard fa-fw"></i></li>
 				<li class="toolbar-button" data-target="messages"><i class="fa fa-envelope fa-fw"><span class="badge badge-red">3</span></i></li>
-				<li class="toolbar-button help" data-target="help"><i class="fa fa-question-circle fa-fw" style="position:relative;top:3px;"></i></li>
+				<li class="toolbar-button help" data-target="help"><i class="fa fa-question-circle fa-fw" style="position:relative;"></i></li>
 			</ul>
 		</nav>
 
 		<div id="action-container">
 			<h1>Post a new contract</h1>
+			<button class="btn btn-default prev">&#10094; Go back</button>
+			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" method="POST" action="">
 				<div class="post-input current" data-block="title" data-next="address">
 					<label class="question">What is the title of this post?</label>
@@ -118,119 +120,140 @@
 						<span class="label-float">Address 1</span>
 					</div>
 					<div class="input-container">
-						<input type="text" name="address2" id="address2" />
-						<span class="label-float">Address 2</span>
+						<input type="text" name="address2" id="address2" class="empty" />
+						<span class="label-float">Address 2 <sup>(optional)</sup></span>
 					</div>
 					<div class="input-container">
 						<input type="text" name="city" id="city" />
 						<span class="label-float">City</span>
 					</div>
-					<select id="state">
-						<option>Select State</option>
-						<option value="AL">Alabama</option>
-						<option value="AK">Alaska</option>
-						<option value="AZ">Arizona</option>
-						<option value="AR">Arkansas</option>
-						<option value="CA">California</option>
-						<option value="CO">Colorado</option>
-						<option value="CT">Connecticut</option>
-						<option value="DE">Delaware</option>
-						<option value="DC">District Of Columbia</option>
-						<option value="FL">Florida</option>
-						<option value="GA">Georgia</option>
-						<option value="HI">Hawaii</option>
-						<option value="ID">Idaho</option>
-						<option value="IL">Illinois</option>
-						<option value="IN">Indiana</option>
-						<option value="IA">Iowa</option>
-						<option value="KS">Kansas</option>
-						<option value="KY">Kentucky</option>
-						<option value="LA">Louisiana</option>
-						<option value="ME">Maine</option>
-						<option value="MD">Maryland</option>
-						<option value="MA">Massachusetts</option>
-						<option value="MI">Michigan</option>
-						<option value="MN">Minnesota</option>
-						<option value="MS">Mississippi</option>
-						<option value="MO">Missouri</option>
-						<option value="MT">Montana</option>
-						<option value="NE">Nebraska</option>
-						<option value="NV">Nevada</option>
-						<option value="NH">New Hampshire</option>
-						<option value="NJ">New Jersey</option>
-						<option value="NM">New Mexico</option>
-						<option value="NY">New York</option>
-						<option value="NC">North Carolina</option>
-						<option value="ND">North Dakota</option>
-						<option value="OH">Ohio</option>
-						<option value="OK">Oklahoma</option>
-						<option value="OR">Oregon</option>
-						<option value="PA">Pennsylvania</option>
-						<option value="RI">Rhode Island</option>
-						<option value="SC">South Carolina</option>
-						<option value="SD">South Dakota</option>
-						<option value="TN">Tennessee</option>
-						<option value="TX">Texas</option>
-						<option value="UT">Utah</option>
-						<option value="VT">Vermont</option>
-						<option value="VA">Virginia</option>
-						<option value="WA">Washington</option>
-						<option value="WV">West Virginia</option>
-						<option value="WI">Wisconsin</option>
-						<option value="WY">Wyoming</option>
-					</select>
-					<input type="text" name="zip" id="zip" placeholder="Zip Code" />
+					<div class="input-container left col-2">
+						<select id="state">
+							<option></option>
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="DC">District Of Columbia</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+						</select>
+						<span class="label-float">State</span>
+					</div>
+					<div class="input-container right col-2">
+						<input type="text" name="zip" id="zip" />
+						<span class="label-float">Zip Code</span>
+					</div>
 				</div>
 
 				<div class="post-input" data-block="year" data-next="price">
 					<label class="question">What do you want people to know about your apartment? Be descriptive.</label>
-					<textarea type="text" name="description" id="description" placeholder="Description"></textarea>
+					<div class="input-container">
+						<textarea type="text" name="description" id="description"></textarea>
+						<span class="label-float">Description</span>
+					</div>
 				</div>
 
 				<div class="post-input" data-block="price" data-next="housing">
 					<label class="question">What is the price going to be?</label>
-					<input type="text" name="price" id="price" placeholder="Price" />
+					<div class="input-container">
+						<input type="text" name="price" id="price" />
+						<span class="label-float">Price</span>
+					</div>
 				</div>
 
 				<div class="post-input" data-block="housing" data-next="numbers">
 					<label class="question">What type of housing is this?</label>
-					<label for="apartment">Apartment</label>
-					<input type="radio" name="housing-type" id="apartment" />
-					<label for="house">House/Condo/Duplex</label>
-					<input type="radio" name="housing-type" id="house" />
+					
+					<div class="input-container radio">
+						<input type="radio" name="housing-type" id="apartment" />
+						<label for="apartment">Apartment</label>
+						<input type="radio" name="housing-type" id="house" />
+						<label for="house">House/Condo/Duplex</label>
+					</div>
 
 					<label class="question">What is the bedroom type?</label>
-					<label for="single">Single</label>
-					<input type="radio" name="bedroom" id="single" />
-					<label for="married">Married</label>
-					<input type="radio" name="bedroom" id="married" />
-					<br>
-					<label for="private">Private, with room mates</label>
-					<input type="radio" name="shared" id="private" />
-					<label for="shared">Shared, with room mates</label>
-					<input type="radio" name="shared" id="shared" />
+					
+					<div class="input-container radio">
+						<input type="radio" name="bedroom" id="single" />
+						<label for="single">Single</label>
+						<input type="radio" name="bedroom" id="married" />
+						<label for="married">Married</label>
+						<br><br>
+						<input type="radio" name="shared" id="private" />
+						<label for="private">Private, with room mates</label>
+						<input type="radio" name="shared" id="shared" />
+						<label for="shared">Shared, with room mates</label>
+					</div>
 				</div>
 
 				<div class="post-input" data-block="numbers" data-next="amenities">
 					<label class="question">How many bedrooms are there?</label>
-					<input type="text" name="title" id="title" placeholder="Number of bedrooms" />
-
+					<div class="input-container">
+						<input type="text" name="title" id="title" />
+						<span class="label-float">Number of bedrooms</span>
+					</div>
 					<label class="question">How about bathrooms?</label>
-					<input type="text" name="title" id="title" placeholder="Number of bathrooms" />
+					<div class="input-container">
+						<input type="text" name="title" id="title" />
+						<span class="label-float">Number of bathrooms</span>
+					</div>
 				</div>
 
 				<div class="post-input" data-block="amenities">
 					<label class="question">Check all the cool things your apartment has</label>
 					%for amenity in amenities:	
-						<label for="${ amenity.amenity }">${ amenity.amenity }</label>
 						<input type="checkbox" name="${ amenity.id }" id="${ amenity.amenity }" />
+						<label for="${ amenity.amenity }">${ amenity.amenity }</label>
 					%endfor
 
 					<input type="submit" value="Post" />
 				</div>
 			</form>
-			<button class="btn btn-default btn-lg prev">Go back</button>
-			<button class="btn btn-success btn-lg next">Move on</button>
 		</div>
 
 		<footer>

@@ -138,36 +138,43 @@ a:focus .name {
 
 ******************************************************************
 *****************************************************************/
+.input-container {
+	position: relative;
+
+	.radio {
+		margin-top: 20px;
+	}
+
+	&.left {
+		float: left;
+	}
+	&.right {
+		float: right;
+	}
+	&.col-2 {
+		width: 48%;
+	}
+}
+
 
 .label-float {
 	position: absolute;
-	top: 22px;
+	top: 31px;
 	left: 10px;
 	bottom: 0;
 	transition: all .2s ease;
 	pointer-events: none;
 
 	&.fixed {
-		top: 0;
+		top: 10px;
 		font-size: 11px;
 		color: #263E56;
 		font-weight: bold;
 	}
 }
 
-input:focus + .label-float {
-	top: 0;
-	font-size: 11px;
-	color: #263E56;
-	font-weight: bold;
-}
-
-.input-container {
-	position: relative;
-}
-
 input:not([type='radio']), select, textarea {
-	display: block;
+	display: inline-block;
 	background-color: transparent;
 	color: white;
 	width: 100%;
@@ -177,6 +184,7 @@ input:not([type='radio']), select, textarea {
 	border-bottom: solid 2px white;
 	outline: none;
 	font-size: 15px;
+	transition: border .2s ease;
 
 	&.error {
 		border-bottom: solid 2px red;
@@ -185,14 +193,152 @@ input:not([type='radio']), select, textarea {
 			color: red;
 		}
 	}
+
+	&:focus + .label-float {
+		top: 10px;
+		font-size: 11px;
+		color: #263E56;
+		font-weight: bold;
+	}
+}
+
+select {
+	height: 53px;
+
+	option {
+		color: initial;
+	}
+}
+
+@radio-color: white;
+@checkbox-color: white;
+input[type='radio'], input[type='checkbox'] {
+	display: inline-block;
+	opacity: 0;
+	position: absolute;
+	cursor: pointer;
+
+	& + label {
+		display: inline-block;
+		cursor: pointer;
+		position: relative;
+		padding-left: 25px;
+		margin-right: 15px;
+		text-align: center;
+		font-size: 13px;
+		font-weight: normal;
+	}
+
+	&:checked + label {
+		font-weight: bold;
+	}
 }
 
 input[type='radio'] {
-	display: inline-block;
+
+	& + label {
+
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			margin-right: 10px;
+			position: absolute;
+			left: 0;
+			/* bottom: 1px; */
+			/* background-color: #aaa; */
+			/* box-shadow: inset 0px 2px 3px 0px @radio-color, 0px 1px 0px 0px rgba( 53, 64, 82, 1.0); */
+			box-shadow: inset 0px 0px 0px 1px @radio-color;
+			border-radius: 8px;
+		}
+	}
+
+	&:checked + label {
+
+		&::after {
+			content: "";
+			color: @radio-color;
+			/* font-size: 30px; */
+			/* text-align: center; */
+			/* line-height: 16px; */
+			width: 0px;
+			height: 0px;
+			left: 3px;
+			top: 3px;
+			position: absolute;
+			border: solid 5px @radio-color;
+			border-radius: 100%;
+		}
+	}
+}
+
+input[type='checkbox'] {
+
+	& + label {
+
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			margin-right: 10px;
+			position: absolute;
+			left: 0;
+			/* bottom: 1px; */
+			/* background-color: #aaa; */
+			/* box-shadow: inset 0px 2px 3px 0px @radio-color, 0px 1px 0px 0px rgba( 53, 64, 82, 1.0); */
+			box-shadow: inset 0px 0px 0px 1px @checkbox-color;
+			border-radius: 2px;
+		}
+
+	}
+
+	&:checked + label {
+
+		&::after {
+			content: "";
+			color: @checkbox-color;
+			/* font-size: 30px; */
+			/* text-align: center; */
+			/* line-height: 16px; */
+			width: 0px;
+			height: 0px;
+			left: 3px;
+			top: 3px;
+			position: absolute;
+			border: solid 5px @checkbox-color;
+			border-radius: 2px;
+		}
+		
+	}
 }
 
 
-/****************************************************************/
+
+
+/*****************************************************************
+******************************************************************
+							
+							Animations
+
+******************************************************************
+*****************************************************************/
+h1 {
+	position: relative;
+	right: 0;
+	transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+	&.animate {
+		right: 100%;
+		opacity: 0;
+	}
+}
+
+
+
+
+
 
 
 footer {

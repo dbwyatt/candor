@@ -14,7 +14,7 @@ $(function() {
 
 	$('.next').on('click', function() {
 		var $current = $('.current');
-		var validate = validateInput( $current.find('input') );
+		var validate = validateInput( $current.find('input, select, textarea') );
 
 		if ( validate ) {
 			var $next = $('[data-block="' + $('.current').attr('data-next') + '"]' );

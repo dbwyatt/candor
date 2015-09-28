@@ -22,10 +22,13 @@
 	.question {
 		font-size: 19px;
 		position: relative;
-		padding: 10px 25px;
+		padding: 10px 0;
 		text-align: left;
 		color: white;
-		background-color: #263E56;
+		// background-color: #263E56;
+	}
+	.question:not(:first-child) {
+		margin-top: 20px;
 	}
 	label {
 		display: block;
@@ -46,17 +49,6 @@
 		height: 200px;
 	}
 
-	#state, #zip {
-		width: 50%;
-		display: inline-block;
-	}
-	#state {
-		float: left;
-		height: 61px;
-	}
-	#zip {
-		float: left;
-	}
 }
 
 #post-form .post-input:not(:first-child) {
@@ -64,7 +56,7 @@
 }
 
 .prev, .next {
-	margin-top: 50px;
+	margin-bottom: 50px;
 }
 .prev {
 	float: left;

@@ -42,9 +42,9 @@ $(function() {
 
 	/**** Handle the label animation ****/
 
-	$('input').keyup(function() {
+	$('input, select, textarea').on('keyup mouseup change', function() {
 
-		if ( $(this).val() != '' ) {
+		if ( $(this).val() && !$(this).hasClass('fixed') ) {
 			$(this).next().addClass('fixed');
 		}
 		else {
@@ -62,7 +62,7 @@ $(function() {
 function validateInput( $inputs ) {
 	var validated = true;
 	$inputs.each(function() {
-		if ( $(this).val() == '' ) {
+		if ( $(this).val() == '' && !$(this).hasClass('empty') ) {
 			$(this).addClass('error').on('focus', function(){ $(this).removeClass('error') });
 			validated = false;
 		}
