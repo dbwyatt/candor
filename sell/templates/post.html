@@ -104,7 +104,7 @@
 			<button class="btn btn-default prev">&#10094; Go back</button>
 			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" method="POST" action="">
-				<div class="post-input current" data-block="title" data-next="address">
+				<div class="post-input current" data-block="title" data-next="complex">
 					<label class="question">What is the title of this post?</label>
 					<div class="input-container">
 						<input type="text" name="title" id="title" />
@@ -112,9 +112,17 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="address" data-next="year">
+        <div class="post-input" data-block="complex" data-next="address">
+          <label class="question">What is the apartment complex?</label>
+          <div class="input-container">
+            <input type="text" name="complex" id="complex" />
+            <span class="label-float">Complex</span>
+          </div>
+        </div>
+
+				<div class="post-input" data-block="address" data-next="description">
 					<label class="question">What is the address?<br><sup>*For your own saftey we will not ask for exact apartment numbers</sup></label>
-					
+
 					<div class="input-container">
 						<input type="text" name="address1" id="address1" />
 						<span class="label-float">Address 1</span>
@@ -190,7 +198,7 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="year" data-next="price">
+				<div class="post-input" data-block="description" data-next="price">
 					<label class="question">What do you want people to know about your apartment? Be descriptive.</label>
 					<div class="input-container">
 						<textarea type="text" name="description" id="description"></textarea>
@@ -208,7 +216,7 @@
 
 				<div class="post-input" data-block="housing" data-next="numbers">
 					<label class="question">What type of housing is this?</label>
-					
+
 					<div class="input-container radio">
 						<input type="radio" name="housing-type" id="apartment" />
 						<label for="apartment">Apartment</label>
@@ -217,7 +225,7 @@
 					</div>
 
 					<label class="question">What is the bedroom type?</label>
-					
+
 					<div class="input-container radio">
 						<input type="radio" name="bedroom" id="single" />
 						<label for="single">Single</label>
@@ -244,14 +252,30 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="amenities">
+				<div class="post-input" data-block="amenities" data-next="contracts">
 					<label class="question">Check all the cool things your apartment has</label>
-					%for amenity in amenities:	
+					%for amenity in amenities:
 						<input type="checkbox" name="${ amenity.id }" id="${ amenity.amenity }" />
 						<label for="${ amenity.amenity }">${ amenity.amenity }</label>
 					%endfor
+        </div>
 
-					<input type="submit" value="Post" />
+        <div class="post-input" data-block="contracts" data-next="leaving">
+          <label class="question">How many contracts are available?</label>
+          <div class="input-container">
+            <input type="text" name="contracts" id="contracts" />
+            <span class="label-float">Number of contracts</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="leaving">
+          <label class="question">Why are you leaving your contract?</label>
+          <div class="input-container">
+            <textarea type="text" name="leaving" id="leaving" /></textarea>
+            <span class="label-flaot">Reason for leaving</span>
+
+  					<input type="submit" value="Post" />
+          </div>
 				</div>
 			</form>
 		</div>
