@@ -136,7 +136,7 @@
 						<span class="label-float">City</span>
 					</div>
 					<div class="input-container left col-2">
-						<select id="state">
+						<select name="state" id="state">
 							<option></option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -206,13 +206,29 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="price" data-next="housing">
+				<div class="post-input" data-block="price" data-next="costs">
 					<label class="question">What is the price going to be?</label>
 					<div class="input-container">
 						<input type="text" name="price" id="price" />
 						<span class="label-float">Price</span>
 					</div>
 				</div>
+
+        <div class="post-input" data-block="costs" data-next="housing">
+          <label class="question">Are there other costs such as utilites or a deposit?</label>
+          <div class="input-container">
+						<input type="text" name="utilities" id="utilities" class="empty" />
+						<span class="label-float">Cost of Utilities</span>
+					</div>
+          <div class="input-container">
+						<input type="text" name="deposit" id="deposit" class="empty" />
+						<span class="label-float">Cost of Deposit</span>
+					</div>
+					<div class="input-container">
+						<input type="text" name="other-costs" id="other-costs" class="empty" />
+						<span class="label-float">Other Costs</span>
+					</div>
+        </div>
 
 				<div class="post-input" data-block="housing" data-next="numbers">
 					<label class="question">What type of housing is this?</label>
@@ -242,12 +258,12 @@
 				<div class="post-input" data-block="numbers" data-next="amenities">
 					<label class="question">How many bedrooms are there?</label>
 					<div class="input-container">
-						<input type="text" name="title" id="title" />
+						<input type="text" name="bedrooms" id="bedrooms" />
 						<span class="label-float">Number of bedrooms</span>
 					</div>
 					<label class="question">How about bathrooms?</label>
 					<div class="input-container">
-						<input type="text" name="title" id="title" />
+						<input type="text" name="bathrooms" id="bathrooms" />
 						<span class="label-float">Number of bathrooms</span>
 					</div>
 				</div>
@@ -275,6 +291,7 @@
             <span class="label-flaot">Reason for leaving</span>
 
   					<input type="submit" value="Post" />
+            <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
           </div>
 				</div>
 			</form>
