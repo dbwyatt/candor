@@ -44,6 +44,7 @@ def process_request(request):
                 users.save()
 
             request.session['user'] = {}
+            request.session['user']['id'] = users.id
             request.session['user']['name'] = user['name'].split()
             request.session['user']['email'] = user['email']
             request.session['user']['image'] = user['image']
@@ -132,9 +133,3 @@ def set_user(request):
     request.session['user']['loggin_in'] = True
 
     return HttpResponse(True)
-
-
-@view_function
-def select(request):
-    params = {}
-    return templater.render_to_response(request, "select.html", params)

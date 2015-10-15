@@ -22,5 +22,6 @@ def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
     params['amenities'] = smod.Amenity.objects.all()
+    request.session['active'] = 'post'
 
     return templater.render_to_response(request, 'post.html', params)

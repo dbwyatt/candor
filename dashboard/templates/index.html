@@ -1,5 +1,9 @@
-<%inherit file="/dashboard/templates/index.html" />
+<%inherit file="/homepage/templates/base.htm" />
 <%!from datetime import datetime %>
+
+<%block name="title">
+	<title>Candor Contracts</title>
+</%block>
 
 <%block name="navigation">
     ## <div class="navbar-margin">
@@ -88,12 +92,30 @@
 
 <%block name="content">
 	<div id="main-container">
-    
+
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
-			edit
-		</div>
+			<span style="font-size: 51px; font-family: Tahoma, Geneva, sans-serif;">Welcome</span>
+            <br>
+            <div class="panel panel-default recent-search">
+
+            </div>
+
+            <div class="panel panel-default message">
+                <div class="panel-heading"><h3 class="panel-title">Recent Messages</h3></div>
+                %for message in messages:
+                    <div class="message-container">
+                        <div class="message-text">${ message.message }</div>
+                        <div class="message-date">${ datetime.strftime(message.time_sent, '%A, %B %d, %Y') }<br>${ datetime.strftime(message.time_sent, '%I:%M %p').lstrip("0") }</div>
+                        <div class="message-from">${ message.from_user.name }</div>
+                    </div>
+                %endfor
+            </div>
+            <div class="panel panel-default post"></div>
+            <div class="panel panel-default"></div>
+        </div>
+
 
 		<footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts

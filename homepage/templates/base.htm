@@ -179,7 +179,7 @@
                 data: {set: true, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail(), id_token: googleUser.getAuthResponse().id_token},
                 success: function(ret) {
                     if (ret == 'True') {
-                        window.location = '/homepage/index.select/';
+                        window.location = '/dashboard/';
                     }
                 },
                 error: function(e) {

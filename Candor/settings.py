@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'accounts',
     'sell',
     'buy',
+    'dashboard',
 )
 
 MIDDLEWARE_CLASSES = (
