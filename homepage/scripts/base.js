@@ -41,7 +41,10 @@ $(function() {
 	***************************************************/
 
 	/**** Handle the label animation ****/
-
+    if ( $('input, select, textarea').val() ) {
+        $('input, select, textarea').next().addClass('fixed');
+    }
+    
 	$('input, select, textarea').on('keyup mouseup change', function() {
 
 		if ( $(this).val() && !$(this).hasClass('fixed') ) {
