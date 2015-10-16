@@ -9,8 +9,6 @@ from django_mako_plus.controller.router import get_renderer
 import os, helpers, json
 from helpers import login_required
 from django.core.mail import send_mail
-from django.template.context_processors import csrf
-from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
 templater = get_renderer('sell')
@@ -19,14 +17,18 @@ templater = get_renderer('sell')
 @view_function
 @login_required()
 def process_request(request):
+    params = {}
+    params['environment'] = helpers.get_environment()
+    params['amenities'] = smod.Amenity.objects.all()
+    
     if request.method == 'POST':
         p = request.POST
 
         for key, value in p.items():
-            print("{0}: {1}".format(key, value))
+            print("{}: {}".format(key, value))
 
         apartment = smod.Apartment.objects.create(
-            year=int(p['year']),
+            year=2015,
             address=[p['address1'], p['address2'], p['city'], p['state'], p['zip']],
             bed_number=1,
             number_of_shared_bed=1,
@@ -34,9 +36,9 @@ def process_request(request):
             bath_number=float(p['bathrooms']),
             utilities=float(p['utilities'])
         )
-
+        print(request.session['user'])
         smod.Post.objects.create(
-            owner=hmod.User.objects.filter(email=request.session['user']['email']).first(),  # This looks to be working.
+            owner=hmod.Users.objects.filter(id=request.session['user']['id']).first(),  # This looks to be working.
             apartment=apartment,
             title=p['title'],
             description=p['description'],
@@ -44,16 +46,12 @@ def process_request(request):
             price=float(p['price']),
             deposit=float(100),
             bounty=float(100),
-            availability=datetime.date,
-            video=None,
-            pictures=None,
-            amenity=None
+            availability=datetime.now(),
+            # video=None,
+            # pictures=None,
+            # amenity=None
         )
-        print(smod.Posting.objects.all())
+        print(smod.Post.objects.all())
         # Redirect to dashboard. Provide confirmation.
-    else:
-        params = {}
-        params['environment'] = helpers.get_environment()
-        params['amenities'] = smod.Amenity.objects.all()
 
-        return templater.render_to_response(request, 'post.html', params)
+    return templater.render_to_response(request, 'post.html', params)

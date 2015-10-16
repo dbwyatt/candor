@@ -12,10 +12,11 @@ class Post(models.Model):
     price = models.DecimalField(blank=False, null=False, decimal_places=2, max_digits=8)
     deposit = models.DecimalField(blank=False, null=False, decimal_places=2, max_digits=6)
     bounty = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=6)
-    amenity = models.ManyToManyField('Amenity')
+    amenity = models.ManyToManyField('Amenity', blank=True, null=True)
     availability = models.DateField()
     video = models.TextField(blank=True, null=True)
-    pictures = models.ManyToManyField('Picture')
+    pictures = models.ManyToManyField('Picture', blank=True, null=True)
+    apartment = models.ForeignKey('Apartment', default=0)
 
 
 class Amenity(models.Model):
