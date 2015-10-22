@@ -88,7 +88,7 @@
 
 <%block name="content">
 	<div id="main-container">
-	
+
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
@@ -185,7 +185,7 @@
 						<span class="label-float">State</span>
 					</div>
 					<div class="input-container right col-2">
-						<input type="text" name="zip" id="zip" />
+						<input type="number" name="zip" id="zip" />
 						<span class="label-float">Zip Code</span>
 					</div>
 				</div>
@@ -201,48 +201,52 @@
 				<div class="post-input" data-block="price" data-next="costs">
 					<label class="question">What is the price going to be?</label>
 					<div class="input-container">
-						<input type="text" name="price" id="price" />
-						<span class="label-float">Price</span>
+						<input type="number" name="price" id="price" />
+						<span class="label-float">Price $</span>
 					</div>
 				</div>
 
-        <div class="post-input" data-block="costs" data-next="housing">
+        <div class="post-input" data-block="costs" data-next="bounty">
           <label class="question">Are there other costs such as utilites or a deposit?</label>
           <div class="input-container">
-						<input type="text" name="utilities" id="utilities" class="empty" />
-						<span class="label-float">Cost of Utilities</span>
+						<input type="number" name="utilities" id="utilities" class="empty" />
+						<span class="label-float">Cost of Utilities $</span>
 					</div>
           <div class="input-container">
-						<input type="text" name="deposit" id="deposit" class="empty" />
-						<span class="label-float">Cost of Deposit</span>
+						<input type="number" name="deposit" id="deposit" class="empty" />
+						<span class="label-float">Cost of Deposit $</span>
 					</div>
-					<div class="input-container">
-						<input type="text" name="other-costs" id="other-costs" class="empty" />
-						<span class="label-float">Other Costs</span>
-					</div>
+        </div>
+
+        <div class="post-input" data-block="bounty" data-next="housing">
+          <label class="question">Would you like to add a bounty?</label>
+          <div class="input-container">
+            <input type="number" name="bounty" id="bounty" class="empty" />
+            <span class="label-float">Bounty $</span>
+          </div>
         </div>
 
 				<div class="post-input" data-block="housing" data-next="numbers">
 					<label class="question">What type of housing is this?</label>
 
 					<div class="input-container radio">
-						<input type="radio" name="housing-type" id="apartment" />
+						<input type="radio" name="housing-type" value="Apartment" id="apartment" />
 						<label for="apartment">Apartment</label>
-						<input type="radio" name="housing-type" id="house" />
+						<input type="radio" name="housing-type" value="House" id="house" />
 						<label for="house">House/Condo/Duplex</label>
 					</div>
 
 					<label class="question">What is the bedroom type?</label>
 
 					<div class="input-container radio">
-						<input type="radio" name="bedroom" id="single" />
+						<input type="radio" name="single-or-married" value="Single" id="single" />
 						<label for="single">Single</label>
-						<input type="radio" name="bedroom" id="married" />
+						<input type="radio" name="single-or-married" value="Married" id="married" />
 						<label for="married">Married</label>
 						<br><br>
-						<input type="radio" name="shared" id="private" />
+						<input type="radio" name="bed-type" value="Private" id="private" />
 						<label for="private">Private, with room mates</label>
-						<input type="radio" name="shared" id="shared" />
+						<input type="radio" name="bed-type" value="Shared" id="shared" />
 						<label for="shared">Shared, with room mates</label>
 					</div>
 				</div>
@@ -250,12 +254,12 @@
 				<div class="post-input" data-block="numbers" data-next="amenities">
 					<label class="question">How many bedrooms are there?</label>
 					<div class="input-container">
-						<input type="text" name="bedrooms" id="bedrooms" />
+						<input type="number" name="bed-number" id="bed-number" />
 						<span class="label-float">Number of bedrooms</span>
 					</div>
 					<label class="question">How about bathrooms?</label>
 					<div class="input-container">
-						<input type="text" name="bathrooms" id="bathrooms" />
+						<input type="number" name="bath-number" id="bath-number" />
 						<span class="label-float">Number of bathrooms</span>
 					</div>
 				</div>
@@ -268,11 +272,18 @@
 					%endfor
         </div>
 
-        <div class="post-input" data-block="contracts" data-next="leaving">
+        <div class="post-input" data-block="contracts" data-next="availability">
           <label class="question">How many contracts are available?</label>
           <div class="input-container">
-            <input type="text" name="contracts" id="contracts" />
+            <input type="number" name="contracts" id="contracts" />
             <span class="label-float">Number of contracts</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="availability" data-next="leaving">
+          <label class="question">When will the apartment be available?</label>
+          <div class="input-container">
+            <input type="date" name="availability" id="availability" />
           </div>
         </div>
 

@@ -20,38 +20,43 @@ def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
     params['amenities'] = smod.Amenity.objects.all()
-    
+
     if request.method == 'POST':
         p = request.POST
+
+        avail_date = [int(num) for num in p['availability'].split('-')]
 
         for key, value in p.items():
             print("{}: {}".format(key, value))
 
         apartment = smod.Apartment.objects.create(
-            year=2015,
+            complex=p['complex'],
             address=[p['address1'], p['address2'], p['city'], p['state'], p['zip']],
-            bed_number=1,
-            number_of_shared_bed=1,
-            number_of_single_bed=1,
-            bath_number=float(p['bathrooms']),
-            utilities=float(p['utilities'])
+            housing_type=p['housing-type'],
+            single_or_married=p['single-or-married'],
+            bed_number=p['bed-number'],
+            bed_type=p['bed-type'],
+            bath_number=float(p['bath-number']),
+            utilities=float(p['utilities']) if p['utilities'] else None
         )
-        print(request.session['user'])
-        smod.Post.objects.create(
-            owner=hmod.Users.objects.filter(id=request.session['user']['id']).first(),  # This looks to be working.
+
+        post = smod.Post.objects.create(
+            owner=hmod.Users.objects.filter(id=request.session['user']['id']).first(),
             apartment=apartment,
             title=p['title'],
             description=p['description'],
-            bedroom='Shared',
             price=float(p['price']),
-            deposit=float(100),
-            bounty=float(100),
-            availability=datetime.now(),
+            deposit=float(p['deposit']) if p['deposit'] else None,
+            bounty=float(p['bounty']) if p['bounty'] else None,
+            contracts=int(p['contracts']),
+            availability=datetime(avail_date[0], avail_date[1], avail_date[2]),
+            leaving=p['leaving']
             # video=None,
             # pictures=None,
-            # amenity=None
         )
-        print(smod.Post.objects.all())
+
+        # Add Amenities post.amenity.add()
+
         # Redirect to dashboard. Provide confirmation.
 
     return templater.render_to_response(request, 'post.html', params)
