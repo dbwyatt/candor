@@ -267,7 +267,7 @@
 				<div class="post-input" data-block="amenities" data-next="contracts">
 					<label class="question">Check all the cool things your apartment has</label>
 					%for amenity in amenities:
-						<input type="checkbox" name="${ amenity.id }" id="${ amenity.amenity }" />
+						<input type="checkbox" name="${ 'Amenity ' + str(amenity.id) }" value="${ amenity.amenity }" id="${ amenity.amenity }" />
 						<label for="${ amenity.amenity }">${ amenity.amenity }</label>
 					%endfor
         </div>

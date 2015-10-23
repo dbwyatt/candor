@@ -32,12 +32,12 @@ def process_request(request):
         apartment = smod.Apartment.objects.create(
             complex=p['complex'],
             address=[p['address1'], p['address2'], p['city'], p['state'], p['zip']],
-            housing_type=p['housing-type'],
-            single_or_married=p['single-or-married'],
+            housing_type=p.get('housing-type', 'Apartment'),
+            single_or_married=p.get('single-or-married', 'Single'),
             bed_number=p['bed-number'],
-            bed_type=p['bed-type'],
+            bed_type=p.get('bed-type', 'Private'),
             bath_number=float(p['bath-number']),
-            utilities=float(p['utilities']) if p['utilities'] else None
+            utilities=float(p['utilities']) if p['utilities'] else 0
         )
 
         post = smod.Post.objects.create(
@@ -46,8 +46,8 @@ def process_request(request):
             title=p['title'],
             description=p['description'],
             price=float(p['price']),
-            deposit=float(p['deposit']) if p['deposit'] else None,
-            bounty=float(p['bounty']) if p['bounty'] else None,
+            deposit=float(p['deposit']) if p['deposit'] else 0,
+            bounty=float(p['bounty']) if p['bounty'] else 0,
             contracts=int(p['contracts']),
             availability=datetime(avail_date[0], avail_date[1], avail_date[2]),
             leaving=p['leaving']
@@ -55,7 +55,10 @@ def process_request(request):
             # pictures=None,
         )
 
-        # Add Amenities post.amenity.add()
+        # Add Amenities to post.
+        for key in p:
+            if key.split()[0] == 'Amenity':
+                post.amenity.add(smod.Amenity.objects.filter(id=key.split()[1]).first())
 
         # Redirect to dashboard. Provide confirmation.
 
