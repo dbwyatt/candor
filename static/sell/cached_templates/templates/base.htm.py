@@ -4,10 +4,10 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1434087101.613205
+_modified_time = 1438140807.029506
 _enable_loop = True
-_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base_ajax.htm'
-_template_uri = 'base_ajax.htm'
+_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor\\sell\\templates/base.htm'
+_template_uri = 'base.htm'
 _source_encoding = 'utf-8'
 import os, os.path, re, json
 _exports = ['content']
@@ -19,10 +19,10 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def content():
-            return render_content(context._locals(__M_locals))
         self = context.get('self', UNDEFINED)
         request = context.get('request', UNDEFINED)
+        def content():
+            return render_content(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -30,16 +30,19 @@ def render_body(context,**pageargs):
         
         __M_locals_builtin_stored = __M_locals_builtin()
         __M_locals.update(__M_dict_builtin([(__M_key, __M_locals_builtin_stored[__M_key]) for __M_key in ['static_renderer'] if __M_key in __M_locals_builtin_stored]))
-        __M_writer('\r\n\r\n')
+        __M_writer('\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n  <meta charset="UTF-8">\r\n  <head>\r\n    \r\n    <title>sell</title>\r\n    \r\n')
+        __M_writer('    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>\r\n  \r\n')
+        __M_writer('    ')
         __M_writer(str( static_renderer.get_template_css(request, context)  ))
-        __M_writer('\r\n\r\n')
+        __M_writer('\r\n  \r\n  </head>\r\n  <body>\r\n  \r\n    <header>\r\n      Welcome to the sell app!\r\n    </header>\r\n  \r\n    ')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
             context['self'].content(**pageargs)
         
 
-        __M_writer('  \r\n\r\n')
+        __M_writer('  \r\n  \r\n')
+        __M_writer('    ')
         __M_writer(str( static_renderer.get_template_js(request, context)  ))
-        __M_writer('\r\n')
+        __M_writer('\r\n  \r\n  </body>\r\n</html>')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -51,7 +54,7 @@ def render_content(context,**pageargs):
         def content():
             return render_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n  Sub-templates should place their ajax content here.\r\n')
+        __M_writer('\r\n      Site content goes here in sub-templates.\r\n    ')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -59,6 +62,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "uri": "base_ajax.htm", "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base_ajax.htm", "line_map": {"33": 7, "34": 10, "35": 10, "48": 13, "40": 15, "41": 18, "42": 18, "60": 54, "16": 6, "18": 0, "54": 13, "27": 4, "28": 6, "29": 7}}
+{"uri": "base.htm", "source_encoding": "utf-8", "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor\\sell\\templates/base.htm", "line_map": {"33": 5, "34": 15, "35": 18, "36": 18, "37": 18, "42": 29, "43": 32, "44": 32, "45": 32, "16": 4, "18": 0, "51": 27, "57": 27, "27": 2, "28": 4, "29": 5, "63": 57}}
 __M_END_METADATA
 """

@@ -4,10 +4,10 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1434087101.613205
+_modified_time = 1438478835.973096
 _enable_loop = True
-_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base_ajax.htm'
-_template_uri = 'base_ajax.htm'
+_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/base_ajax.htm'
+_template_uri = '/homepage/templates/base_ajax.htm'
 _source_encoding = 'utf-8'
 import os, os.path, re, json
 _exports = ['content']
@@ -19,10 +19,10 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def content():
-            return render_content(context._locals(__M_locals))
         self = context.get('self', UNDEFINED)
         request = context.get('request', UNDEFINED)
+        def content():
+            return render_content(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -59,6 +59,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "uri": "base_ajax.htm", "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base_ajax.htm", "line_map": {"33": 7, "34": 10, "35": 10, "48": 13, "40": 15, "41": 18, "42": 18, "60": 54, "16": 6, "18": 0, "54": 13, "27": 4, "28": 6, "29": 7}}
+{"source_encoding": "utf-8", "uri": "/homepage/templates/base_ajax.htm", "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/base_ajax.htm", "line_map": {"33": 7, "34": 10, "35": 10, "48": 13, "40": 15, "41": 18, "42": 18, "60": 54, "16": 6, "18": 0, "54": 13, "27": 4, "28": 6, "29": 7}}
 __M_END_METADATA
 """
