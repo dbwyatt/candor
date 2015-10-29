@@ -1,4 +1,4 @@
-<%inherit file="index.html" />
+<%inherit file="/dashboard/templates/index.html" />
 <%!from datetime import datetime %>
 
 <%block name="navigation">
@@ -88,23 +88,15 @@
 
 <%block name="content">
 	<div id="main-container">
-		<nav class="navbar-stacked">
-			<ul>
-				<li class="toolbar-button active" data-target="post"><i class="fa fa-plus fa-fw" style="position:relative;top:3px;"></i></li>
-				<li class="toolbar-button" data-target="edit"><i class="fa fa-pencil-square-o fa-fw" style="position:relative;top:3px;left:2px;"></i></li>
-				<span class="spacer"></span>
-				<li class="toolbar-button" data-target="dashboard"><i class="fa fa-dashboard fa-fw"></i></li>
-				<li class="toolbar-button" data-target="messages"><i class="fa fa-envelope fa-fw"><span class="badge badge-red">3</span></i></li>
-				<li class="toolbar-button help" data-target="help"><i class="fa fa-question-circle fa-fw" style="position:relative;"></i></li>
-			</ul>
-		</nav>
+	
+		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
 			<h1>Post a new contract</h1>
 			<button class="btn btn-default prev">&#10094; Go back</button>
 			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" method="POST" action="">
-				<div class="post-input current" data-block="title" data-next="address">
+				<div class="post-input current" data-block="title" data-next="complex">
 					<label class="question">What is the title of this post?</label>
 					<div class="input-container">
 						<input type="text" name="title" id="title" />
@@ -112,9 +104,17 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="address" data-next="year">
+        <div class="post-input" data-block="complex" data-next="address">
+          <label class="question">What is the apartment complex?</label>
+          <div class="input-container">
+            <input type="text" name="complex" id="complex" />
+            <span class="label-float">Complex</span>
+          </div>
+        </div>
+
+				<div class="post-input" data-block="address" data-next="description">
 					<label class="question">What is the address?<br><sup>*For your own saftey we will not ask for exact apartment numbers</sup></label>
-					
+
 					<div class="input-container">
 						<input type="text" name="address1" id="address1" />
 						<span class="label-float">Address 1</span>
@@ -128,7 +128,7 @@
 						<span class="label-float">City</span>
 					</div>
 					<div class="input-container left col-2">
-						<select id="state">
+						<select name="state" id="state">
 							<option></option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -190,7 +190,7 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="year" data-next="price">
+				<div class="post-input" data-block="description" data-next="price">
 					<label class="question">What do you want people to know about your apartment? Be descriptive.</label>
 					<div class="input-container">
 						<textarea type="text" name="description" id="description"></textarea>
@@ -198,7 +198,7 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="price" data-next="housing">
+				<div class="post-input" data-block="price" data-next="costs">
 					<label class="question">What is the price going to be?</label>
 					<div class="input-container">
 						<input type="text" name="price" id="price" />
@@ -206,9 +206,25 @@
 					</div>
 				</div>
 
+        <div class="post-input" data-block="costs" data-next="housing">
+          <label class="question">Are there other costs such as utilites or a deposit?</label>
+          <div class="input-container">
+						<input type="text" name="utilities" id="utilities" class="empty" />
+						<span class="label-float">Cost of Utilities</span>
+					</div>
+          <div class="input-container">
+						<input type="text" name="deposit" id="deposit" class="empty" />
+						<span class="label-float">Cost of Deposit</span>
+					</div>
+					<div class="input-container">
+						<input type="text" name="other-costs" id="other-costs" class="empty" />
+						<span class="label-float">Other Costs</span>
+					</div>
+        </div>
+
 				<div class="post-input" data-block="housing" data-next="numbers">
 					<label class="question">What type of housing is this?</label>
-					
+
 					<div class="input-container radio">
 						<input type="radio" name="housing-type" id="apartment" />
 						<label for="apartment">Apartment</label>
@@ -217,7 +233,7 @@
 					</div>
 
 					<label class="question">What is the bedroom type?</label>
-					
+
 					<div class="input-container radio">
 						<input type="radio" name="bedroom" id="single" />
 						<label for="single">Single</label>
@@ -234,24 +250,41 @@
 				<div class="post-input" data-block="numbers" data-next="amenities">
 					<label class="question">How many bedrooms are there?</label>
 					<div class="input-container">
-						<input type="text" name="title" id="title" />
+						<input type="text" name="bedrooms" id="bedrooms" />
 						<span class="label-float">Number of bedrooms</span>
 					</div>
 					<label class="question">How about bathrooms?</label>
 					<div class="input-container">
-						<input type="text" name="title" id="title" />
+						<input type="text" name="bathrooms" id="bathrooms" />
 						<span class="label-float">Number of bathrooms</span>
 					</div>
 				</div>
 
-				<div class="post-input" data-block="amenities">
+				<div class="post-input" data-block="amenities" data-next="contracts">
 					<label class="question">Check all the cool things your apartment has</label>
-					%for amenity in amenities:	
+					%for amenity in amenities:
 						<input type="checkbox" name="${ amenity.id }" id="${ amenity.amenity }" />
 						<label for="${ amenity.amenity }">${ amenity.amenity }</label>
 					%endfor
+        </div>
 
-					<input type="submit" value="Post" />
+        <div class="post-input" data-block="contracts" data-next="leaving">
+          <label class="question">How many contracts are available?</label>
+          <div class="input-container">
+            <input type="text" name="contracts" id="contracts" />
+            <span class="label-float">Number of contracts</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="leaving">
+          <label class="question">Why are you leaving your contract?</label>
+          <div class="input-container">
+            <textarea type="text" name="leaving" id="leaving" /></textarea>
+            <span class="label-flaot">Reason for leaving</span>
+
+  					<input type="submit" value="Post" />
+            <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+          </div>
 				</div>
 			</form>
 		</div>
