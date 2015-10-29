@@ -15,4 +15,6 @@ def process_request(request):
 
     params = {}
 
+    request.session['user']['last_login']['time'] = request.session['user']['last_login']['time'].lstrip("0")
+    request.session.modified = True
     return templater.render_to_response(request, 'index.html', params)

@@ -48,8 +48,11 @@ def process_request(request):
             request.session['user']['name'] = user['name'].split()
             request.session['user']['email'] = user['email']
             request.session['user']['image'] = user['image']
-            request.session['user']['last_login'] = datetime.now().strftime("%Y-%m-%d %I:%M %p")
+            request.session['user']['last_login'] = {}
+            request.session['user']['last_login']['date'] = datetime.now().strftime("%Y-%m-%d")
+            request.session['user']['last_login']['time'] = datetime.now().strftime("%I:%M %p")
             request.session['user']['logged_in'] = True
+            request.session.modified = True
         else:
             del request.session['user']
 
