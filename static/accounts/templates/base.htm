@@ -1,0 +1,121 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+<%inherit file="/homepage/templates/base.htm" />
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+
+    <title>Account</title>
+    
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+
+</head>
+<body>
+
+    ## <%block name="navigation">
+    ##     ## <div class="navbar-margin">
+    ##         <nav class="navbar navbar-default">
+    ##             <div class="container">
+    ##                 <!-- Brand and toggle get grouped for better mobile display -->
+    ##                 <div class="navbar-header">
+    ##                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+    ##                         <span class="sr-only">Toggle navigation</span>
+    ##                         <span class="icon-bar"></span>
+    ##                         <span class="icon-bar"></span>
+    ##                         <span class="icon-bar"></span>
+    ##                     </button>
+    ##                     <a class="navbar-brand" href="/"><img src="${ STATIC_URL }homepage/media/candor.png" />
+    ##                         <span class="brand-text">
+    ##                             % if environment != '/var/www/candor':
+    ##                                 Candor Contracts Dev
+    ##                             % else:
+    ##                                 Candor Contracts
+    ##                             % endif
+    ##                         </span>
+    ##                     </a>
+    ##                 </div>
+
+    ##                 <!-- Collect the nav links, forms, and other content for toggling -->
+    ##                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    ##                     <ul class="nav navbar-nav">
+    ##                         <!-- <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
+    ##                         <li><a href="#">Link</a></li>
+    ##                         <li class="dropdown">
+    ##                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+    ##                             <ul class="dropdown-menu" role="menu">
+    ##                                 <li><a href="#">Action</a></li>
+    ##                                 <li><a href="#">Another action</a></li>
+    ##                                 <li><a href="#">Something else here</a></li>
+    ##                                 <li class="divider"></li>
+    ##                                 <li><a href="#">Separated link</a></li>
+    ##                                 <li class="divider"></li>
+    ##                                 <li><a href="#">One more separated link</a></li>
+    ##                             </ul>
+    ##                         </li> -->
+    ##                         <li class="social-links">
+    ##                             <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+    ##                             <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+    ##                             <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+    ##                         </li>
+    ##                     </ul>
+    ##                     <ul class="nav navbar-nav navbar-right">
+    ##                         <!-- <li><a href="#">Link</a></li>
+    ##                         <li class="dropdown">
+    ##                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+    ##                             <ul class="dropdown-menu" role="menu">
+    ##                                 <li><a href="#">Action</a></li>
+    ##                                 <li><a href="#">Another action</a></li>
+    ##                                 <li><a href="#">Something else here</a></li>
+    ##                                 <li class="divider"></li>
+    ##                                 <li><a href="#">Separated link</a></li>
+    ##                             </ul>
+    ##                         </li> -->
+    ##                         <li><a href="/homepage/">Home</a></li>
+    ##                         <li><a href="/homepage/#about">About</a></li>
+    ##                         <li><a href="/homepage/#contact">Contact</a></li>
+    ##                         %if 'user' not in request.session:
+    ##                             <li><a href="#" class="sign-in">Sign In</a></li>
+    ##                         %else:
+    ##                             <li class="dropdown">
+    ##                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="name">Hello, ${ request.session['user']['name'][0] }</span><span class="account">Your Account</span> <span class="caret"></span></a>
+    ##                                 <ul class="dropdown-menu" role="menu">
+    ##                                     <li><a href="#">Action</a></li>
+    ##                                     <li><a href="#">Another action</a></li>
+    ##                                     <li><a href="#">Something else here</a></li>
+    ##                                     <li class="divider"></li>
+    ##                                     <li><a href="#" onclick=signOut()>Logout</a></li>
+    ##                                 </ul>
+    ##                             </li>
+    ##                         %endif
+    ##                         ## <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div></li>
+    ##                     </ul>
+    ##                 </div><!-- /.navbar-collapse -->
+    ##             </div><!-- /.container-fluid -->
+    ##         </nav>
+    ##     ## </div>
+    ## </%block>
+
+    <%block name="rightlinks">
+        <li><a href="/homepage/">Home</a></li>
+        <li><a href="/homepage/#about">About</a></li>
+        <li><a href="/homepage/#contact">Contact</a></li>
+    </%block>
+  
+    <%block name="content">
+        Site content goes here in sub-templates.
+    </%block>  
+  
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }
+  
+</body>
+</html>

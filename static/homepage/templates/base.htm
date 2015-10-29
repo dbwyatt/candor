@@ -1,0 +1,241 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<%! from datetime import datetime %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Candor Contracts strives to provide the easiest way to buy and sell apartment contracts, making a student's life much less hectic.">
+    <meta name="keywords" content="Candor, Candor Contracts, contract, contracts, apartment, apartment contracts, student, students">
+    <meta name="author" content="Daniel Wyatt">
+    <meta name="google-signin-client_id" content="267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad.apps.googleusercontent.com">
+    
+    <%block name="title">
+        <title>Candor Contracts - Homepage</title>
+    </%block>
+
+    <link type="image/png" rel="icon" href="${ STATIC_URL }homepage/media/logo.png">
+    
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="${ STATIC_URL }homepage/scripts/jquery.form.js"></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/font-awesome.css" />
+    
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+
+
+</head>
+<body cz-shortcut-listen="true" id="home">
+
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1639785522934996',
+                xfbml      : true,
+                version    : 'v2.3'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <%block name="navigation">
+        ## <div class="navbar-margin">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="${ STATIC_URL }homepage/media/candor.png" />
+                            <span class="brand-text">
+                                % if environment != '/var/www/candor':
+                                    Candor Contracts Dev
+                                % else:
+                                    Candor Contracts
+                                % endif
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <!-- <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li> -->
+                            <li class="social-links">
+                                <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+                                <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+                                <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li> -->
+                            <%block name="rightlinks">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/#about">About</a></li>
+                                <li><a href="/#contact">Contact</a></li>
+                            </%block>
+                            %if 'user' not in request.session:
+                                <li><a href="#" class="sign-in">Sign In</a></li>
+                            %else:
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="name">Hello, ${ request.session['user']['name'][0] }</span><span class="account">Your Account</span> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="/dashboard/"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/accounts/"><i class="fa fa-user fa-fw"></i>Account</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" onclick=signOut()><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
+                                    </ul>
+                                </li>
+                            %endif
+                            ## <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        ## </div>
+    </%block>
+
+    <%block name="content">
+        Site content goes here in sub-templates.
+    </%block>  
+
+    <%block name="footer">
+        <footer>
+            Copyright &copy; ${ datetime.now().year } Candor Contracts
+        </footer>
+    </%block>
+
+    <%block name="login">
+        <form id="set-user" style="display: none;">
+            <input type="submit" />
+            <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+        </form>
+    </%block>
+
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }
+
+    <script>
+        function onSignIn(googleUser, element) {
+            $(element).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
+            var profile = googleUser.getBasicProfile();
+            var scopes = googleUser.getGrantedScopes();
+            // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            // console.log('Name: ' + profile.getName());
+            // console.log('Image URL: ' + profile.getImageUrl());
+            // console.log('Email: ' + profile.getEmail());
+            // $('.sign-in').text('Welcome, ' + profile.getName());
+            // $('#login-slide .close').trigger('click');
+            $.ajax({
+                type: 'POST',
+                url: '/homepage/',
+                data: {set: true, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail(), id_token: googleUser.getAuthResponse().id_token},
+                success: function(ret) {
+                    if (ret == 'True') {
+                        window.location = '/dashboard/';
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+                $.ajax({
+                    type: 'POST',
+                    url: '/homepage/',
+                    data: {set: false, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()},
+                    success: function(ret) {
+                        if (ret == 'True') {
+                            window.location = '/homepage/';
+                        }
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+
+        var googleUser = {};
+        var startApp = function() {
+            gapi.load('auth2', function() {
+                // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: '267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    scope: 'profile email https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login'
+                });
+                attachSignin(document.getElementById('my-signin2'));
+            })
+        }
+
+        function attachSignin(element) {
+            // console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    onSignIn(googleUser, element);
+                },
+                function(error) {
+                    // alert(JSON.stringify(error, undefined, 2));
+                }
+            );
+        }
+
+        startApp();
+    </script>
+
+</body>
+</html>

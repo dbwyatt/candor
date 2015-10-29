@@ -1,0 +1,20 @@
+<%inherit file="/homepage/templates/base.htm" />
+<%! import datetime %>
+
+<%block name="content">
+	<div id="login-container">
+		<span class="login-text">Login with your Google or Facebook account</span>
+		<div class="btn-wrapper">	
+			<div id="my-signin2" class="btn btn-block btn-social btn-google" data-onsuccess="onSignIn">
+				<i class="fa fa-google"></i> Sign in with Google
+			</div>
+
+			<span class="spacer"></span>
+
+			<a class="btn btn-block btn-social btn-facebook" data-onsuccess="onSignIn">
+				<i class="fa fa-facebook"></i> Sign in with Facebook
+			</a>
+		</div>
+	</div>
+
+</%block>
