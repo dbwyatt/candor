@@ -4,10 +4,10 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1446092001.110244
+_modified_time = 1446092066.705406
 _enable_loop = True
-_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base.htm'
-_template_uri = 'base.htm'
+_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/base.htm'
+_template_uri = '/homepage/templates/base.htm'
 _source_encoding = 'utf-8'
 import os, os.path, re, json
 _exports = ['navigation', 'content', 'footer', 'login', 'title', 'rightlinks']
@@ -201,6 +201,6 @@ def render_rightlinks(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "base.htm", "source_encoding": "utf-8", "line_map": {"128": 127, "129": 127, "130": 138, "131": 143, "137": 145, "190": 118, "143": 145, "16": 4, "18": 7, "171": 158, "20": 0, "149": 149, "202": 196, "155": 149, "156": 151, "157": 151, "163": 155, "42": 2, "43": 4, "44": 5, "48": 5, "49": 7, "178": 18, "172": 158, "54": 20, "55": 22, "56": 22, "57": 25, "58": 28, "59": 28, "60": 32, "61": 32, "62": 35, "63": 35, "64": 35, "196": 118, "69": 143, "74": 147, "79": 153, "184": 18, "84": 160, "85": 237, "86": 237, "87": 237, "93": 60, "104": 60, "105": 62, "106": 72, "107": 72, "108": 74, "109": 75, "110": 76, "111": 77, "112": 79, "113": 101, "114": 101, "115": 102, "116": 102, "117": 103, "118": 103, "170": 155, "123": 122, "124": 123, "125": 124, "126": 125, "127": 126}, "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/base.htm"}
+{"uri": "/homepage/templates/base.htm", "source_encoding": "utf-8", "line_map": {"128": 127, "129": 127, "130": 138, "131": 143, "137": 145, "190": 118, "143": 145, "16": 4, "18": 7, "171": 158, "20": 0, "149": 149, "202": 196, "155": 149, "156": 151, "157": 151, "163": 155, "42": 2, "43": 4, "44": 5, "48": 5, "49": 7, "178": 18, "172": 158, "54": 20, "55": 22, "56": 22, "57": 25, "58": 28, "59": 28, "60": 32, "61": 32, "62": 35, "63": 35, "64": 35, "196": 118, "69": 143, "74": 147, "79": 153, "184": 18, "84": 160, "85": 237, "86": 237, "87": 237, "93": 60, "104": 60, "105": 62, "106": 72, "107": 72, "108": 74, "109": 75, "110": 76, "111": 77, "112": 79, "113": 101, "114": 101, "115": 102, "116": 102, "117": 103, "118": 103, "170": 155, "123": 122, "124": 123, "125": 124, "126": 125, "127": 126}, "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/base.htm"}
 __M_END_METADATA
 """

@@ -4,10 +4,10 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1446091788.643128
+_modified_time = 1443826482.788544
 _enable_loop = True
-_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/index.html'
-_template_uri = 'index.html'
+_template_filename = 'C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/index.html'
+_template_uri = '/homepage/templates/index.html'
 _source_encoding = 'utf-8'
 import os, os.path, re, json
 _exports = ['title', 'content']
@@ -28,14 +28,14 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        contact = context.get('contact', UNDEFINED)
-        csrf_token = context.get('csrf_token', UNDEFINED)
-        def content():
-            return render_content(context._locals(__M_locals))
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def title():
             return render_title(context._locals(__M_locals))
+        def content():
+            return render_content(context._locals(__M_locals))
+        csrf_token = context.get('csrf_token', UNDEFINED)
         request = context.get('request', UNDEFINED)
+        contact = context.get('contact', UNDEFINED)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'title'):
@@ -67,12 +67,12 @@ def render_title(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        csrf_token = context.get('csrf_token', UNDEFINED)
         request = context.get('request', UNDEFINED)
         contact = context.get('contact', UNDEFINED)
-        csrf_token = context.get('csrf_token', UNDEFINED)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def content():
             return render_content(context)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n\t<div id="main-container">\r\n\t\t<div class="home-background"></div>\r\n\t\t<div class="overlay">\r\n')
         __M_writer('\t\t\t<div id="candor-container">\r\n\t\t\t\t<img src="')
@@ -122,6 +122,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "index.html", "source_encoding": "utf-8", "line_map": {"27": 0, "40": 1, "45": 5, "55": 3, "61": 3, "67": 7, "77": 7, "78": 13, "79": 14, "80": 14, "81": 19, "82": 34, "83": 35, "84": 36, "85": 37, "86": 38, "87": 40, "88": 41, "89": 42, "90": 43, "91": 43, "92": 63, "93": 66, "94": 75, "95": 101, "96": 101, "97": 108, "98": 108, "99": 115, "100": 115, "101": 122, "102": 122, "103": 141, "104": 141, "105": 148, "106": 148, "107": 155, "108": 155, "109": 169, "110": 169, "111": 179, "112": 179, "113": 203, "114": 203, "115": 205, "116": 206, "117": 206, "123": 117}, "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor\\homepage\\templates/index.html"}
+{"source_encoding": "utf-8", "filename": "C:\\Users\\Daniel\\Documents\\Candor\\Candor/homepage/templates/index.html", "line_map": {"27": 0, "40": 1, "45": 5, "55": 3, "61": 3, "67": 7, "77": 7, "78": 13, "79": 14, "80": 14, "81": 19, "82": 34, "83": 35, "84": 36, "85": 37, "86": 38, "87": 40, "88": 41, "89": 42, "90": 43, "91": 43, "92": 63, "93": 66, "94": 75, "95": 101, "96": 101, "97": 108, "98": 108, "99": 115, "100": 115, "101": 122, "102": 122, "103": 141, "104": 141, "105": 148, "106": 148, "107": 155, "108": 155, "109": 169, "110": 169, "111": 179, "112": 179, "113": 203, "114": 203, "115": 205, "116": 206, "117": 206, "123": 117}, "uri": "/homepage/templates/index.html"}
 __M_END_METADATA
 """

@@ -159,9 +159,6 @@
         </form>
     </%block>
 
-    ## render the JS with the same name as this page
-    ${ static_renderer.get_template_js(request, context)  }
-
     <script>
         function onSignIn(googleUser, element) {
             $(element).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
@@ -236,6 +233,9 @@
 
         startApp();
     </script>
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }
+
 
 </body>
 </html>
