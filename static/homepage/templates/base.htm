@@ -150,6 +150,81 @@
         <footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts
         </footer>
+
+        <script>
+            function onSignIn(googleUser, element) {
+                $(element).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
+                var profile = googleUser.getBasicProfile();
+                var scopes = googleUser.getGrantedScopes();
+                // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                // console.log('Name: ' + profile.getName());
+                // console.log('Image URL: ' + profile.getImageUrl());
+                // console.log('Email: ' + profile.getEmail());
+                // $('.sign-in').text('Welcome, ' + profile.getName());
+                // $('#login-slide .close').trigger('click');
+                $.ajax({
+                    type: 'POST',
+                    url: '/homepage/',
+                    data: {set: true, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail(), id_token: googleUser.getAuthResponse().id_token},
+                    success: function(ret) {
+                        if (ret == 'True') {
+                            window.location = '/dashboard/';
+                        }
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/homepage/',
+                        data: {set: false, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()},
+                        success: function(ret) {
+                            if (ret == 'True') {
+                                window.location = '/homepage/';
+                            }
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    });
+                });
+            }
+
+            var googleUser = {};
+            var startApp = function() {
+                gapi.load('auth2', function() {
+                    // Retrieve the singleton for the GoogleAuth library and set up the client.
+                    auth2 = gapi.auth2.init({
+                        client_id: '267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad.apps.googleusercontent.com',
+                        cookiepolicy: 'single_host_origin',
+                        // Request scopes in addition to 'profile' and 'email'
+                        scope: 'profile email https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login'
+                    });
+                    attachSignin(document.getElementById('my-signin2'));
+                })
+            }
+
+            function attachSignin(element) {
+                // console.log(element.id);
+                auth2.attachClickHandler(element, {},
+                    function(googleUser) {
+                        onSignIn(googleUser, element);
+                    },
+                    function(error) {
+                        // alert(JSON.stringify(error, undefined, 2));
+                    }
+                );
+            }
+
+            startApp();
+        </script>
     </%block>
 
     <%block name="login">
@@ -159,80 +234,7 @@
         </form>
     </%block>
 
-    <script type="text/javascript">
-        function onSignIn(googleUser, element) {
-            $(element).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
-            var profile = googleUser.getBasicProfile();
-            var scopes = googleUser.getGrantedScopes();
-            // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            // console.log('Name: ' + profile.getName());
-            // console.log('Image URL: ' + profile.getImageUrl());
-            // console.log('Email: ' + profile.getEmail());
-            // $('.sign-in').text('Welcome, ' + profile.getName());
-            // $('#login-slide .close').trigger('click');
-            $.ajax({
-                type: 'POST',
-                url: '/homepage/',
-                data: {set: true, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail(), id_token: googleUser.getAuthResponse().id_token},
-                success: function(ret) {
-                    if (ret == 'True') {
-                        window.location = '/dashboard/';
-                    }
-                },
-                error: function(e) {
-                    console.log(e);
-                }
-            });
-        }
-
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-                $.ajax({
-                    type: 'POST',
-                    url: '/homepage/',
-                    data: {set: false, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()},
-                    success: function(ret) {
-                        if (ret == 'True') {
-                            window.location = '/homepage/';
-                        }
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }
-                });
-            });
-        }
-
-        var googleUser = {};
-        var startApp = function() {
-            gapi.load('auth2', function() {
-                // Retrieve the singleton for the GoogleAuth library and set up the client.
-                auth2 = gapi.auth2.init({
-                    client_id: '267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad.apps.googleusercontent.com',
-                    cookiepolicy: 'single_host_origin',
-                    // Request scopes in addition to 'profile' and 'email'
-                    scope: 'profile email https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login'
-                });
-                attachSignin(document.getElementById('my-signin2'));
-            })
-        }
-
-        function attachSignin(element) {
-            // console.log(element.id);
-            auth2.attachClickHandler(element, {},
-                function(googleUser) {
-                    onSignIn(googleUser, element);
-                },
-                function(error) {
-                    // alert(JSON.stringify(error, undefined, 2));
-                }
-            );
-        }
-
-        startApp();
-    </script>
+    
     ## render the JS with the same name as this page
     ${ static_renderer.get_template_js(request, context)  }
 
