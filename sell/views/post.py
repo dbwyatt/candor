@@ -21,13 +21,13 @@ def process_request(request):
     params['environment'] = helpers.get_environment()
     params['amenities'] = smod.Amenity.objects.all()
 
+    # TODO: Use validated data instead of using the data from request.POST.
+    # https://docs.djangoproject.com/en/1.7/topics/forms/#field-data
+
     if request.method == 'POST':
         p = request.POST
 
         avail_date = [int(num) for num in p['availability'].split('-')]
-
-        for key, value in p.items():
-            print("{}: {}".format(key, value))
 
         apartment = smod.Apartment.objects.create(
             complex=p['complex'],
