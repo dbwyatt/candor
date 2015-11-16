@@ -13,13 +13,74 @@ from datetime import datetime
 
 templater = get_renderer('sell')
 
+STATES = (('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'),
+         ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('DC', 'District of Columbia'), ('FL', 'Florida'),
+         ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'),
+         ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'),
+         ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'),
+         ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'),
+         ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'),
+         ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
+         ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming'))
+
+amenities = smod.Amenity.objects.all()
+amenity_choices = []
+for amenity in amenities:
+    amenity_choices.append(('Amenity ' + str(amenity.id), amenity.amenity))
+amenity_choices = tuple(amenity_choices)
+
+
+class PostForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput(attrs={
+        'name': 'title', 'id': 'title'}))
+    complex = forms.CharField(widget=forms.TextInput(attrs={
+        'name': 'complex', 'id': 'complex'}))
+    address1 = forms.CharField(widget=forms.TextInput(attrs={
+        'name': 'address1', 'id': 'address1'}))
+    address2 = forms.CharField(widget=forms.TextInput(attrs={
+        'name': 'address2', 'id': 'address2'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={
+        'name': 'city', 'id': 'city'}))
+    state = forms.ChoiceField(choices=STATES, widget=forms.Select(attrs={
+        'name': 'state', 'id': 'state'}))
+    zip = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'zip', 'id': 'zip'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={
+        'name': 'description', 'id': 'description'}))
+    price = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'price', 'id': 'price'}))
+    utilities = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'utilities', 'id': 'utilities'}))
+    deposit = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'deposit', 'id': 'deposit'}))
+    bounty = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'bounty', 'id': 'bounty'}))
+    housing_type = forms.ChoiceField(choices=(('apartment', 'Apartment'), ('house', 'House/Condo/Duplex')), widget=forms.RadioSelect(attrs={
+        'name': 'housing-type', 'id': 'housing-type'}))
+    single_or_married = forms.ChoiceField(choices=(('single', 'Single'), ('married', 'Married')), widget=forms.RadioSelect(attrs={
+        'name': 'single-or-married', 'id': 'single-or-married'}))
+    bed_type = forms.ChoiceField(choices=(('private', 'Private'), ('shared', 'Shared')), widget=forms.RadioSelect(attrs={
+        'name': 'bed-type', 'id': 'bed-type'}))
+    bed_number = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'bed-number', 'id': 'bed-number'}))
+    bath_number = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'bath-number', 'id': 'bath-number'}))
+    amenities = forms.ChoiceField(choices=amenity_choices, widget=forms.CheckboxSelectMultiple(attrs={
+        'name': 'amenity', 'id': 'amenity'}))
+    contracts = forms.DecimalField(widget=forms.NumberInput(attrs={
+        'name': 'contracts', 'id': 'contracts'}))
+    availability = forms.DateField(widget=forms.DateInput(attrs={
+        'type': 'date', 'name': 'availability', 'id': 'availability'}))
+    leaving = forms.CharField(widget=forms.Textarea(attrs={
+        'name': 'leaving', 'id': 'leaving'}))
+
 
 @view_function
 @login_required()
 def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
-    params['amenities'] = smod.Amenity.objects.all()
+    params['form'] = PostForm()
 
     # TODO: Use validated data instead of using the data from request.POST.
     # https://docs.djangoproject.com/en/1.7/topics/forms/#field-data
@@ -60,6 +121,7 @@ def process_request(request):
             if key.split()[0] == 'Amenity':
                 post.amenity.add(smod.Amenity.objects.filter(id=key.split()[1]).first())
 
-        # Redirect to dashboard. Provide confirmation.
+        # Redirect to dashboard. Need to provide confirmation.
+        return HttpResponseRedirect('/dashboard/')
 
     return templater.render_to_response(request, 'post.html', params)
