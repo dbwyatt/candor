@@ -1,8 +1,6 @@
 from django.db import models
 from homepage import models as hmod
 
-# Define models here
-
 
 class Post(models.Model):
     owner = models.ForeignKey(hmod.Users)
@@ -31,6 +29,8 @@ class Picture(models.Model):
 class Apartment(models.Model):
     complex = models.TextField(blank=False, null=False)
     address = models.TextField(blank=False, null=False)
+    latitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
+    longtitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
     housing_type = models.TextField(blank=False, null=False, default='Apartment')
     single_or_married = models.TextField(blank=False, null=False, default='Single')
     bed_number = models.IntegerField(blank=False, null=False)
