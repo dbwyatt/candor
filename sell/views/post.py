@@ -22,29 +22,30 @@ templater = get_renderer('sell')
 def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
-    params['form'] = PostForm(request)
+    form = PostForm(request)
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
-
+        form = PostForm(request, request.POST)
+        print(request.POST)
         if form.is_valid():
-            avail_date = [int(num) for num in form.cleaned_data['availability'].split('-')]
-
-            full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + form.cleaned_data['zip']
+            avail_date = [int(num) for num in str(form.cleaned_data['availability']).split('-')]
+            print("i'm processing the form!2!")
+            full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + str(form.cleaned_data['zip'])
             search_address = full_address.replace(' ', '+')
-            geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + search_address).text
-            parsed_geo = json.loads(geo_address)
+            geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + full_address)
+            parsed_geo = geo_address.json()
+            print(parsed_geo)
 
             apartment = smod.Apartment.objects.create(
                 complex=form.cleaned_data['complex'],
                 address=full_address,
-                latitude=parsed_geo['results'][0]['geometry']['location']['lat'],
-                longtitude=parsed_geo['results'][0]['geometry']['location']['lng'],
+                latitude=parsed_geo['results'][0]['geometry']['location']['lat'] if len(parsed_geo['results']) > 0 else 0,
+                longtitude=parsed_geo['results'][0]['geometry']['location']['lng'] if len(parsed_geo['results']) > 0 else 0,
                 housing_type=form.cleaned_data.get('housing-type', 'Apartment'),
                 single_or_married=form.cleaned_data.get('single-or-married', 'Single'),
-                bed_number=form.cleaned_data['bed-number'],
-                bed_type=form.cleaned_data.get('bed-type', 'Private'),
-                bath_number=float(form.cleaned_data['bath-number']),
+                bed_number=form.cleaned_data['bed_number'],
+                bed_type=form.cleaned_data.get('bed_type', 'Private'),
+                bath_number=float(form.cleaned_data['bath_number']),
                 utilities=float(form.cleaned_data['utilities']) if form.cleaned_data['utilities'] else 0
             )
 
@@ -60,16 +61,23 @@ def process_request(request):
                 availability=datetime(avail_date[0], avail_date[1], avail_date[2]),
                 leaving=form.cleaned_data['leaving'],
                 video=None,  # Implement
-                pictures=None  # Implement
             )
 
+            for x in range(3):
+                picture = smod.Picture.objects.create(
+                    post = post,
+                    picture = "1",
+                )
+
             # Add Amenities to post. TODO: Update this to work with form.cleaned_data.
-            for key in p:
+            for key in form.cleaned_data['amenities']:
                 if key.split()[0] == 'Amenity':
                     post.amenity.add(smod.Amenity.objects.filter(id=key.split()[1]).first())
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
             return HttpResponseRedirect('/dashboard/')
+
+    params['form'] = form
 
     return templater.render_to_response(request, 'post.html', params)
 
@@ -119,6 +127,6 @@ class PostForm(forms.Form):
         return self.cleaned_data['title']
 
     def clean_zip(self):
-        if len(self.cleaned_data['zip']) != 5:
+        if len(str(self.cleaned_data['zip'])) != 5:
             raise forms.ValidationError("Please enter a 5 digit zip code.")
         return self.cleaned_data['zip']

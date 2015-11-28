@@ -14,7 +14,6 @@ class Post(models.Model):
     availability = models.DateField()
     leaving = models.TextField(blank=False, null=False)
     amenity = models.ManyToManyField('Amenity', blank=True, null=True)
-    pictures = models.ManyToManyField('Picture', blank=True, null=True)
     video = models.TextField(blank=True, null=True)
 
 
@@ -23,6 +22,7 @@ class Amenity(models.Model):
 
 
 class Picture(models.Model):
+    post = models.ForeignKey(Post)
     picture = models.TextField(blank=False, null=False)
 
 
