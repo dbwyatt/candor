@@ -31,4 +31,9 @@ $(function() {
 		}
 	});
 
+	$('.navbar-stacked .toggle').on('click', function() {
+		$(this).toggleClass('x');
+		$('.navbar-stacked .nav-text').toggleClass('display-none');
+	});
+
 }); //ready
