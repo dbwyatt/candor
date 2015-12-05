@@ -14,10 +14,17 @@
 </script>
     
 <script> 
-    $(document).ready(function(){
-    $("button").click(function(){
-        $("p").slideToggle();
-    });
+function unhide(clickedButton, divID) {
+var item = document.getElementById(divID);
+if (item) {
+    if(item.className=='hidden'){
+        item.className = 'unhidden' ;
+        clickedButton.value = 'hide'
+    }else{
+        item.className = 'hidden';
+        clickedButton.value = 'unhide'
+    }
+}}
 </script>
 
 	<div id="main-container">
@@ -41,9 +48,15 @@
             <input id="State" type="text" value="State" name="State" title="State" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <input id="Zip" type="text" value="Zip" name="Zip" title="Zip" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            </form>
-                    
-<!--                    
+            
+            
+
+            <a>
+            <p id="AdvButton" onclick="unhide(this, 'Advanced')">Advanced Search</p>
+            </a>
+                             
+    <div id="Advanced" class="hidden">
+        
             <input id="FNameField" type="text" value="First Name" name="firstname" title="First Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
             <input id="LNameField" type="text" value="Last Name" name="lastname" title="Last Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
             
@@ -55,7 +68,8 @@
                     
             <input id="PhoneField3" type="text" value="5555" name="phone" title="5555" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
 
--->
+        </form>
+</div>
             
 		<footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts

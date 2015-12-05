@@ -41,6 +41,24 @@
     width: 20%;
 }
 
+#AdvButton {
+    color: black;
+    text-align: right;
+    cursor: pointer;
+}
+
+#Advanced {
+    
+}
+
+.hidden{
+    display:none;
+}
+
+.unhidden{
+    display:block;
+}
+
 #FNameField {
     background-color: #282830;
     border-bottom: none;
