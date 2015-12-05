@@ -1,10 +1,4 @@
 $(function() {
-        function inputFocus(i){
-            if(i.value==i.defaultValue){ i.value=""; i.style.color="#ffffff"; }
-        }
-        function inputBlur(i){
-            if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
-        }
 
 $('#AdvButton').on("click", function(){
     var item = document.getElementById("Advanced");
