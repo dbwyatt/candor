@@ -1,13 +1,38 @@
-<nav class="navbar-stacked">
+<nav class="navbar-stacked open">
 	<ul>
-		<li class="toolbar-button buy" data-target="/buy/"><i class="fa fa-search fa-fw" style="position:relative;top:3px;"></i></li>
-		<li class="toolbar-button compare" data-target="/buy/compare/"><i class="fa fa-home fa-fw" style="position:relative;top:3px;"></i></li>
+		<li class="toolbar-button buy tooltips" data-target="/buy/" title="Search">
+			<i class="fa fa-search fa-fw" style="position:relative;top:3px;"></i>
+			<span class="nav-text">Search</span>
+		</li>
+		<li class="toolbar-button compare tooltips" data-target="/buy/compare/" title="View your apartments">
+			<i class="fa fa-home fa-fw" style="position:relative;top:3px;"></i>
+			<span class="nav-text">Your Apartments</span>
+		</li>
 		<span class="spacer"></span>
-		<li class="toolbar-button post" data-target="/sell/post/"><i class="fa fa-plus fa-fw" style="position:relative;top:3px;"></i></li>
-		<li class="toolbar-button edit" data-target="/sell/edit/"><i class="fa fa-pencil-square-o fa-fw" style="position:relative;top:3px;left:2px;"></i></li>
+		<li class="toolbar-button post tooltips" data-target="/sell/post/" title="Post a new contract">
+			<i class="fa fa-plus fa-fw" style="position:relative;top:3px;"></i>
+			<span class="nav-text">Post New</span>
+		</li>
+		<li class="toolbar-button edit tooltips" data-target="/sell/edit/" title="Edit a posting">
+			<i class="fa fa-pencil-square-o fa-fw" style="position:relative;top:3px;left:2px;"></i>
+			<span class="nav-text">Edit Post</span>
+		</li>
 		<span class="spacer"></span>
-		<li class="toolbar-button dashboard" data-target="/dashboard/"><i class="fa fa-dashboard fa-fw"></i></li>
-		<li class="toolbar-button messages" data-target="/dashboard/messages/"><i class="fa fa-envelope fa-fw"><span class="badge badge-red">3</span></i></li>
-		<li class="toolbar-button help" data-target="/dashboard/help/"><i class="fa fa-question-circle fa-fw" style="position:relative;"></i></li>
+		<li class="toolbar-button dashboard tooltips" data-target="/dashboard/" title="Dashboard">
+			<i class="fa fa-dashboard fa-fw"></i>
+			<span class="nav-text">Dashboard</span>
+		</li>
+		<li class="toolbar-button messages tooltips" data-target="/dashboard/messages/" title="Messages">
+			<i class="fa fa-envelope fa-fw"><span class="badge badge-red">3</span></i>
+			<span class="nav-text">Messages</span>
+		</li>
+		<li class="toolbar-button help tooltips" data-target="/dashboard/help/" title="Help">
+			<i class="fa fa-question-circle fa-fw" style="position:relative;"></i>
+			<span class="nav-text">Help</span>
+		</li>
 	</ul>
+	<button class="toggle x">
+		<!-- <i class="fa fa-times fa-fw"></i> -->
+		<span class="lines"></span>
+	</button>
 </nav>
