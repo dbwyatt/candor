@@ -1,9 +1,36 @@
 #NameField {
     background-color: #282830;
     border-bottom: none;
-    width: 200px;
-
+    width: 250px;
+    margin: 10px;
 }
+
+#EmailField {
+    background-color: #282830;
+    border-bottom: none;
+    width 500px;
+}
+
+
+#PhoneField1 {
+    background-color: #282830;
+    border-bottom: none;
+    width 10px;
+}
+
+/* 
+#PhoneField2 {
+    background-color: #282830;
+    border-bottom: none;
+    width 10px;
+}
+
+#PhoneField3 {
+    background-color: #282830;
+    border-bottom: none;
+    width 20px;
+}
+*/
 
 h1 {
     font-family: 'Montserrat', sans-serif;
