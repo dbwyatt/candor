@@ -15,5 +15,18 @@ def process_request(request):
     params['recent_search'] = dmod.Search.objects.filter()
     params['messages'] = dmod.Messages.objects.filter(to_user_id=request.session['user']['id'])[:3]
     # params['post'] = smod.Posting.objects.filter()
+    if 'menu_status' not in request.session['user']:
+    	request.session['user']['menu_status'] = 'open'
+    request.session.modified = True
 
     return templater.render_to_response(request, 'index.html', params)
+
+
+@view_function
+def menu_status(request):
+	print(request.urlparams)
+	request.session['user']['menu_status'] = request.urlparams[0]
+	request.session.modified = True
+	print(request.session['user'])
+
+	return HttpResponse(True)

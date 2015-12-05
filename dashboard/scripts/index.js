@@ -32,8 +32,19 @@ $(function() {
 	});
 
 	$('.navbar-stacked .toggle').on('click', function() {
-		$(this).toggleClass('x');
-		$('.navbar-stacked .nav-text').toggleClass('display-none');
+		$(this).toggleClass('x').parent().toggleClass('open');
+		var status = $(this).parent().hasClass('open') ? 'open' : '';
+		console.log(status);
+		$.ajax({
+			type: 'GET',
+			url: '/dashboard/index.menu_status/' + status,
+			success: function() {
+
+			},
+			error: function() {
+
+			}
+		})
 	});
 
 }); //ready
