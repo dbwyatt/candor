@@ -4,6 +4,7 @@
 <%block name="content">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     
+<!-- Used for putting a place holder in the input fields -->
 <script>
         function inputFocus(i){
             if(i.value==i.defaultValue){ i.value=""; i.style.color="#ffffff"; }
@@ -12,7 +13,8 @@
             if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
         }
 </script>
-    
+
+<!-- Advanced Search code. Toggles the addition input fields up and down -->
 <script> 
 function unhide(clickedButton, divID) {
 var item = document.getElementById(divID);
@@ -33,6 +35,7 @@ if (item) {
 	
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
+        <!-- Input value fields with advanced search button -->
 		<div id="action-container">
             <h1>Buy</h1>
                 <form>        
@@ -41,6 +44,7 @@ if (item) {
             <input id="PriceMax" type="text" value="$max" name="priceMax" title="PriceMax" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <br> 
+                    
             <input id="Address" type="text" value="Address" name="address" title="Address" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <input id="City" type="text" value="City" name="city" title="city" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
@@ -48,9 +52,8 @@ if (item) {
             <input id="State" type="text" value="State" name="State" title="State" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <input id="Zip" type="text" value="Zip" name="Zip" title="Zip" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            
-            
 
+            <!-- Advanced Search link -->
             <a>
             <p id="AdvButton" onclick="unhide(this, 'Advanced')">Advanced Search</p>
             </a>
