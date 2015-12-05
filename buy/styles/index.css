@@ -1,36 +1,83 @@
-#NameField {
+#action-container {
+    text-align: left;
+}
+
+#Address {
     background-color: #282830;
     border-bottom: none;
-    width: 250px;
-    margin: 10px;
+    width: 40%;
+}
+
+#City {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#State {
+    background-color: #282830;
+    border-bottom: none;
+    width: 10%;
+}
+
+#Zip {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#PriceMin {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#PriceMax {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#FNameField {
+    background-color: #282830;
+    border-bottom: none;
+    width: 50%;
+}
+
+#LNameField {
+    background-color: #282830;
+    border-bottom: none;
+    width: 50%;
 }
 
 #EmailField {
     background-color: #282830;
     border-bottom: none;
-    width 500px;
+    width: 70%;
 }
 
 
 #PhoneField1 {
     background-color: #282830;
     border-bottom: none;
-    width 10px;
+    width: 10%;
+    text-align: center;
 }
 
-/* 
+ 
 #PhoneField2 {
     background-color: #282830;
     border-bottom: none;
-    width 10px;
+    width: 10%;
+    text-align: center;
 }
 
 #PhoneField3 {
     background-color: #282830;
     border-bottom: none;
-    width 20px;
+    width: 12%;
+    text-align: center;
 }
-*/
 
 h1 {
     font-family: 'Montserrat', sans-serif;
