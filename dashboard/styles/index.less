@@ -13,12 +13,11 @@ body {
 	height: 90%;
 	display: inline-block;
 	text-align: left;
-	position: fixed;
-	left: 0;
-	top: 69px;
+	position: relative;
+	float: left;
 	z-index: 5;
 	box-shadow: 0px 0px 10px 0px;
-	transition: .3s;
+	// transition: .3s;
 
 	&:hover {
 		.toggle {
@@ -93,8 +92,15 @@ body {
 				top: -@button-size/4;
 			}
 		}
+	}
 
-		&.x {
+	&.open {
+
+		.nav-text {
+			display: initial;
+		}
+
+		.toggle {
 			// transform: scale3d(.8,.8,.8);
 
 			.lines {
@@ -110,10 +116,6 @@ body {
     			&::after { transform: rotate3d(0,0,1,-45deg); }
 			}
 		}
-	}
-
-	&.open {
-
 	}
 
 	ul {
@@ -170,6 +172,7 @@ body {
 		}
 	
 		.nav-text {
+			display: none;
 			padding-left: 10px;
 			transition: opacity .1s;
 
@@ -208,13 +211,12 @@ body {
 #main-container {
 	background-color: #4875A2;
 	height: 1000px;
-	padding: 50px;
-	padding-left: 125px;
 	display: block;
 	position: relative;
 	text-align: center;
 	margin-top: 69px;
 	overflow-y: auto;
+	transition: 1s;
 }
 
 #action-container {

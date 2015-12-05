@@ -1,4 +1,4 @@
-<nav class="navbar-stacked open">
+<nav class="navbar-stacked ${ request.session['user']['menu_status'] }">
 	<ul>
 		<li class="toolbar-button buy tooltips" data-target="/buy/" title="Search">
 			<i class="fa fa-search fa-fw" style="position:relative;top:3px;"></i>
@@ -31,7 +31,7 @@
 			<span class="nav-text">Help</span>
 		</li>
 	</ul>
-	<button class="toggle x">
+	<button class="toggle">
 		<!-- <i class="fa fa-times fa-fw"></i> -->
 		<span class="lines"></span>
 	</button>
