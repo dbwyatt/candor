@@ -32,7 +32,7 @@ $(function() {
 	});
 
 	$('.navbar-stacked .toggle').on('click', function() {
-		$(this).toggleClass('x').parent().toggleClass('open');
+		$(this).parent().toggleClass('open');
 		var status = $(this).parent().hasClass('open') ? 'open' : '';
 		console.log(status);
 		$.ajax({

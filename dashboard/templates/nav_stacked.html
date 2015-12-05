@@ -31,11 +31,7 @@
 			<span class="nav-text">Help</span>
 		</li>
 	</ul>
-	%if request.session['user']['menu_status'] == 'open':
-		<button class="toggle x">
-	%else:
-		<button class="toggle">
-	%endif
+	<button class="toggle">
 		<!-- <i class="fa fa-times fa-fw"></i> -->
 		<span class="lines"></span>
 	</button>

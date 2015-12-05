@@ -92,8 +92,15 @@ body {
 				top: -@button-size/4;
 			}
 		}
+	}
 
-		&.x {
+	&.open {
+
+		.nav-text {
+			display: initial;
+		}
+
+		.toggle {
 			// transform: scale3d(.8,.8,.8);
 
 			.lines {
@@ -108,13 +115,6 @@ body {
 				&::before { transform: rotate3d(0,0,1,45deg); }
     			&::after { transform: rotate3d(0,0,1,-45deg); }
 			}
-		}
-	}
-
-	&.open {
-
-		.nav-text {
-			display: initial;
 		}
 	}
 
