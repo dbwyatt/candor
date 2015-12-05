@@ -4,30 +4,7 @@
 <%block name="content">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     
-<!-- Used for putting a place holder in the input fields -->
-<script>
-        function inputFocus(i){
-            if(i.value==i.defaultValue){ i.value=""; i.style.color="#ffffff"; }
-        }
-        function inputBlur(i){
-            if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
-        }
-</script>
 
-<!-- Advanced Search code. Toggles the addition input fields up and down -->
-<script> 
-function unhide(clickedButton, divID) {
-var item = document.getElementById(divID);
-if (item) {
-    if(item.className=='hidden'){
-        item.className = 'unhidden' ;
-        clickedButton.value = 'hide'
-    }else{
-        item.className = 'hidden';
-        clickedButton.value = 'unhide'
-    }
-}}
-</script>
 
 	<div id="main-container">
         
@@ -55,7 +32,7 @@ if (item) {
 
             <!-- Advanced Search link -->
             <a>
-            <p id="AdvButton" onclick="unhide(this, 'Advanced')">Advanced Search</p>
+            <p id="AdvButton" >Advanced Search</p>
             </a>
                              
     <div id="Advanced" class="hidden">
