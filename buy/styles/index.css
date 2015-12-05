@@ -71,12 +71,35 @@
     width: 50%;
 }
 
+#BathroomNum {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#BedroomNum {
+    background-color: #282830;
+    border-bottom: none;
+    width: 20%;
+}
+
+#Amenities {
+    background-color: #282830;
+    border-bottom: none;
+    width: 50%;
+}
+
+#MaleFemale {
+    background-color: #282830;
+    border-bottom: none;
+    width: 30%;
+}
+
 #EmailField {
     background-color: #282830;
     border-bottom: none;
-    width: 70%;
+    width: 50%;
 }
-
 
 #PhoneField1 {
     background-color: #282830;
