@@ -1,15 +1,30 @@
 <%inherit file="/dashboard/templates/index.html" />
 <%!from datetime import datetime %>
-
+    
 <%block name="content">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    
+<script>
+        function inputFocus(i){
+            if(i.value==i.defaultValue){ i.value=""; i.style.color="#ffffff"; }
+        }
+        function inputBlur(i){
+            if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
+        }
+</script>
+
 	<div id="main-container">
+        
+    <!-- <img src="${STATIC_URL}/buy/media/apt.jpeg" alt="Apartment" style="height:154px; width:230.5px"> -->
 	
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
-			
-		</div>
-
+            <h1>BUY</h1>
+                <form>
+                    <input id="NameField" type="text" value="First Name" name="firstname" title="First Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
+                    <input id="NameField" type="text" value="Last Name" name="lastname" title="Last Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
+                </form>
 		<footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts
         </footer>
