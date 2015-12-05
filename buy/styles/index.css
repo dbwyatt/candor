@@ -2,6 +2,21 @@
     text-align: left;
 }
 
+
+#PriceMin {
+    background-color: #282830;
+    border-bottom: none;
+    text-align: left;
+    width: 8%;
+}
+
+#PriceMax {
+    background-color: #282830;
+    border-bottom: none;
+    text-align: left;
+    width: 8%;
+}
+
 #Address {
     background-color: #282830;
     border-bottom: none;
@@ -21,18 +36,6 @@
 }
 
 #Zip {
-    background-color: #282830;
-    border-bottom: none;
-    width: 20%;
-}
-
-#PriceMin {
-    background-color: #282830;
-    border-bottom: none;
-    width: 20%;
-}
-
-#PriceMax {
     background-color: #282830;
     border-bottom: none;
     width: 20%;

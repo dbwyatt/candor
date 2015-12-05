@@ -12,6 +12,13 @@
             if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
         }
 </script>
+    
+<script> 
+    $(document).ready(function(){
+    $("button").click(function(){
+        $("p").slideToggle();
+    });
+</script>
 
 	<div id="main-container">
         
@@ -23,7 +30,7 @@
             <h1>Buy</h1>
                 <form>        
             <input id="PriceMin" type="text" value="$min" name="priceMin" title="PriceMin" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                    
+            -       
             <input id="PriceMax" type="text" value="$max" name="priceMax" title="PriceMax" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <br> 
@@ -34,6 +41,7 @@
             <input id="State" type="text" value="State" name="State" title="State" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
                     
             <input id="Zip" type="text" value="Zip" name="Zip" title="Zip" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
+            </form>
                     
 <!--                    
             <input id="FNameField" type="text" value="First Name" name="firstname" title="First Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
@@ -48,7 +56,6 @@
             <input id="PhoneField3" type="text" value="5555" name="phone" title="5555" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
 
 -->
-                </form>
             
 		<footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts
