@@ -11,12 +11,12 @@ $(function() {
     var active_tab = '.' + pathname[pathname.length - 2];
     $(".navbar-stacked " + active_tab).addClass('active');
 
-	$('#main-container').css('height', $(window).outerHeight() - $('.navbar').outerHeight());
-	$('.navbar-stacked').css('height', $(this).height() - 69);
+	$('#main-container').css('height', $(window).outerHeight() - $('.navbar').outerHeight()).css('padding-left', $('.navbar-stacked').width());
+	$('.navbar-stacked').css('height', $('#main-container').height());
 
 	$(window).on('resize', function() {
-		$('#main-container').css('height', $(window).outerHeight() - $('.navbar').outerHeight());
-		$('.navbar-stacked').css('height', $(this).height() - 69);
+		$('#main-container').css('height', $(window).outerHeight() - $('.navbar').outerHeight()).css('padding-left', $('.navbar-stacked').width());
+		$('.navbar-stacked').css('height', $('#main-container').height());
 	});
 
 	$('.toolbar-button').on('click', function(e) {
@@ -33,6 +33,7 @@ $(function() {
 
 	$('.navbar-stacked .toggle').on('click', function() {
 		$(this).parent().toggleClass('open');
+		$('#main-container').css('padding-left', $('.navbar-stacked').width());
 		var status = $(this).parent().hasClass('open') ? 'open' : '';
 		console.log(status);
 		$.ajax({

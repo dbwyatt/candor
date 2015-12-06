@@ -30,7 +30,12 @@ $(function() {
 	// }); //nav adjust on scroll
 
 
-	$('.tooltips').tooltipster();
+	// $('.tooltips').tooltipster();
+	$(document).tooltip({
+		selector: '.tooltips',
+		placement: 'right',
+		delay: {show: 2000, hide: 100}
+	});
 
 	/***************************************************
 	****************************************************
