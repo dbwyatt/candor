@@ -46,22 +46,18 @@ $(function() {
 	***************************************************/
 
 	/**** Handle the label animation ****/
-    if ( $('input, select, textarea').val() ) {
-        $('input, select, textarea').next().addClass('fixed');
-    }
-    
-	$('input, select, textarea').on('keyup mouseup change', function() {
-
-		if ( $(this).val() && !$(this).hasClass('fixed') ) {
-			$(this).next().addClass('fixed');
-		}
-		else {
-			$(this).next().removeClass('fixed');
-		}
-
-	});
+    validateInput2();
 
 	/**** Validation ****/
+
+
+	/***************************************************
+	****************************************************
+
+							Forms
+
+	****************************************************
+	***************************************************/
 
 
 }); //ready
@@ -77,4 +73,23 @@ function validateInput( $inputs ) {
 	});
 
 	return validated;
+}
+
+function validateInput2() {
+	$('input, select, textarea').each(function() {
+        if ($(this).val() != '') {
+        	$(this).next().addClass('fixed');
+        }
+    });
+
+    $('input, select, textarea').on('keyup mouseup change', function() {
+
+		if ( $(this).val() && !$(this).hasClass('fixed') ) {
+			$(this).next().addClass('fixed');
+		}
+		else {
+			$(this).next().removeClass('fixed');
+		}
+
+	});
 }

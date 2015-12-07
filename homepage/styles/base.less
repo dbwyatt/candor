@@ -177,6 +177,8 @@ a:focus .name {
 *****************************************************************/
 .input-container {
 	position: relative;
+	margin: 0 5px;
+	padding: 0 !important;
 
 	.radio {
 		margin-top: 20px;
@@ -188,8 +190,17 @@ a:focus .name {
 	&.right {
 		float: right;
 	}
+	&.col-6 {
+		width: 47%;
+	}
+	&.col-4 {
+		width: 30%;
+	}
+	&.col-3 {
+		width: 23%;
+	}
 	&.col-2 {
-		width: 48%;
+		width: 15%;
 	}
 }
 
@@ -210,7 +221,7 @@ a:focus .name {
 	}
 }
 
-input:not([type='radio']), select, textarea {
+input:not([type='radio']):not([type='submit']), select, textarea {
 	display: inline-block;
 	background-color: transparent;
 	color: white;
@@ -227,7 +238,7 @@ input:not([type='radio']), select, textarea {
 		border-bottom: solid 2px red;
 
 		& + .label-float {
-			color: red;
+			color: red !important;
 		}
 	}
 
@@ -237,6 +248,12 @@ input:not([type='radio']), select, textarea {
 		color: #263E56;
 		font-weight: bold;
 	}
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 select {
@@ -348,6 +365,23 @@ input[type='checkbox'] {
 			border-radius: 2px;
 		}
 		
+	}
+}
+
+
+
+
+/*****************************************************************
+******************************************************************
+							
+							Forms
+
+******************************************************************
+*****************************************************************/
+form {
+
+	.errorlist {
+		display: none;
 	}
 }
 

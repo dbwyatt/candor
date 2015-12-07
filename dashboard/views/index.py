@@ -24,9 +24,7 @@ def process_request(request):
 
 @view_function
 def menu_status(request):
-	print(request.urlparams)
 	request.session['user']['menu_status'] = request.urlparams[0]
 	request.session.modified = True
-	print(request.session['user'])
 
 	return HttpResponse(True)

@@ -1,0 +1,84 @@
+#action-container {
+    text-align: left;
+    position: relative;
+}
+
+#map-holder {
+	display: inline-block;
+	height: 400px;
+	margin-top: 1rem;
+}
+
+#map {
+	height: 100%;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    float: left;
+    margin-right: 5%;
+}
+
+#search-container {
+	padding: 20px 60px;
+	background-color: rgba(40, 40, 48, .8);
+	position: relative;
+	text-align: center;
+
+	form {
+		position: relative;
+		margin: 0 auto;
+		text-align: left;
+		overflow: hidden;
+
+		#Basic {
+			overflow: hidden;
+		}
+
+		p {
+
+			a {
+				color: white;
+			    text-align: right;
+			    cursor: pointer;
+			    margin-top: 25px;
+			    padding: 5px;
+			    border-radius: 3px;
+			    transition: background-color .2s;
+			    display: inline-block;
+
+			    &:hover {
+					background-color: #1fb2f1;
+					text-decoration: none;
+					color: white;
+			    }
+			}
+		}
+
+		#Advanced {
+		    display: none;
+		    overflow: hidden;
+		}
+
+		.btn {
+			margin-top: 15px;
+		}
+		@media screen and (min-width: 768px) {
+			.btn {
+				margin-left: 10px;
+			}
+		}
+
+		input, select, textarea {
+			
+			&:focus + .label-float {
+				color: white;
+			}
+		}
+		
+		.label-float.fixed {
+			color: white;
+		}
+	}
+}

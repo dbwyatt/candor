@@ -9,6 +9,12 @@ $(function() {
         }
     });
 
+    validateInput2();
+
+    if ($('#Advanced').find('.fixed').length > 0) {
+        $('#Advanced').show();
+    }
+
     $('#search-form .btn').on('click', function() {
         $(this).text('Searching...');
     });
@@ -29,7 +35,7 @@ $(function() {
             // });
         }
         else {
-            console.log('else 1');
+            console.log('else');
             $('#search-form').empty();
             $('#search-form').append(data);
             $('.errorlist').each(function() {
@@ -48,7 +54,5 @@ $(function() {
             $(this).val('').removeClass('error').next().removeClass('fixed');
         });
     });
-
-
     
 }); //ready

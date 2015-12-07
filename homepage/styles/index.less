@@ -121,10 +121,6 @@
 				margin-left: 20px;
 				margin-right: 20px;
 			}
-
-			.errorlist {
-				display: none;
-			}
 		}
 
 		.space {
@@ -363,95 +359,91 @@
 	}
 
 	#contact-form {
-			display: inline-block;
-			vertical-align: middle;
+		display: inline-block;
+		vertical-align: middle;
+		text-align: left;
+		max-width: 485px;
+		position: relative;
+		float: right;
+
+		label {
+			display: none;
+		}
+		label:first-child {
+			display: block;
 			text-align: left;
-			max-width: 485px;
-			position: relative;
-			float: right;
+			font-size: 21px;
+		}
 
-			label {
-				display: none;
-			}
-			label:first-child {
-				display: block;
-				text-align: left;
-				font-size: 21px;
-			}
+		::-webkit-input-placeholder {
+			color: white;
+		}
 
-			::-webkit-input-placeholder {
-				color: white;
-			}
+		::-moz-placeholder { /* Firefox 19+ */ 
+			color: white;
+		} 
+		:-ms-input-placeholder { 
+			color: white;
+		}
 
-			::-moz-placeholder { /* Firefox 19+ */ 
-				color: white;
-			} 
-			:-ms-input-placeholder { 
-				color: white;
-			}
+		input[type="text"], input[type="email"], textarea {
+			height: 40px;
+			border: none;
+			box-shadow: inset 0px 0px 0px 1px lightgrey;
+			padding: 0 10px;
+			background-color: rgba(0,0,0, .4);
+			color: white;
 
-			input[type="text"], input[type="email"], textarea {
-				height: 40px;
+			&.required {
 				border: none;
-				box-shadow: inset 0px 0px 0px 1px lightgrey;
-				padding: 0 10px;
-				background-color: rgba(0,0,0, .4);
-				color: white;
-
-				&.required {
-					border: none;
-					box-shadow: inset 0px 0px 0px 2px red;
-				}
-			}
-
-			input[type="text"], input[type="email"] {
-				width: 49%;
-			}
-			input#name {
-				float: left;
-			}
-			input#contact-email {
-				float: right;
-			}
-			textarea {
-				width: 100%;
-				min-height: 150px;
-				padding: 10px 10px;
-			}
-
-			#subject {
-				display: block;
-				width: 100%;
-				margin: 10px 0;
-				clear: both;
-				float: left;
-			}
-
-			sup {
-				font-size: 12px;
-				font-weight: bold;
-			}
-
-			.btn {
-				display: block;
-				margin: 0 auto;
-			}
-
-			.success {
-				color: lighten(rgb(7, 23, 39), 20%);
-				display: inline-block;
-				font-weight: bold;
-				position: absolute;
-				bottom: 25%;
-				left: 0;
-				margin-left: 20px;
-				margin-right: 20px;
-			}
-
-			.errorlist {
-				display: none;
+				box-shadow: inset 0px 0px 0px 2px red;
 			}
 		}
+
+		input[type="text"], input[type="email"] {
+			width: 49%;
+		}
+		input#name {
+			float: left;
+		}
+		input#contact-email {
+			float: right;
+		}
+		textarea {
+			width: 100%;
+			min-height: 150px;
+			padding: 10px 10px;
+		}
+
+		#subject {
+			display: block;
+			width: 100%;
+			margin: 10px 0;
+			clear: both;
+			float: left;
+		}
+
+		sup {
+			font-size: 12px;
+			font-weight: bold;
+		}
+
+		.btn {
+			display: block;
+			margin: 0 auto;
+		}
+
+		.success {
+			color: lighten(rgb(7, 23, 39), 20%);
+			display: inline-block;
+			font-weight: bold;
+			position: absolute;
+			bottom: 25%;
+			left: 0;
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+	}
 }
 
 .page-panel {
