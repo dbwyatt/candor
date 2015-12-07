@@ -26,15 +26,13 @@ def process_request(request):
 
     if request.method == 'POST':
         form = PostForm(request, request.POST)
-        print(request.POST)
         if form.is_valid():
-            avail_date = [int(num) for num in str(form.cleaned_data['availability']).split('-')]
-            print("i'm processing the form!2!")
-            full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + str(form.cleaned_data['zip'])
-            search_address = full_address.replace(' ', '+')
-            geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + full_address)
+            full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip'])
+            search_address = form.cleaned_data['address1'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip']).replace(' ', '+')
+            geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + search_address)
             parsed_geo = geo_address.json()
             print(parsed_geo)
+            print(form.cleaned_data['amenities'])
 
             apartment = smod.Apartment.objects.create(
                 complex=form.cleaned_data['complex'],
@@ -58,21 +56,33 @@ def process_request(request):
                 deposit=float(form.cleaned_data['deposit']) if form.cleaned_data['deposit'] else 0,
                 bounty=float(form.cleaned_data['bounty']) if form.cleaned_data['bounty'] else 0,
                 contracts=int(form.cleaned_data['contracts']),
-                availability=datetime(avail_date[0], avail_date[1], avail_date[2]),
+                availability=form.cleaned_data['availability'],
                 leaving=form.cleaned_data['leaving'],
-                video=None,  # Implement
             )
 
-            for x in range(3):
+            if request.FILES.get('image'):
+                print('We found an image.')
                 picture = smod.Picture.objects.create(
-                    post = post,
-                    picture = "1",
+                    post=post,
+                    picture=save_and_return_uploaded_image(request.FILES['image'], request.session['user']['id']),
+                )
+            if request.FILES.get('image2'):
+                picture = smod.Picture.objects.create(
+                    post=post,
+                    picture=save_and_return_uploaded_image(request.FILES['image2'], request.session['user']['id']),
+                )
+            if request.FILES.get('image3'):
+                picture = smod.Picture.objects.create(
+                    post=post,
+                    picture=save_and_return_uploaded_image(request.FILES['image3'], request.session['user']['id']),
                 )
 
+            # TODO: Implement videos.
+
             # Add Amenities to post. TODO: Update this to work with form.cleaned_data.
-            for key in form.cleaned_data['amenities']:
-                if key.split()[0] == 'Amenity':
-                    post.amenity.add(smod.Amenity.objects.filter(id=key.split()[1]).first())
+            if form.cleaned_data['amenities']:
+                for amenity in form.cleaned_data['amenities']:
+                    post.amenity.add(smod.Amenity.objects.filter(amenity))
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
             return HttpResponseRedirect('/dashboard/')
@@ -80,6 +90,15 @@ def process_request(request):
     params['form'] = form
 
     return templater.render_to_response(request, 'post.html', params)
+
+
+# FIXME: Not sure this is the right place for this method.
+def save_and_return_uploaded_image(img, user_id):
+    file_name = datetime.now().strftime('%Y-%m-%d-%H-%M-%S_') + str(user_id) + '_' + str(img)
+    with open('post_images/' + file_name, 'wb+') as destination:
+        for chunk in img.chunks():
+            destination.write(chunk)
+    return file_name
 
 
 class PostForm(forms.Form):
@@ -96,12 +115,16 @@ class PostForm(forms.Form):
     bounty = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'name': 'bounty', 'id': 'bounty'}))
     housing_type = forms.ChoiceField(required=False, choices=(('apartment', 'Apartment'), ('house', 'House/Condo/Duplex')), widget=forms.RadioSelect(attrs={'name': 'housing-type', 'id': 'housing-type'}))
     single_or_married = forms.ChoiceField(required=False, choices=(('single', 'Single'), ('married', 'Married')), widget=forms.RadioSelect(attrs={'name': 'single-or-married', 'id': 'single-or-married'}))
+    male_or_female = forms.ChoiceField(required=False, choices=(('male', 'Male'), ('female', 'Female')), widget=forms.RadioSelect(attrs={'name': 'male-or-female', 'id': 'male-or-female'}))
     bed_type = forms.ChoiceField(required=False, choices=(('private', 'Private'), ('shared', 'Shared')), widget=forms.RadioSelect(attrs={'name': 'bed-type', 'id': 'bed-type'}))
     bed_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bed-number', 'id': 'bed-number'}))
     bath_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bath-number', 'id': 'bath-number'}))
     contracts = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'contracts', 'id': 'contracts'}))
-    availability = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'name': 'availability', 'id': 'availability'}))
     leaving = forms.CharField(widget=forms.Textarea(attrs={'name': 'leaving', 'id': 'leaving'}))
+    availability = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'name': 'availability', 'id': 'availability'}))
+    image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image', 'id': 'image'}))
+    image2 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image2', 'id': 'image2'}))
+    image3 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image3', 'id': 'image3'}))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -119,7 +142,7 @@ class PostForm(forms.Form):
          ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
          ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')), widget=forms.Select(attrs={'name': 'state', 'id': 'state'}))
 
-        self.fields['amenities'] = forms.ChoiceField(required=False, choices=[[amenity.id, amenity.amenity] for amenity in smod.Amenity.objects.all()], widget=forms.CheckboxSelectMultiple(attrs={'name': 'amenity', 'id': 'amenity'}))
+        self.fields['amenities'] = forms.ChoiceField(required=False, choices=[(amenity.id, amenity.amenity) for amenity in smod.Amenity.objects.all()], widget=forms.CheckboxSelectMultiple(attrs={'name': 'amenity', 'id': 'amenity'}))
 
     def clean_title(self):
         if len(self.cleaned_data['title']) < 3:
