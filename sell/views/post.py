@@ -31,8 +31,6 @@ def process_request(request):
             search_address = form.cleaned_data['address1'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip']).replace(' ', '+')
             geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + search_address)
             parsed_geo = geo_address.json()
-            print(parsed_geo)
-            print(form.cleaned_data['amenities'])
 
             apartment = smod.Apartment.objects.create(
                 complex=form.cleaned_data['complex'],
@@ -43,8 +41,8 @@ def process_request(request):
                 single_or_married=form.cleaned_data.get('single-or-married', 'Single'),
                 bed_number=form.cleaned_data['bed_number'],
                 bed_type=form.cleaned_data.get('bed_type', 'Private'),
-                bath_number=float(form.cleaned_data['bath_number']),
-                utilities=float(form.cleaned_data['utilities']) if form.cleaned_data['utilities'] else 0
+                bath_number=form.cleaned_data['bath_number'],
+                utilities=form.cleaned_data['utilities'] if form.cleaned_data['utilities'] else 0
             )
 
             post = smod.Post.objects.create(
@@ -52,16 +50,15 @@ def process_request(request):
                 apartment=apartment,
                 title=form.cleaned_data['title'],
                 description=form.cleaned_data['description'],
-                price=float(form.cleaned_data['price']),
-                deposit=float(form.cleaned_data['deposit']) if form.cleaned_data['deposit'] else 0,
-                bounty=float(form.cleaned_data['bounty']) if form.cleaned_data['bounty'] else 0,
-                contracts=int(form.cleaned_data['contracts']),
+                price=form.cleaned_data['price'],
+                deposit=form.cleaned_data['deposit'] if form.cleaned_data['deposit'] else 0,
+                bounty=form.cleaned_data['bounty'] if form.cleaned_data['bounty'] else 0,
+                contracts=form.cleaned_data['contracts'],
                 availability=form.cleaned_data['availability'],
                 leaving=form.cleaned_data['leaving'],
             )
 
             if request.FILES.get('image'):
-                print('We found an image.')
                 picture = smod.Picture.objects.create(
                     post=post,
                     picture=save_and_return_uploaded_image(request.FILES['image'], request.session['user']['id']),
@@ -79,10 +76,9 @@ def process_request(request):
 
             # TODO: Implement videos.
 
-            # Add Amenities to post. TODO: Update this to work with form.cleaned_data.
             if form.cleaned_data['amenities']:
-                for amenity in form.cleaned_data['amenities']:
-                    post.amenity.add(smod.Amenity.objects.filter(amenity))
+                for amen in form.cleaned_data['amenities']:
+                    post.amenity.add(smod.Amenity.objects.filter(id=amen).first())
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
             return HttpResponseRedirect('/dashboard/')
@@ -142,7 +138,7 @@ class PostForm(forms.Form):
          ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
          ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')), widget=forms.Select(attrs={'name': 'state', 'id': 'state'}))
 
-        self.fields['amenities'] = forms.ChoiceField(required=False, choices=[(amenity.id, amenity.amenity) for amenity in smod.Amenity.objects.all()], widget=forms.CheckboxSelectMultiple(attrs={'name': 'amenity', 'id': 'amenity'}))
+        self.fields['amenities'] = forms.MultipleChoiceField(required=False, choices=[(amenity.id, amenity.amenity) for amenity in smod.Amenity.objects.all()], widget=forms.CheckboxSelectMultiple(attrs={'name': 'amenity', 'id': 'amenity'}))
 
     def clean_title(self):
         if len(self.cleaned_data['title']) < 3:
