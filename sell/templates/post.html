@@ -97,9 +97,12 @@
 			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >
 
+        ${ form.non_field_errors }
+
         <div class="post-input current" data-block="title" data-next="complex">
           <label class="question">What is the title of this post?</label>
           <div class="input-container">
+            ${ form['title'].errors }
             ${ form['title'] }
             <span class="label-float">Title</span>
           </div>
@@ -108,6 +111,7 @@
         <div class="post-input" data-block="complex" data-next="address">
           <label class="question">What is the apartment complex?</label>
           <div class="input-container">
+            ${ form['complex'].errors }
             ${ form['complex'] }
             <span class="label-float">Complex</span>
           </div>
@@ -122,17 +126,21 @@
             <span class="label-float">Address 1</span>
           </div>
           <div class="input-container">
+            ${ form['address2'].errors }
             ${ form['address2'] }
             <span class="label-float">Address 2 <sup>(optional)</sup></span>
           </div>
           <div class="input-container">
+            ${ form['city'].errors }
             ${ form['city'] }
             <span class="label-float">City</span>
           </div>
           <div class="input-container left col-2">
+            ${ form['state'].errors }
             ${ form['state'] }
           </div>
           <div class="input-container right col-2">
+            ${ form['zip'].errors }
             ${ form['zip'] }
             <span class="label-float">Zip Code</span>
           </div>
@@ -141,6 +149,7 @@
         <div class="post-input" data-block="description" data-next="price">
           <label class="question">What do you want people to know about your apartment? Be descriptive.</label>
           <div class="input-container">
+            ${ form['description'].errors }
             ${ form['description'] }
             <span class="label-float">Description</span>
           </div>
@@ -149,6 +158,7 @@
         <div class="post-input" data-block="price" data-next="costs">
           <label class="question">What is the price going to be?</label>
           <div class="input-container">
+            ${ form['price'].errors }
             ${ form['price'] }
             <span class="label-float">Price</span>
           </div>
@@ -157,10 +167,12 @@
         <div class="post-input" data-block="costs" data-next="bounty">
           <label class="question">Are there utilites to pay or a deposit?</label>
           <div class="input-container">
+            ${ form['utilities'].errors }
             ${ form['utilities'] }
             <span class="label-float">Cost of Utilities</span>
           </div>
           <div class="input-container">
+            ${ form['deposit'].errors }
             ${ form['deposit'] }
             <span class="label-float">Cost of Deposit</span>
           </div>
@@ -169,6 +181,7 @@
         <div class="post-input" data-block="bounty" data-next="housing">
           <label class="question">Are you including a bounty?</label>
           <div class="input-container">
+            ${ form['bounty'].errors }
             ${ form['bounty'] }
             <span class="label-float">Bounty</span>
           </div>
@@ -178,16 +191,20 @@
           <label class="question">What type of housing is this?</label>
 
           <div class="input-container radio">
+            ${ form['housing_type'].errors }
             ${ form['housing_type'] }
             <br><br>
+            ${ form['single_or_married'].errors }
             ${ form['single_or_married'] }
             <br><br>
+            ${ form['male_or_female'].errors }
             ${ form['male_or_female'] }
           </div>
 
           <label class="question">What is the bedroom type?</label>
 
           <div class="input-container radio">
+            ${ form['bed_type'].errors }
             ${ form['bed_type'] }
           </div>
         </div>
@@ -195,11 +212,13 @@
         <div class="post-input" data-block="numbers" data-next="amenities">
           <label class="question">How many bedrooms are there?</label>
           <div class="input-container">
+            ${ form['bed_number'].errors }
             ${ form['bed_number'] }
             <span class="label-float">Number of bedrooms</span>
           </div>
           <label class="question">How about bathrooms?</label>
           <div class="input-container">
+            ${ form['bath_number'].errors }
             ${ form['bath_number'] }
             <span class="label-float">Number of bathrooms</span>
           </div>
@@ -207,12 +226,14 @@
 
         <div class="post-input" data-block="amenities" data-next="contracts">
           <label class="question">Check all the cool things your apartment has</label>
+          ${ form['amenities'].errors }
           ${ form['amenities'] }
         </div>
 
         <div class="post-input" data-block="contracts" data-next="leaving">
           <label class="question">How many contracts are you selling?</label>
           <div class="input-container">
+            ${ form['contracts'].errors }
             ${ form['contracts'] }
             <span class="label-float">Number of contracts</span>
           </div>
@@ -221,6 +242,7 @@
         <div class="post-input" data-block="leaving" data-next="availability">
           <label class="question">Why are you leaving your contract?</label>
           <div class="input-container">
+            ${ form['leaving'].errors }
             ${ form['leaving'] }
             <span class="label-flaot">Reason for leaving</span>
           </div>
@@ -229,6 +251,7 @@
         <div class="post-input" data-block="availability" data-next="images">
           <label class="question">When will your unit be available?</label>
           <div class="input-container">
+            ${ form['availability'].errors }
             ${ form['availability'] }
             <span class="label-flaot">Availability</span>
           </div>
@@ -237,8 +260,11 @@
         <div class="post-input" data-block="images">
           <label class="question">Do you have some pictures?</label>
           <div class="input-container">
+            ${ form['image'].errors }
             ${ form['image'] }
+            ${ form['image2'].errors }
             ${ form['image2'] }
+            ${ form['image3'].errors }
             ${ form['image3'] }
           </div>
         </div>
