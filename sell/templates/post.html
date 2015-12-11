@@ -97,8 +97,6 @@
 			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >
 
-        ${ form.non_field_errors }
-
         <div class="post-input current" data-block="title" data-next="complex">
           <label class="question">What is the title of this post?</label>
           <div class="input-container">
@@ -197,6 +195,7 @@
             ${ form['single_or_married'].errors }
             ${ form['single_or_married'] }
             <br><br>
+            <!-- TODO: Gray this out if 'married is selected.' -->
             ${ form['male_or_female'].errors }
             ${ form['male_or_female'] }
           </div>
@@ -204,6 +203,7 @@
           <label class="question">What is the bedroom type?</label>
 
           <div class="input-container radio">
+            <!-- TODO: Gray this out if 'married is selected.' -->
             ${ form['bed_type'].errors }
             ${ form['bed_type'] }
           </div>
@@ -266,11 +266,13 @@
             ${ form['image2'] }
             ${ form['image3'].errors }
             ${ form['image3'] }
+
+            <input type="submit" value="Post" />
+            <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
           </div>
         </div>
 
-        <input type="submit" value="Post" />
-        <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+
 			</form>
 		</div>
 

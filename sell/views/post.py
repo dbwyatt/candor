@@ -37,10 +37,11 @@ def process_request(request):
                 address=full_address,
                 latitude=parsed_geo['results'][0]['geometry']['location']['lat'] if len(parsed_geo['results']) > 0 else 0,
                 longtitude=parsed_geo['results'][0]['geometry']['location']['lng'] if len(parsed_geo['results']) > 0 else 0,
-                housing_type=form.cleaned_data.get('housing-type', 'Apartment'),
-                single_or_married=form.cleaned_data.get('single-or-married', 'Single'),
+                housing_type=form.cleaned_data['housing_type'],
+                single_or_married=form.cleaned_data['single_or_married'],
+                male_or_female=form.cleaned_data['male_or_female'],
                 bed_number=form.cleaned_data['bed_number'],
-                bed_type=form.cleaned_data.get('bed_type', 'Private'),
+                bed_type=form.cleaned_data['bed_type'],
                 bath_number=form.cleaned_data['bath_number'],
                 utilities=form.cleaned_data['utilities'] if form.cleaned_data['utilities'] else 0
             )
@@ -109,10 +110,10 @@ class PostForm(forms.Form):
     utilities = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'name': 'utilities', 'id': 'utilities', 'class': 'empty'}))
     deposit = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'name': 'deposit', 'id': 'deposit', 'class': 'empty'}))
     bounty = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'name': 'bounty', 'id': 'bounty', 'class': 'empty'}))
-    housing_type = forms.ChoiceField(required=False, choices=(('apartment', 'Apartment'), ('house', 'House/Condo/Duplex')), widget=forms.RadioSelect(attrs={'name': 'housing-type', 'id': 'housing-type'}))
-    single_or_married = forms.ChoiceField(required=False, choices=(('single', 'Single'), ('married', 'Married')), widget=forms.RadioSelect(attrs={'name': 'single-or-married', 'id': 'single-or-married'}))
-    male_or_female = forms.ChoiceField(required=False, choices=(('male', 'Male'), ('female', 'Female')), widget=forms.RadioSelect(attrs={'name': 'male-or-female', 'id': 'male-or-female'}))
-    bed_type = forms.ChoiceField(required=False, choices=(('private', 'Private'), ('shared', 'Shared')), widget=forms.RadioSelect(attrs={'name': 'bed-type', 'id': 'bed-type'}))
+    housing_type = forms.ChoiceField(choices=(('apartment', 'Apartment'), ('house', 'House/Condo/Duplex')), widget=forms.RadioSelect(attrs={'name': 'housing-type', 'id': 'housing-type'}))
+    single_or_married = forms.ChoiceField(choices=(('single', 'Single'), ('married', 'Married')), widget=forms.RadioSelect(attrs={'name': 'single-or-married', 'id': 'single-or-married'}))
+    male_or_female = forms.ChoiceField(choices=(('male', 'Male'), ('female', 'Female')), widget=forms.RadioSelect(attrs={'name': 'male-or-female', 'id': 'male-or-female'}))
+    bed_type = forms.ChoiceField(choices=(('private', 'Private'), ('shared', 'Shared')), widget=forms.RadioSelect(attrs={'name': 'bed-type', 'id': 'bed-type'}))
     bed_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bed-number', 'id': 'bed-number'}))
     bath_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bath-number', 'id': 'bath-number'}))
     contracts = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'contracts', 'id': 'contracts'}))
