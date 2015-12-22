@@ -22,11 +22,14 @@ templater = get_renderer('sell')
 def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
-    form = PostForm(request, smod.Post.objects.filter(id=request.urlparams[0]))
 
-    # FIXME: This isn't secure. I believe a user could manually change the post number in the URL and edit any post they want.
-    # Need to add some code checking that the post_id belongs to the current user. If it doesn't, reroute.
-    params['post'] = smod.Post.objects.get(id=request.urlparams[0])
+    post = smod.Post.objects.filter(id=request.urlparams[0]).first()
+
+    if request.session['user']['id'] != post.owner_id:
+        # TODO: Notify the user that they tried to edit a post they didn't own.
+        return HttpResponseRedirect('/sell/edit/')
+
+    form = PostForm(request, post)
 
     # if request.method == 'POST':
         # Update post.
