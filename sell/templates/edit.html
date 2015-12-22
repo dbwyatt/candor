@@ -95,12 +95,15 @@
 
 		<div id="action-container">
       <ul>
-        <!-- TODO: Pass id of clicked contract to probably a 'edit_post' action. -->
-        %for post in posts:
-          <!-- FIXME: Remove the style below. It's just a temporary fix. -->
-          <% url = "/sell/edit_post/{}".format(post.id) %>
-          <li><a href=${ url } style="color:black">${ post.title }</a></li>
-        %endfor
+        %if len(posts) == 0:
+          <p>You don't have any posts right now.</p>
+        %else:
+          %for post in posts:
+            <!-- FIXME: Remove the style below. It's just a temporary fix. -->
+            <% url = "/sell/edit_post/{}".format(post.id) %>
+            <li><a href=${ url } style="color:black">${ post.title }</a>&nbspStatus: ${ post.status }</li>
+          %endfor
+        %endif
       </ul>
 		</div>
 
