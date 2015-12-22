@@ -34,3 +34,6 @@ class Apartment(models.Model):
     number_of_single_bed = models.IntegerField(blank=False, null=False, default=1)
     bath_number = models.DecimalField(blank=False, null=False, decimal_places=1, max_digits=3)
     utilities = models.DecimalField(blank=False, null=False, decimal_places=2, max_digits=6)
+    coordinatesLng = models.DecimalField(blank=False, null=False, decimal_places=7, max_digits=10, default=0)
+    coordinatesLat = models.DecimalField(blank=False, null=False, decimal_places=7, max_digits=10, default=0)
+

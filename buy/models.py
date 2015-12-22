@@ -1,6 +1,7 @@
 from django.db import models
 from homepage import models as hmod
 from datetime import datetime
+import requests
 
 
 # Define models here
@@ -22,6 +23,8 @@ class SearchEntry(models.Model):
             SearchEntry.objects.filter(user=user).order_by('date')[100].delete()
 
         return history_slice
+
+
 
 
 
