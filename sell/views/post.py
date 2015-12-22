@@ -58,7 +58,10 @@ def process_request(request):
                 contracts=form.cleaned_data['contracts'],
                 availability=form.cleaned_data['availability'],
                 leaving=form.cleaned_data['leaving'],
+                status='active'
             )
+
+            # TODO: Add Facebook link.
 
             if request.FILES.get('image'):
                 picture = smod.Picture.objects.create(
