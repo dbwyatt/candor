@@ -19,11 +19,14 @@ $(function() {
 		if ( validate ) {
 			var $next = $('[data-block="' + $('.current').attr('data-next') + '"]' );
 			if ( $next.length ) {
-				$current.hide('slide', {direction:'up'}, function() {
+				// $current.hide('slide', {direction:'up'}, function() {
 					$next.show('slide', {direction:'up'});
 					$current.removeClass('current');
 					$next.addClass('current');
-				});
+					$('#main-container').animate({
+					   scrollTop: $current.offset().top
+					}, 1000);
+				// });
 			}
 		}
 	});
