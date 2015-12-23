@@ -20,14 +20,19 @@ class Post(models.Model):
 
 class Apartment(models.Model):
     complex = models.TextField(blank=False, null=False)
-    address = models.TextField(blank=False, null=False)
+    full_address = models.TextField(blank=False, null=False)
+    address1 = models.TextField(blank=False, null=False)
+    address2 = models.TextField(blank=False, null=False)
+    city = models.TextField(blank=False, null=False)
+    state = models.TextField(blank=False, null=False)
+    zip = models.IntegerField(blank=False, null=False)
     latitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
     longtitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
-    housing_type = models.TextField(blank=False, null=False, default='Apartment')
-    single_or_married = models.TextField(blank=False, null=False, default='Single')
+    housing_type = models.TextField(blank=False, null=False)
+    single_or_married = models.TextField(blank=False, null=False)
     male_or_female = models.TextField(blank=False, null=False)
     bed_number = models.IntegerField(blank=False, null=False)
-    bed_type = models.TextField(blank=False, null=False, default='Private')
+    bed_type = models.TextField(blank=False, null=False)
     bath_number = models.DecimalField(blank=False, null=False, decimal_places=1, max_digits=3)
     utilities = models.DecimalField(blank=False, null=False, decimal_places=2, max_digits=6)
 

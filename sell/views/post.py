@@ -35,7 +35,12 @@ def process_request(request):
 
             apartment = smod.Apartment.objects.create(
                 complex=form.cleaned_data['complex'],
-                address=full_address,
+                full_address=full_address,
+                address1=form.cleaned_data['address1'],
+                address2=form.cleaned_data['address2'],
+                city=form.cleaned_data['city'],
+                state=form.cleaned_data['state'],
+                zip=form.cleaned_data['zip'],
                 latitude=parsed_geo['results'][0]['geometry']['location']['lat'] if len(parsed_geo['results']) > 0 else 0,
                 longtitude=parsed_geo['results'][0]['geometry']['location']['lng'] if len(parsed_geo['results']) > 0 else 0,
                 housing_type=form.cleaned_data['housing_type'],
