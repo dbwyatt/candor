@@ -10,11 +10,11 @@ body {
 
 .navbar-stacked {
 	background-color: #263E56;
-	height: 90%;
+	height: 100%;
 	display: inline-block;
 	text-align: left;
-	position: relative;
-	float: left;
+	position: fixed;
+	left: 0;
 	z-index: 5;
 	box-shadow: 0px 0px 10px 0px;
 	// transition: .3s;
@@ -29,7 +29,7 @@ body {
 	@transition: .3s;
 	.toggle {
 		position: absolute;
-		top: 10px;
+		top: 5px;
 		left: 0;
 		padding: @button-size/2 @button-size/2;
 		background-color: inherit;
@@ -216,11 +216,11 @@ body {
 	text-align: center;
 	margin-top: 69px;
 	overflow-y: auto;
+	transition: padding-left .3s;
 }
 
 #action-container {
 	display: inline-block;
-	height: 200px;
 	padding: 15px;
 	color: white;
     

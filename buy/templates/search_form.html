@@ -1,0 +1,123 @@
+<%inherit file="base_ajax.htm" />
+    
+<%block name="content">
+    <div id="Basic">    
+        <div class="input-container col-xs-12 col-sm-2 col-md-2">
+            ${ form['min_price'].errors }
+            ${ form['min_price'] }
+            <span for="${ form['min_price'].id_for_label }" class="label-float">${ form['min_price'].label }</span>
+        </div>
+        <div class="input-container col-xs-12 col-sm-2 col-md-2">
+            ${ form['max_price'].errors }
+            ${ form['max_price'] }
+            <span for="${ form['max_price'].id_for_label }" class="label-float">${ form['max_price'].label }</span>
+        </div>
+        <div class="input-container col-xs-12 col-sm-5 col-md-4">
+            ${ form['location'].errors }
+            ${ form['location'] }
+            <span for="${ form['location'].id_for_label }" class="label-float">${ form['location'].label }</span>
+        </div>
+        <button type="submit" class="btn btn-primary col-xs-12 col-sm-2 col-md-2">Search</button>
+    </div>
+
+    <p>
+        <a id="AdvButton">Advanced Search</a>
+        <a class="clear">Clear search</a>
+    </p>
+
+    <div id="Advanced">
+        <div class="input-container left">
+            ${ form['bath_number'].errors }
+            ${ form['bath_number'] }
+            <span for="${ form['bath_number'].id_for_label }" class="label-float">${ form['bath_number'].label }</span>
+        </div>
+        <div class="input-container left">
+            ${ form['bed_number'].errors }
+            ${ form['bed_number'] }
+            <span for="${ form['bed_number'].id_for_label }" class="label-float">${ form['bed_number'].label }</span>
+        </div>
+        <div class="input-container left">
+            ${ form['amenities'].errors }
+            ${ form['amenities'] }
+            <span for="${ form['amenities'].id_for_label }" class="label-float">${ form['amenities'].label }</span>
+        </div>
+        <div class="input-container left">
+            ${ form['gender'].errors }
+            ${ form['gender'] }
+            <span for="${ form['gender'].id_for_label }" class="label-float">${ form['gender'].label }</span>
+        </div>
+        <div class="input-container left">
+            ${ form['friend_email'].errors }
+            ${ form['friend_email'] }
+            <span for="${ form['friend_email'].id_for_label }" class="label-float">${ form['friend_email'].label }</span>
+        </div>
+    </div>
+    <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+
+    <script>
+        // This example adds a search box to a map, using the Google Place Autocomplete
+        // feature. People can enter geographical searches. The search box will return a
+        // pick list containing a mix of places and predicted search terms.
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: new google.maps.LatLng(39, -95),
+            zoom: 4,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+
+          // Create the search box and link it to the UI element.
+          var input = document.getElementById('location');
+          var searchBox = new google.maps.places.SearchBox(input);
+          // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+          // Bias the SearchBox results towards current map's viewport.
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+
+          var markers = [];
+          // Listen for the event fired when the user selects a prediction and retrieve
+          // more details for that place.
+          searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+              return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+              marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+              var icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25)
+              };
+
+              // Create a marker for each place.
+              markers.push(new google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location
+              }));
+
+              if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+              } else {
+                bounds.extend(place.geometry.location);
+              }
+            });
+            map.fitBounds(bounds);
+          });
+    </script>
+</%block>

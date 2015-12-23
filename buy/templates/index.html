@@ -4,28 +4,7 @@
 <%block name="content">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     
-<script>
-        function inputFocus(i){
-            if(i.value==i.defaultValue){ i.value=""; i.style.color="#ffffff"; }
-        }
-        function inputBlur(i){
-            if(i.value==""){ i.value=i.defaultValue; i.style.color="#ffffff"; }
-        }
-</script>
-    
-<script> 
-function unhide(clickedButton, divID) {
-var item = document.getElementById(divID);
-if (item) {
-    if(item.className=='hidden'){
-        item.className = 'unhidden' ;
-        clickedButton.value = 'hide'
-    }else{
-        item.className = 'hidden';
-        clickedButton.value = 'unhide'
-    }
-}}
-</script>
+
 
 	<div id="main-container">
         
@@ -33,43 +12,138 @@ if (item) {
 	
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
-		<div id="action-container">
-            <h1>Buy</h1>
-                <form>        
-            <input id="PriceMin" type="text" value="$min" name="priceMin" title="PriceMin" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            -       
-            <input id="PriceMax" type="text" value="$max" name="priceMax" title="PriceMax" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                    
-            <br> 
-            <input id="Address" type="text" value="Address" name="address" title="Address" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                    
-            <input id="City" type="text" value="City" name="city" title="city" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                    
-            <input id="State" type="text" value="State" name="State" title="State" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                    
-            <input id="Zip" type="text" value="Zip" name="Zip" title="Zip" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            
-            
+        <!-- Input value fields with advanced search button -->
+		<div id="action-container" class="col-xs-12 col-md-12">
+            <div id="search-container" class="col-xs-12 col-md-12">    
+                <h1>Find Your Place</h1>
+                <form id="search-form" class="col-xs-12 col-md-7 col-lg-8 pull-right" method="POST" action="/buy/index.search/">
+                    <div id="Basic">    
+                        <div class="input-container col-xs-12 col-sm-2 col-md-2">
+                            ${ form['min_price'].errors }
+                            ${ form['min_price'] }
+                            <span for="${ form['min_price'].id_for_label }" class="label-float">${ form['min_price'].label }</span>
+                        </div>
+                        <div class="input-container col-xs-12 col-sm-2 col-md-2">
+                            ${ form['max_price'].errors }
+                            ${ form['max_price'] }
+                            <span for="${ form['max_price'].id_for_label }" class="label-float">${ form['max_price'].label }</span>
+                        </div>
+                        <div class="input-container col-xs-12 col-sm-5 col-md-4">
+                            ${ form['location'].errors }
+                            ${ form['location'] }
+                            <span for="${ form['location'].id_for_label }" class="label-float">${ form['location'].label }</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary col-xs-12 col-sm-2 col-md-2">Search</button>
+                    </div>
 
-            <a>
-            <p id="AdvButton" onclick="unhide(this, 'Advanced')">Advanced Search</p>
-            </a>
-                             
-    <div id="Advanced" class="hidden">
-        
-            <input id="FNameField" type="text" value="First Name" name="firstname" title="First Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            <input id="LNameField" type="text" value="Last Name" name="lastname" title="Last Name" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            
-            <input id="EmailField" type="text" value="Email" name="email" title="Email" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-            <br>
-            <input id="PhoneField1" type="text" value="555" name="phone" title="555" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-                                   
-            <input id="PhoneField2" type="text" value="555" name="phone" title="555" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
+                    <p>
+                        <a id="AdvButton">Advanced Search</a>
+                        <a class="clear">Clear search</a>
+                    </p>
                     
-            <input id="PhoneField3" type="text" value="5555" name="phone" title="5555" style="color:#ffffff;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
+                    <div id="Advanced">
+                        <div class="input-container left">
+                            ${ form['bath_number'].errors }
+                            ${ form['bath_number'] }
+                            <span for="${ form['bath_number'].id_for_label }" class="label-float">${ form['bath_number'].label }</span>
+                        </div>
+                        <div class="input-container left">
+                            ${ form['bed_number'].errors }
+                            ${ form['bed_number'] }
+                            <span for="${ form['bed_number'].id_for_label }" class="label-float">${ form['bed_number'].label }</span>
+                        </div>
+                        <div class="input-container left">
+                            ${ form['amenities'].errors }
+                            ${ form['amenities'] }
+                            <span for="${ form['amenities'].id_for_label }" class="label-float">${ form['amenities'].label }</span>
+                        </div>
+                        <div class="input-container left">
+                            ${ form['gender'].errors }
+                            ${ form['gender'] }
+                            <span for="${ form['gender'].id_for_label }" class="label-float">${ form['gender'].label }</span>
+                        </div>
+                        <div class="input-container left">
+                            ${ form['friend_email'].errors }
+                            ${ form['friend_email'] }
+                            <span for="${ form['friend_email'].id_for_label }" class="label-float">${ form['friend_email'].label }</span>
+                        </div>
+                    </div>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+                </form>
+            </div>
+            <div id="map-holder" class="col-xs-12 col-md-6">
+                <div id="map"></div>
+            </div>
+            <script>
+                // This example adds a search box to a map, using the Google Place Autocomplete
+                // feature. People can enter geographical searches. The search box will return a
+                // pick list containing a mix of places and predicted search terms.
 
-        </form>
-</div>
+                function initAutocomplete() {
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    center: new google.maps.LatLng(39, -95),
+                    zoom: 4,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                  });
+
+                  // Create the search box and link it to the UI element.
+                  var input = document.getElementById('location');
+                  var searchBox = new google.maps.places.SearchBox(input);
+                  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                  // Bias the SearchBox results towards current map's viewport.
+                  map.addListener('bounds_changed', function() {
+                    searchBox.setBounds(map.getBounds());
+                  });
+
+                  var markers = [];
+                  // Listen for the event fired when the user selects a prediction and retrieve
+                  // more details for that place.
+                  searchBox.addListener('places_changed', function() {
+                    var places = searchBox.getPlaces();
+
+                    if (places.length == 0) {
+                      return;
+                    }
+
+                    // Clear out the old markers.
+                    markers.forEach(function(marker) {
+                      marker.setMap(null);
+                    });
+                    markers = [];
+
+                    // For each place, get the icon, name and location.
+                    var bounds = new google.maps.LatLngBounds();
+                    places.forEach(function(place) {
+                      var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                      };
+
+                      // Create a marker for each place.
+                      markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                      }));
+
+                      if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                      } else {
+                        bounds.extend(place.geometry.location);
+                      }
+                    });
+                    map.fitBounds(bounds);
+                  });
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8AEmLuzv3CM8WJfE69VqybbF-Sz3LMA4&libraries=places&callback=initAutocomplete" async defer></script>
+        </div>
             
 		<footer>
             Copyright &copy; ${ datetime.now().year } Candor Contracts
