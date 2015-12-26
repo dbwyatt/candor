@@ -13,6 +13,7 @@ import os
 import requests
 import homepage.models as hmod
 from sell.forms import PostForm
+from sell.helpers import save_and_return_uploaded_image
 import sell.models as smod
 
 templater = get_renderer('sell')
@@ -88,7 +89,7 @@ def process_request(request):
 
             if form.cleaned_data['amenities']:
                 for amen in form.cleaned_data['amenities']:
-                    post.amenity.add(smod.Amenity.objects.filter(id=amen).first())
+                    apartment.amenity.add(smod.Amenity.objects.filter(id=amen).first())
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
             return HttpResponseRedirect('/dashboard/')
@@ -96,12 +97,3 @@ def process_request(request):
     params['form'] = form
 
     return templater.render_to_response(request, 'post.html', params)
-
-
-# FIXME: Not sure this is the right place for this method.
-def save_and_return_uploaded_image(img, user_id):
-    file_name = datetime.now().strftime('%Y-%m-%d-%H-%M-%S_') + str(user_id) + '_' + str(img)
-    with open('post_images/' + file_name, 'wb+') as destination:
-        for chunk in img.chunks():
-            destination.write(chunk)
-    return file_name
