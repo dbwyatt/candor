@@ -3,7 +3,6 @@ from homepage import models as hmod
 
 
 class Post(models.Model):
-    amenity = models.ManyToManyField('Amenity', blank=True, null=True)
     apartment = models.ForeignKey('Apartment', default=0)
     availability = models.DateField(blank=False, null=False)
     bounty = models.DecimalField(blank=False, null=False, decimal_places=2, max_digits=6)
@@ -19,6 +18,7 @@ class Post(models.Model):
 
 
 class Apartment(models.Model):
+    amenity = models.ManyToManyField('Amenity', blank=True, null=True)
     complex = models.TextField(blank=False, null=False)
     full_address = models.TextField(blank=False, null=False)
     address1 = models.TextField(blank=False, null=False)
