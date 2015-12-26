@@ -92,7 +92,7 @@
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
-      <h1>Post a new contract</h1>
+      <h1>Edit Your Contract</h1>
 			<button class="btn btn-default prev">&#10094; Go back</button>
 			<button class="btn btn-success next">Move on</button>
 			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >
@@ -267,7 +267,7 @@
             ${ form['image3'].errors }
             ${ form['image3'] }
 
-            <input type="submit" value="Post" />
+            <input type="submit" value="Save" />
             <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
           </div>
         </div>
