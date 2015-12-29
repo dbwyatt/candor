@@ -89,8 +89,7 @@ def process_request(request):
 
             # TODO: Implement videos.
 
-            # FIXME: This is also deleting the amenity object as well as removing the amenity from being associated with this apartment.
-            apartment.amenity.all().delete()
+            apartment.amenity.clear()
             if form.cleaned_data['amenities']:
                 for amen in form.cleaned_data['amenities']:
                     apartment.amenity.add(smod.Amenity.objects.filter(id=amen).first())
@@ -120,7 +119,7 @@ def process_request(request):
         'amenity': post.apartment.amenity,
         'contracts': post.contracts,
         'leaving': post.leaving,
-        'availability': post.availability,
+        'availability': post.availability
         # TODO: Add images.
     })
 
