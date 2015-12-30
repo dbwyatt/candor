@@ -22,4 +22,12 @@ def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
     params['posts'] = smod.Post.objects.filter(owner_id=hmod.Users.objects.get(id=request.session['user']['id']))
+
+    if request.urlparams[0]:
+        post_id, status = request.urlparams[0].split('-')
+        post = smod.Post.objects.get(id=post_id)
+        post.status = status
+        post.save()
+        return HttpResponseRedirect('/sell/edit/')
+
     return templater.render_to_response(request, 'edit.html', params)

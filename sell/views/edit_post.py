@@ -34,7 +34,6 @@ def process_request(request):
     if request.method == 'POST':
         form = PostForm(request, request.POST)
         if form.is_valid():
-            print("form is valid")
             full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip'])
             search_address = form.cleaned_data['address1'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip']).replace(' ', '+')
             geo_address = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + search_address)
