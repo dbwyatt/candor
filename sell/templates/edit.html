@@ -3,16 +3,27 @@
 
 <%block name="content">
 	<div id="main-container">
-    
+
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
+    <h1>Your Posted Contracts</h1>
+
 		<div id="action-container">
-			edit
+      <ul>
+        %if len(posts) == 0:
+          <p>You don't have any posts right now.</p>
+        %else:
+          %for post in posts:
+            <!-- FIXME: Remove the style below. It's just a temporary fix. -->
+            <% post_url = "/sell/edit_post/{}".format(post.id) %>
+            <% status_url = "/sell/edit/{}-".format(post.id) %>
+            <li><a href=${ post_url } style="color:black">${ post.title }</a>&nbspStatus: ${ post.status.capitalize() }&nbsp(Mark as <a href=${ status_url + "active" } style="color:black">Active</a>, <a href=${ status_url + "inactive" } style="color:black">Inactive</a> or <a href=${ status_url + "sold" } style="color:black">Sold</a>)</li>
+          %endfor
+        %endif
+      </ul>
 		</div>
 
-		<footer>
-            Copyright &copy; ${ datetime.now().year } Candor Contracts
-        </footer>
+		<footer>Copyright &copy; ${ datetime.now().year } Candor Contracts</footer>
 
 	</div>
 </%block>

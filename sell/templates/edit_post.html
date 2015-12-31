@@ -1,0 +1,286 @@
+<%inherit file="/dashboard/templates/index.html" />
+<%!from datetime import datetime %>
+
+<%block name="navigation">
+    ## <div class="navbar-margin">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img src="${ STATIC_URL }homepage/media/candor.png" />
+                        <span class="brand-text">
+                            % if environment != '/var/www/candor':
+                                Candor Contracts Dev
+                            % else:
+                                Candor Contracts
+                            % endif
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <!-- <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li> -->
+                        ## <li class="social-links">
+                        ##     <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook.png" /></a>
+                        ##     <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus.png" /></a>
+                        ##     <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube.png" /></a>
+                        ## </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li> -->
+                        ## <%block name="rightlinks">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/homepage/#about">About</a></li>
+                            <li><a href="/homepage/#contact">Contact</a></li>
+                        ## </%block>
+                        %if 'user' not in request.session:
+                            <li><a href="#" class="sign-in">Sign In</a></li>
+                        %else:
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="name">Hello, ${ request.session['user']['name'][0] }</span><span class="account">Your Account</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/accounts/">Account</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" onclick=signOut()>Logout</a></li>
+                                </ul>
+                            </li>
+                        %endif
+                        ## <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    ## </div>
+</%block>
+
+<%block name="content">
+	<div id="main-container">
+
+		<%include file="/dashboard/templates/nav_stacked.html" />
+
+		<div id="action-container">
+      <h1>Edit Your Contract</h1>
+			<button class="btn btn-default prev">&#10094; Go back</button>
+			<button class="btn btn-success next">Move on</button>
+			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >
+
+        <div class="post-input current" data-block="title" data-next="complex">
+          <label class="question">What is the title of this post?</label>
+          <div class="input-container">
+            ${ form['title'].errors }
+            ${ form['title'] }
+            <span class="label-float">Title</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="complex" data-next="address">
+          <label class="question">What is the apartment complex?</label>
+          <div class="input-container">
+            ${ form['complex'].errors }
+            ${ form['complex'] }
+            <span class="label-float">Complex</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="address" data-next="description">
+          <label class="question">What is the address?<br><sup>*For your own saftey we will not ask for exact apartment numbers</sup></label>
+
+          <div class="input-container">
+            ${ form['address1'].errors }
+            ${ form['address1'] }
+            <span class="label-float">Address 1</span>
+          </div>
+          <div class="input-container">
+            ${ form['address2'].errors }
+            ${ form['address2'] }
+            <span class="label-float">Address 2 <sup>(optional)</sup></span>
+          </div>
+          <div class="input-container">
+            ${ form['city'].errors }
+            ${ form['city'] }
+            <span class="label-float">City</span>
+          </div>
+          <div class="input-container left col-2">
+            ${ form['state'].errors }
+            ${ form['state'] }
+          </div>
+          <div class="input-container right col-2">
+            ${ form['zip'].errors }
+            ${ form['zip'] }
+            <span class="label-float">Zip Code</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="description" data-next="price">
+          <label class="question">What do you want people to know about your apartment? Be descriptive.</label>
+          <div class="input-container">
+            ${ form['description'].errors }
+            ${ form['description'] }
+            <span class="label-float">Description</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="price" data-next="costs">
+          <label class="question">What is the price going to be?</label>
+          <div class="input-container">
+            ${ form['price'].errors }
+            ${ form['price'] }
+            <span class="label-float">Price</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="costs" data-next="bounty">
+          <label class="question">Are there utilites to pay or a deposit?</label>
+          <div class="input-container">
+            ${ form['utilities'].errors }
+            ${ form['utilities'] }
+            <span class="label-float">Cost of Utilities</span>
+          </div>
+          <div class="input-container">
+            ${ form['deposit'].errors }
+            ${ form['deposit'] }
+            <span class="label-float">Cost of Deposit</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="bounty" data-next="housing">
+          <label class="question">Are you including a bounty?</label>
+          <div class="input-container">
+            ${ form['bounty'].errors }
+            ${ form['bounty'] }
+            <span class="label-float">Bounty</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="housing" data-next="numbers">
+          <label class="question">What type of housing is this?</label>
+
+          <div class="input-container radio">
+            ${ form['housing_type'].errors }
+            ${ form['housing_type'] }
+            <br><br>
+            ${ form['single_or_married'].errors }
+            ${ form['single_or_married'] }
+            <br><br>
+            <!-- TODO: Gray this out if 'married is selected.' -->
+            ${ form['male_or_female'].errors }
+            ${ form['male_or_female'] }
+          </div>
+
+          <label class="question">What is the bedroom type?</label>
+
+          <div class="input-container radio">
+            <!-- TODO: Gray this out if 'married is selected.' -->
+            ${ form['bed_type'].errors }
+            ${ form['bed_type'] }
+          </div>
+        </div>
+
+        <div class="post-input" data-block="numbers" data-next="amenities">
+          <label class="question">How many bedrooms are there?</label>
+          <div class="input-container">
+            ${ form['bed_number'].errors }
+            ${ form['bed_number'] }
+            <span class="label-float">Number of bedrooms</span>
+          </div>
+          <label class="question">How about bathrooms?</label>
+          <div class="input-container">
+            ${ form['bath_number'].errors }
+            ${ form['bath_number'] }
+            <span class="label-float">Number of bathrooms</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="amenities" data-next="contracts">
+          <label class="question">Check all the cool things your apartment has</label>
+          ${ form['amenities'].errors }
+          ${ form['amenities'] }
+        </div>
+
+        <div class="post-input" data-block="contracts" data-next="leaving">
+          <label class="question">How many contracts are you selling?</label>
+          <div class="input-container">
+            ${ form['contracts'].errors }
+            ${ form['contracts'] }
+            <span class="label-float">Number of contracts</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="leaving" data-next="availability">
+          <label class="question">Why are you leaving your contract?</label>
+          <div class="input-container">
+            ${ form['leaving'].errors }
+            ${ form['leaving'] }
+            <span class="label-flaot">Reason for leaving</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="availability" data-next="images">
+          <label class="question">When will your unit be available?</label>
+          <div class="input-container">
+            ${ form['availability'].errors }
+            ${ form['availability'] }
+            <span class="label-flaot">Availability</span>
+          </div>
+        </div>
+
+        <div class="post-input" data-block="images">
+          <label class="question">Do you have some pictures?</label>
+          <div class="input-container">
+            ${ form['image'].errors }
+            ${ form['image'] }
+            ${ form['image2'].errors }
+            ${ form['image2'] }
+            ${ form['image3'].errors }
+            ${ form['image3'] }
+
+            <input type="submit" value="Save" />
+            <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+          </div>
+        </div>
+
+
+			</form>
+    </div>
+
+		<footer>Copyright &copy; ${ datetime.now().year } Candor Contracts</footer>
+
+	</div>
+</%block>
+
+<%block name="footer">
+	<div></div>
+</%block>
