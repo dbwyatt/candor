@@ -18,7 +18,7 @@ class Post(models.Model):
 
 
 class Apartment(models.Model):
-    amenity = models.ManyToManyField('Amenity', blank=True, null=True)
+    amenity = models.ManyToManyField('Amenity', blank=True)
     complex = models.TextField(blank=False, null=False)
     full_address = models.TextField(blank=False, null=False)
     address1 = models.TextField(blank=False, null=False)
@@ -27,7 +27,7 @@ class Apartment(models.Model):
     state = models.TextField(blank=False, null=False)
     zip = models.IntegerField(blank=False, null=False)
     latitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
-    longtitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
+    longitude = models.DecimalField(blank=False, null=False, decimal_places=8, max_digits=12)
     housing_type = models.TextField(blank=False, null=False)
     single_or_married = models.TextField(blank=False, null=False)
     male_or_female = models.TextField(blank=False, null=False)
