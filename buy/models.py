@@ -10,7 +10,7 @@ import requests
 class SearchEntry(models.Model):
     url = models.TextField(blank=False, null=False)
     user = models.ForeignKey(hmod.Users)
-    date = models.DateTimeField(blank=False, null=False, default=timezone.now())
+    date = models.DateTimeField(blank=False, null=False, default=timezone.now)
 
     def table_sizer(self, user):
         max_size = 100
