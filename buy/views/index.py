@@ -24,7 +24,7 @@ def process_request(request):
     params['environment'] = helpers.get_environment()
     request.session['active'] = 'buy'
 
-    LocationSearch()
+    # LocationSearch()
 
     form = BuyForm()
 
