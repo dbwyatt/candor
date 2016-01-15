@@ -13,11 +13,13 @@
         %if len(posts) == 0:
           <p>You don't have any posts right now.</p>
         %else:
-          %for post in posts:
+          %for post, options in posts.items():
             <!-- FIXME: Remove the style below. It's just a temporary fix. -->
             <% post_url = "/sell/edit_post/{}".format(post.id) %>
             <% status_url = "/sell/edit/{}-".format(post.id) %>
-            <li><a href=${ post_url } style="color:black">${ post.title }</a>&nbspStatus: ${ post.status.capitalize() }&nbsp(Mark as <a href=${ status_url + "active" } style="color:black">Active</a>, <a href=${ status_url + "inactive" } style="color:black">Inactive</a> or <a href=${ status_url + "sold" } style="color:black">Sold</a>)</li>
+            <li><a href=${ post_url } style="color:black">${ post.title }</a> Status: ${ post.status.capitalize() }
+							 (Mark as <a href=${ status_url + options[0] } style="color:black">${ options[0].capitalize() }</a>
+							 or <a href=${ status_url + options[1] } style="color:black">${ options[1].capitalize() }</a>)</li>
           %endfor
         %endif
       </ul>
