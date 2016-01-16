@@ -1,12 +1,13 @@
 $(function() {
 
+    $('#amenities').materialSelect({type:'checked'});
+    $('#bath-number').materialSelect();
+    $('#bed-number').materialSelect();
+    $('#gender').materialSelect();
+
     $('#AdvButton').on("click", function(){
         var item = document.getElementById("Advanced");
-        if($(item).css('display') == 'none'){
-            $(item).show('slide', {direction: 'up'});
-        }else{
-            $(item).hide('slide', {direction: 'up'});
-        }
+        $(item).toggle();
     });
 
     $('#search-form .btn').on('click', function() {
@@ -44,8 +45,9 @@ $(function() {
     }); //contact submit
 
     $('.clear').on('click', function() {
-        $('#search-form').find('input, select').not('[type="hidden"]').each(function() {
+        $('#search-form').find('input, select, .custom-select, .custom-dropdown').not('[type="hidden"]').each(function() {
             $(this).val('').removeClass('error').next().removeClass('fixed');
+            if ($(this).is('[type="checkbox"]')) $(this).prop('checked', false);
         });
     });
 
