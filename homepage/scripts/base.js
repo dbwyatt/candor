@@ -36,7 +36,7 @@ $(function() {
 	$(document).tooltip({
 		selector: '.tooltips',
 		placement: 'right',
-		delay: {show: 2000, hide: 100}
+		delay: {show: 1000, hide: 100}
 	});
 
 	/***************************************************
@@ -108,40 +108,32 @@ function validateInput2() {
 			type: 'basic'
 		}, options);
 
+		var items = {};
 		var selections = {};
 
 		function getInput() {
 			var input = $('<div>')
-			$(input).addClass('custom-select');
+			input.addClass('custom-select');
+			items.custom_input = input;
 			return input;
 		}
 
 		function getDropdown() {
 			var dropdown = $('<div>');
-			$(dropdown).addClass('custom-dropdown');
-			$(dropdown).append('<ul>');
-			$(dropdown).on('close', function() {
+			dropdown.addClass('custom-dropdown');
+			dropdown.append('<ul>');
+			dropdown.on('close', function() {
 				$(this).hide();
 			});
+			items.custom_dropdown = dropdown;
 
-			// $(document).on('click'+Date.now()+' touchend', function (e) {
-			// 	console.log(e.target);
-			//     // console.log(dropdown);
-			//     console.log(dropdown.has(e.target).length);
-			//     if (!dropdown.is(e.target) // if the target of the click isn't the container...
-			//         && dropdown.has(e.target).length === 0	// ... nor a descendant of the container
-			//         && !$('.custom-select').is(e.target)
-			//         && $('.custom-select').has(e.target).length === 0
-			// 	)
-			//     {
-			//     	$(dropdown).trigger('close');
-			//     }
-			// });
 			return dropdown;
 		}
 
 		function getOptions(external_this) {
-			return $(external_this).find('option');
+			var options = $(external_this).find('option');
+			items.dropdown_options = options;
+			return options;
 		}
 
 		function convertOptions(original_this, options, dropdown) {
@@ -164,14 +156,13 @@ function validateInput2() {
 									input.prop('checked', true);
 									updateSelection(original_this, $(this), 'add');
 								}
-							});
+							});	
 					}
 					else {
 						$(li)
 							.append(option.text())
 							.on('touchend click', function() {
 								updateSelection(original_this, $(this), 'replace');
-								$(dropdown).toggle();
 							});
 					}
 					$(dropdown).find('ul').append(li);
@@ -180,7 +171,7 @@ function validateInput2() {
 		}
 
 		function updateSelection(original_this, selection, action) {
-			$(original_this).trigger('click');
+			// $(original_this).trigger('click');
 			if (action == 'add') {
 				selections[selection.prop('value')] = selection.prop('value');
 				for (var i in selections) {
@@ -198,14 +189,14 @@ function validateInput2() {
 			console.log(selections);
 		}
 
-		function engage() {
-			$('.custom-select').each(function() {
+		function engage(input) {
+			$(input).each(function() {
 		        if ($(this).text() != '') {
 		        	$(this).next().addClass('fixed');
 		        }
 		    });
 
-		    $('.custom-select').on('keyup mouseup change focus', function() {
+		    $(input).on('keyup mouseup change focus', function() {
 
 				if ( $(this).text() != '' && !$(this).hasClass('fixed') ) {
 					$(this).next().addClass('fixed');
@@ -224,11 +215,37 @@ function validateInput2() {
 			// 	});
 			// });
 
-			$('.custom-select').each(function () {
-				var clone = $(this).next().next().clone().css('visibility', 'hidden').appendTo($('body'));
-				$(this).css('width', clone.width());
-				console.log('set width');
-				clone.remove();
+			setTimeout(function() {
+				// $('.custom-select').each(function () {
+					var clone = $(items.custom_input).next().next().clone().css('visibility', 'hidden').appendTo($('body'));
+					$(items.custom_input).css('width', clone.width());
+					console.log('set width');
+					$(items.custom_input).next().next().css('width', clone.width());
+					if (settings.type == 'checked' && clone.height() > 250) {
+						$(items.custom_input).next().next().css('width', clone.width() + 10);
+					}
+					clone.remove();
+				// });
+			}, 10);
+
+			$(document).off('click.'+Date.now()).on('click.'+Date.now(), function (e) {
+				var dropdown = items.custom_dropdown;
+				var input = items.custom_input;
+				console.log(e.target);
+			    // console.log(dropdown);
+			    console.log(dropdown.has(e.target).length);
+			    if (!(settings.type == 'checked' && dropdown.has(e.target).length > 0)
+			    	&& 
+			    	(!dropdown.is(e.target) // if the target of the click isn't the container...
+			        // && dropdown.has(e.target).length === 0	// ... nor a descendant of the container
+			        && !input.is(e.target)
+			        && input.has(e.target).length === 0)
+				)
+			    {
+
+				    dropdown.hide();
+			    
+			    }
 			});
 		}
 
@@ -245,15 +262,15 @@ function validateInput2() {
 			// });
 
 			input.on('click', function() {
-				$(this).focus();
-				dropdown.toggle();	
+				// $(this).focus();
+				dropdown.toggle();
 			});
 
 			$(this).after(input);
 			input.next().after(dropdown);
+			engage();
 		});
 
-		engage();
 		return this;
 	}
 
