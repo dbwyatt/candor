@@ -29,11 +29,13 @@
     <script src="${ STATIC_URL }homepage/scripts/jquery.form.js"></script>
     <script src="https://apis.google.com/js/api:client.js"></script>
     <script type="text/javascript" src="${ STATIC_URL }homepage/scripts/jquery.tooltipster.min.js"></script>
+    <!-- <script src="${ STATIC_URL }homepage/scripts/select2.min.js"></script> -->
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${ STATIC_URL }homepage/styles/tooltipster.css" />
+    ## <link rel="stylesheet" type="text/css" href="${ STATIC_URL }homepage/styles/tooltipster.css" />
     <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/font-awesome.css" />
-    
+    ## <link href="${ STATIC_URL }homepage/styles/select2.min.css" rel="stylesheet" />
+
     ## render the css with the same name as this page
     ${ static_renderer.get_template_css(request, context)  }
 
@@ -41,7 +43,7 @@
 </head>
 <body cz-shortcut-listen="true" id="home">
 
-    <div id="fb-root"></div>
+    <!-- <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {
             FB.init({
@@ -58,11 +60,15 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> -->
 
     <%block name="navigation">
         ## <div class="navbar-margin">
-            <nav class="navbar navbar-default navbar-fixed-top">
+            %if request.session['active'] == 'home':
+                <nav class="navbar navbar-default navbar-fixed-top hide">
+            %else:
+                <nav class="navbar navbar-default navbar-fixed-top">
+            %endif
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">

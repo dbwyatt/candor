@@ -11,6 +11,7 @@ templater = get_renderer('dashboard')
 
 @view_function
 def process_request(request):
+    request.session['active'] = 'dashboard'
     params = {}
     params['recent_search'] = dmod.Search.objects.filter()
     params['messages'] = dmod.Messages.objects.filter(to_user_id=request.session['user']['id'], read=False).order_by('-time_sent')[:5]

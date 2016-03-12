@@ -31,6 +31,7 @@ $(function() {
         }
         else {
             console.log('else 1');
+            console.log(data);
             $('#search-form').empty();
             $('#search-form').append(data);
             $('.errorlist').each(function() {
@@ -46,7 +47,9 @@ $(function() {
 
     $('.clear').on('click', function() {
         $('#search-form').find('input, select, .custom-select, .custom-dropdown').not('[type="hidden"]').each(function() {
-            $(this).val('').removeClass('error').next().removeClass('fixed');
+            $(this).val('').removeClass('error').next().removeClass('fixed').removeClass('selected');
+            if ($(this).is('select')) $(this).find('option').prop('selected', false);
+            if ($(this).is('.custom-select')) $(this).text('');
             if ($(this).is('[type="checkbox"]')) $(this).prop('checked', false);
         });
     });

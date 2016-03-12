@@ -31,8 +31,8 @@ def process_request(request):
     if request.method == 'POST':
         form = BuyForm(request.POST)
         if form.is_valid():
-        	posts = smod.Post.objects.all()
-        	return HttpResponse()
+            posts = smod.Post.objects.all()
+            return HttpResponse()
 
     params['form'] = form
 
@@ -76,8 +76,11 @@ def search(request):
     if request.method == 'POST':
         form = BuyForm(request.POST)
         if form.is_valid():
+            for x, i in form.cleaned_data.items():
+                print(x, i)
+            results = smod.Post.objects.all()
             params = True
-            return HttpResponse(params)
+            return HttpResponse(results)
 
     params['form'] = form
 
@@ -88,8 +91,8 @@ class BuyForm(forms.Form):
     min_price = forms.CharField(label='Min Price', required=False, widget=forms.NumberInput(attrs={'type': 'number', 'name': 'min-price', 'id': 'min-price'}))
     max_price = forms.CharField(label='Max Price', required=False, widget=forms.NumberInput(attrs={'type': 'number', 'name': 'max-price', 'id': 'max-price'}))
     location = forms.CharField(label='City, State', required=False, widget=forms.TextInput(attrs={'type': 'text', 'name': 'location', 'id': 'location', 'class': 'controls', 'placeholder': ''}))
-    bath_number = forms.ChoiceField(label='Bathrooms', required=False, widget=forms.Select(attrs={'type': 'number', 'name': 'bath-number', 'id': 'bath-number'}), choices=[('','')]+[(x,'{}+ Bathrooms'.format(x)) for x in range(5) if x != 0])
-    bed_number = forms.ChoiceField(label='Bedrooms', required=False, widget=forms.Select(attrs={'type': 'number', 'name': 'bed-number', 'id': 'bed-number'}), choices=[('','')]+[(x,'{}+ Bedrooms'.format(x)) for x in range(5) if x != 0])
-    amenities = forms.MultipleChoiceField(label='Amenities', required=False, widget=forms.SelectMultiple(attrs={'type': 'text', 'name': 'amenities', 'id': 'amenities'}), choices=[('','')]+[[amenity.id, amenity.amenity] for amenity in smod.Amenity.objects.all()])
-    gender = forms.ChoiceField(label='Type', required=False, widget=forms.Select(attrs={'type': 'text', 'name': 'gender', 'id': 'gender'}), choices=[('',''),('Male','Male'),('Female', 'Female')])
+    bath_number = forms.ChoiceField(label='Bathrooms', required=False, widget=forms.Select(attrs={'type': 'number', 'name': 'bath-number', 'id': 'bath-number'}), choices=[(x,'{}+ Bathrooms'.format(x)) for x in range(5) if x != 0])
+    bed_number = forms.ChoiceField(label='Bedrooms', required=False, widget=forms.Select(attrs={'type': 'number', 'name': 'bed-number', 'id': 'bed-number'}), choices=[(x,'{}+ Bedrooms'.format(x)) for x in range(5) if x != 0])
+    amenities = forms.MultipleChoiceField(label='Amenities', required=False, widget=forms.SelectMultiple(attrs={'type': 'text', 'name': 'amenities', 'id': 'amenities'}), choices=[[amenity.id, amenity.amenity] for amenity in smod.Amenity.objects.all().order_by('amenity')])
+    gender = forms.ChoiceField(label='Type', required=False, widget=forms.Select(attrs={'type': 'text', 'name': 'gender', 'id': 'gender'}), choices=[(0,'Male'),(1, 'Female')])
     friend_email = forms.EmailField(label='Friend Email', required=False, widget=forms.EmailInput(attrs={'type': 'email', 'name': 'friend-email', 'id': 'friend-email'}))

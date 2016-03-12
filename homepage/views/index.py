@@ -16,6 +16,8 @@ templater = get_renderer('homepage')
 
 @view_function
 def process_request(request):
+    request.session['active'] = 'home'
+
     params = {}
     params['environment'] = helpers.get_environment()
     params['form'] = registrationForm()

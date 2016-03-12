@@ -109,10 +109,11 @@ function validateInput2() {
 		}, options);
 
 		var items = {};
+		var select_id = '';
 		var selections = {};
 
 		function getInput() {
-			var input = $('<div>')
+			var input = $('<div>');
 			input.addClass('custom-select');
 			items.custom_input = input;
 			return input;
@@ -172,20 +173,43 @@ function validateInput2() {
 
 		function updateSelection(original_this, selection, action) {
 			// $(original_this).trigger('click');
+			var custom_select = $('#'+select_id).parent().find('.custom-select');
+			
+			if (!custom_select.hasClass('selected')) {
+				custom_select.addClass('selected').text(selection.text());
+			}
+			else {
+				custom_select.text(selection.text());
+			}
+
+
+
 			if (action == 'add') {
 				selections[selection.prop('value')] = selection.prop('value');
-				for (var i in selections) {
-					$(original_this).find('option');
-				}
+				$('#'+select_id+' option[value="'+selection.prop('value')+'"]').prop('selected', true);
 			}
 			else if (action == 'replace') {
+				$('#'+select_id+' option').prop('selected', false);
 				var name = selection.prop('value');
 				selections = {};
 				selections[name] = name;
+				$('#'+select_id+' option[value="'+selection.prop('value')+'"]').prop('selected', true);
 			}
 			else if (action == 'remove') {
+				$('#'+select_id+' option[value="'+selection.prop('value')+'"]').prop('selected', false);
 				delete selections[selection.prop('value')];
+				console.log(selections);
+				if ($.isEmptyObject(selections)) {
+					$('#'+select_id+' option').prop('selected', false);
+					custom_select.removeClass('selected').text('');
+				}
 			}
+
+			
+			// $('#'+select_id+' option').prop('selected', false);
+			// for (var i in selections) {
+				// $('#'+select_id+' option[value="'+selection.prop('value')+'"]').prop('selected', true);
+			// }
 			console.log(selections);
 		}
 
@@ -226,7 +250,7 @@ function validateInput2() {
 					}
 					clone.remove();
 				// });
-			}, 10);
+			}, 100);
 
 			$(document).off('click.'+Date.now()).on('click.'+Date.now(), function (e) {
 				var dropdown = items.custom_dropdown;
@@ -250,7 +274,9 @@ function validateInput2() {
 		}
 
 		this.each(function() {
-			$(this).hide();
+			$(this).hide().val('');
+			select_id = $(this).prop('id');
+			console.log(select_id);
 			var input = getInput();
 			var dropdown = getDropdown();
 			var options = getOptions(this);
