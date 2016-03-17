@@ -5,37 +5,45 @@
 </%block>
 
 <%block name="content">
-
+    <a class="brand" style="position: absolute; top: 0; left: 0; z-index: 5;text-decoration: none;" href="/">
+    	<img src="${ STATIC_URL }homepage/media/candor.png" style="width: 130px; height: auto; display: inline-block;"/>
+    	<span class="brand-text" style="color:#FFFFFF;font-size:18px;line-height: 20px;">
+            % if environment != '/var/www/candor':
+                Candor Contracts Dev
+            % else:
+                Candor Contracts
+            % endif
+        </span>
+   	</a>
+	<ul class="social-links">
+		<li>
+	        <a class="social" target="_blank" href="https://www.facebook.com/candorcontracts"><img src="${ STATIC_URL }homepage/media/facebook-4-64.png" /></a>
+	        <a class="social" target="_blank" href="https://plus.google.com/113660936428650731143/posts"><img src="${ STATIC_URL }homepage/media/google-plus-4-64.png" /></a>
+	        <a class="social" target="_blank" href="https://www.twitter.com"><img src="${ STATIC_URL }homepage/media/twitter-4-64.png" /></a>
+	        <a class="social" target="_blank" href="https://www.youtube.com/channel/UCXyFif0645OPd5TZvynb-sQ"><img src="${ STATIC_URL }homepage/media/youtube-4-64.png" /></a>
+	    </li>
+    </ul>
 	<div id="main-container">
-		<div class="home-background"></div>
+		<div class="home-background">
+			<video muted autoplay width="100%" height="100%" style="visibility: visible;" id="" class="" data-reactid="">
+				<source src="https://youtube.com/watch?v=UOBnw9KUE5M" type="video/mp4" id="" class="" data-reactid="">
+				Your browser does not support the video tag.
+			</video>
+		</div>
 		<div class="overlay">
-			## <span id="coming-soon">coming soon</span>
-			<div id="candor-container">
-				<img src="${ STATIC_URL }homepage/media/candor.png" />
-				<span id="candor">Candor</span>
-				<span id="contracts">Contracts</span>
-			</div>
+			<span class="award">Top 20 finalst in 2015 Utah Entrepreneurship challenge</span>
+			## <div id="candor-container">
+			## 	<img src="${ STATIC_URL }homepage/media/candor.png" />
+			## 	<span id="candor">Candor</span>
+			## 	<span id="contracts">Contracts</span>
+			## </div>
 			## <span class="space"></span>
-			<!-- <form id="sign-up" method="POST" action="/homepage/index.register/">
-				<label>Sign up for early registration</label>
-				<span><input type="text" name="firstname" id="first-name" placeholder="First Name"/></span>
-				<span><input type="text" name="lastname" id="last-name" placeholder="Last Name" /></span>
-				<span><input type="email" name="email" id="email" placeholder="Email" /></span>
-				<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
-				<input type="submit" class="btn btn-primary" value="Sign Up" />
-			</form> -->
-			## <form id="sign-up" method="POST" action="/homepage/index.register/">
-			## 	<label>Sign up for early registration</label>
-			## 	${ form }
-			## 	<sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
-			## 	<input type="submit" class="btn btn-primary" value="Sign Up" />
-			## 	<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
-			## </form>
-			<span class="freedom">Freedom is just around the corner</span>
+			<p class="description">We will sell your apartment contract for you!</p>
+			<span class="tagline">Pay only when it sells</span>
 			%if 'user' not in request.session:
-				<a href="#" class="start-here">Start Here</a>
+				<a href="#" class="start-here">Get Started</a>
 			%else:
-				<a href="/dashboard/" class="start-here">Start Here</a>
+				<a href="/dashboard/" class="start-here">Get Started</a>
 			%endif
 
 			%if 'user' not in request.session:
@@ -66,123 +74,83 @@
 		</div>
 	</div>
 
-	<div class="page-panel blue">
+	<div class="page-panel white">
 		<div id="about" class="container">
-			<div class="col-sm-12 col-md-6">
-				<h2 class="page-header">What is Candor</h2>
-
-				## Candor is a platform that strives to deliver the greatest, simplest, most beautiful way to escape or find your apartment contract. Candor started because one afternoon two students were trying to solve a problem that they themselves had dealt with, along with many of their friends.
-
-				Candor is a tinder like website for college students and apartment complexes to buy and sell their apartment contracts, faster and easier than it has ever been before. 
-				<br><br>
-				The Story of Candor: 
-				<br><br>
-				Let’s go back to the fall of 2014, shall we? Bruce’s roommate, we’ll call him Skyler (because that is his name) was literally yelling at his tablet. Why was he yelling at his tablet you ask? Because he had just paid 10$ to a website (which we will call notcandorcontracts.com)  that didn’t work to try to sell his apartment contract...and he wasn’t getting his money back. “I wonder what would happen if we built a website that actually sold your contract really fast?” thought Bruce. So more than six months, a business competition or two and hours of blood and sweat and toil later, we present to you,
-				<br><br>
-				Candor.
-				<br><br>
-				Ps: Now would be an appropriate time to let out an “ooo” or an “ahhh”
-			</div>
-			<div class="col-sm-12 col-md-6">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/UkDhSjSuJfM" frameborder="0" allowfullscreen></iframe>
+			<div class="col-sm-12 col-md-8 header-panel">
+				<h2 class="page-header slide">How does Candor work?</h2>
+				<p>When you get stuck in an apartment contract Candor is a tool that finds a tenant to take it and sells it to them. </p>
+				<p>The best part is you only pay Candor if we sell it for you!</p>
+				<a href="/dashboard/" class="btn">Sell your contract now</a>
 			</div>
 		</div>
-	</div>
-
-	<div class="page-panel white">
 		<div class="container">
 			<div class="col-sm-12 col-md-6">
 			</div>
-			<div class="col-sm-12 col-md-6">
-				<h2 class="page-header">Sell within days instead of weeks</h2>
-			</div>
+			<h2 class="page-header" style="color: #E84F4F; text-transform: uppercase; font-weight: 800; letter-spacing: 7px;">Sell your contract in three easy steps:</h2>
 			<div class="list-container">
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/facebook-128 (1).png')"></div>
+				<div class="list-item col-sm-12 col-md-6 col-lg-4">
+					<span class="title bubble">Post your contract</span>
 					<div class="list-item-description">
-						<span class="title">Post to where you need</span>
-						Post to KSL, Craigslist, and Facebook all from one easy location all at the same time for free. People will be redirected from those sites back to your posting for easy central access to everything that's going on with your contract.
+						To post your contract all you have to do is answer 7 basic questions and give us a bit of info so we can keep in touch. 
 					</div>
 				</div>
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/conference-128 (1).png')"></div>
+				<div class="list-item col-sm-12 col-md-6 col-lg-4">
+					<span class="title bubble">We sell it for you</span>
 					<div class="list-item-description">
-						<span class="title">Get seen by the right people</span>
-						By partnering with apartment complexes, blogs, Facebook groups and others, Candor provides focused traffic of people that actually want to buy your contract. We work hard to find the people, so you, my friend, don’t have to.
+						Kick back and relax and let candor do the work matching you to a buyer, we'll shoot you an email when there is a match.
 					</div>
 				</div>
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/message-2-128 (1).png')"></div>
+				<div class="list-item col-sm-12 col-md-6 col-lg-4">
+					<span class="title bubble">Pay $20 when it sells</span>
 					<div class="list-item-description">
-						<span class="title">Easy messaging</span>
-						Candor allows for very simple messaging between you and the buyer, no need to exchange phone numbers or email addresses. And, Candor let’s you know how interested the buyer is on a scale of 1 to 10 (wouldn’t that feature be nice for dating…).
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/speed-128 (1).png')"></div>
-					<div class="list-item-description">
-						<span class="title">Speed up the process</span>
-						Candor Pro allows you to search out people who are looking for your type of contract and message them proactively. It also allows you to set up an incentive for someone to buy your contract (ex. paying for first month’s rent) and post a video of a tour of your apartment to set you apart.
+						The best part is you only pay when it is sold, and you can cancel at any time.
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="page-panel off">
-		<div class="container">
-			<div class="col-sm-12 col-md-6">
-				<h2 class="page-header">Find available contracts instantly</h2>
-			</div>
-			<div class="col-sm-12 col-md-6">
-			</div>
-			<div class="list-container">
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/paper-128.png')"></div>
-					<div class="list-item-description">
-						<span class="title">Find the perfect contract for you</span>
-						Whether you want to get into an apartment complex that is full (perhaps to live a bit closer to you know who), find a deal on a contract (if you need a little extra Ramen money) or get a contract at an odd time of the year, Candor can help you out.
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/horizontal-swipe-128.png')"></div>
-					<div class="list-item-description">
-						<span class="title">Simple, easy, and beautiful</span>
-						Candor is the swiss army knife of apartment websites. No more searching through dozens of websites, writing comparison charts, calling to see what available or trying to manually narrow down options. Candor does it for you, just say what you're looking for, and swipe left till you find it.
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-img" style="background-image:url('${ STATIC_URL }homepage/media/checked-user-128.png')"></div>
-					<div class="list-item-description">
-						<span class="title">Know what you're getting into</span>
-						AKA no more scammers! Candor partners with apartment complexes and can verify if the person selling the contract is real or fake, therefore, we will only show you the real ones. Also know what your new apartment expects of you by  seeing the rules associated with each complex.
-					</div>
-				</div>
+	<div class="page-panel transparent parallax-window" data-parallax="scroll" data-image-src="${ STATIC_URL }homepage/media/team.jpg">
+		<div id="about" class="container">
+			<div class="col-sm-12 col-md-6 pull-right header-panel">
+				<h2 class="page-header slide">About Us</h2>
+					<p>We're BYU and BYU-I Students (probably like you) with a vision of making buying and selling apartment contracts incredibly easy and risk free. So we created Candor.</p>
+					<p>The first apartment contract selling service (that we are aware of).</p>
+					<p>We're here to serve you. If you want our long winded introduction go ahead and click the button...</p>
+				<a href="#" class="btn white">Our story</a>
 			</div>
 		</div>
-	</div>
-
-	<div class="page-panel white">
 		<div id="meet-us">
-			<div class="col-sm-12 col-md-3">
-				<div class="founder">
-					<div class="founder-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
-					<div class="founder-description">
-						<span class="name">Bruce Peck</span>
-						<span class="title">Co-Founder and Marketing</span>
-						This is Bruce. He is awesome! He has a huge passion for helping solve students problems and wants to do everything he can to make this project succeed. Bruce has backgrounds in entrepenuership and marketing which he uses to help push this project along. He has created great relationships with many individuals and apartment complexes in relation to Candor.
+			<div class="col-sm-12 col-md-8 header-panel">
+				<div class="col-sm-12 col-md-6">
+					<div class="founder">
+						<div class="founder-img" style="background-image:url('${ STATIC_URL }homepage/media/bruce_peck.jpg')"></div>
+						<div class="founder-description">
+							<span class="name">Bruce Peck</span>
+							<span class="title">Co-Founder and Marketing</span>
+							This is Bruce. He is awesome! He has a huge passion for helping solve students problems and wants to do everything he can to make this project succeed. Bruce has backgrounds in entrepenuership and marketing which he uses to help push this project along. He has created great relationships with many individuals and apartment complexes in relation to Candor.
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<div class="founder">	
+						<div class="founder-img" style="background-image:url('${ STATIC_URL }homepage/media/daniel.jpg')"></div>
+						<div class="founder-description">
+							<span class="name">Daniel Wyatt</span>
+							<span class="title">Co-Founder and Development</span>
+							This is Daniel and he is likewise awesome. We became business partners thanks to the internet. He’s a student at BYU and a father of one kid and also this website. He is an Information Systems major and knows how to make coding magic happen. When your contract sells due to Candor you can thank him, if it doesn’t, well, you can talk to me.
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-3">
-				<div class="founder">	
-					<div class="founder-img" style="background-image:url('${ STATIC_URL }homepage/media/daniel.jpg')"></div>
-					<div class="founder-description">
-						<span class="name">Daniel Wyatt</span>
-						<span class="title">Co-Founder and Development</span>
-						This is Daniel and he is likewise awesome. We became business partners thanks to the internet. He’s a student at BYU and a father of one kid and also this website. He is an Information Systems major and knows how to make coding magic happen. When your contract sells due to Candor you can thank him, if it doesn’t, well, you can talk to me.
-					</div>
-				</div>
+		</div>
+	</div>
+
+	<div class="page-panel" style="background-image: url(${ STATIC_URL }homepage/media/outside.jpg); background-size: cover;">
+		<div class="container">
+			<div class="col-sm-12 col-md-5 pull-right header-panel">
+				<h2 class="page-header">We'll find someone while your doing...<br>whatever you want</h2>
+				<a href="/dashboard/" class="btn white">Sell your contract now</a>
 			</div>
 		</div>
 	</div>
@@ -202,7 +170,7 @@
 					<label>Send us a message here</label>
 					${ contact }
 					## <sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
-					<input type="submit" class="btn btn-primary" value="Send" />
+					<input type="submit" class="btn send" value="Send" />
 					<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
 				</form>
 			</div>
