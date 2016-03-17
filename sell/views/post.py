@@ -20,10 +20,16 @@ templater = get_renderer('sell')
 
 
 @view_function
-@login_required()
+# @login_required()
 def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
+    request.session['active'] = 'post'
+    if 'user' not in request.session:
+        request.session['user'] = {}
+    request.session['user']['menu_status'] = 'open'
+    request.session.modified = True
+
     form = PostForm(request)
 
     if request.method == 'POST':
