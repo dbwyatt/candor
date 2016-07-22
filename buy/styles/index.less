@@ -82,3 +82,155 @@ h1 {
 		}
 	}
 }
+
+
+.contract-post {
+	max-width: 100%;
+	background: white;
+	padding: 25px;
+	border-radius: 2px;
+	color: black;
+	float: none;
+	position: relative;
+	margin: 0 auto;
+
+	ul {
+		overflow: hidden;
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		list-style-type: none;;
+		text-decoration: none;
+		display: inline-block;
+
+		&:not(:first-child) {
+			// border-left: solid 1px lighten(lightgrey, 10%);
+		}
+		
+		.post-info {
+			border-radius: 5px;
+			text-align: center;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			transition: all .5s ease;
+
+
+			// &:hover {
+			// 	color: white;
+			// 	background-color: lighten(#4875A2, 25%);
+			// }
+
+			&:hover > label::after {
+				width: 100%;
+			}
+
+			label {
+				// display: block;
+				
+				&::after {
+					content: '';
+					background-color: black;
+					display: block;
+					margin: 5px auto 0;
+					height: 2px;
+					width: 0;
+					transition: width .5s ease;
+				}
+			}
+
+			span {
+				display: block;
+				font-size: 21px;
+				font-weight: 200;
+			}
+		}
+	}
+}
+
+.modal {
+	color: black;
+}
+
+#contact-form {
+	// display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+	// max-width: 485px;
+	position: relative;
+	// float: right;
+
+	label {
+		display: none;
+	}
+	label:first-child {
+		display: block;
+		text-align: left;
+		font-size: 21px;
+	}
+
+	::-webkit-input-placeholder {
+		color: white;
+	}
+
+	::-moz-placeholder { /* Firefox 19+ */ 
+		color: white;
+	} 
+	:-ms-input-placeholder { 
+		color: white;
+	}
+
+	input[type="text"], input[type="email"], textarea {
+		height: 40px;
+		border: none;
+		box-shadow: inset 0px 0px 0px 1px lightgrey;
+		padding: 0 10px;
+		background-color: rgba(0,0,0, .4);
+		color: white;
+
+		&.required {
+			border: none;
+			box-shadow: inset 0px 0px 0px 2px red;
+		}
+	}
+
+	input[type="text"], input[type="email"] {
+		width: 49%;
+	}
+	input#name {
+		float: left;
+	}
+	input#contact-email {
+		float: right;
+	}
+	textarea {
+		width: 100%;
+		min-height: 150px;
+		padding: 10px 10px;
+	}
+
+	#subject {
+		display: block;
+		width: 100%;
+		margin: 10px 0;
+		clear: both;
+		float: left;
+	}
+
+	sup {
+		font-size: 12px;
+		font-weight: bold;
+	}
+
+	.success {
+		color: lighten(rgb(7, 23, 39), 20%);
+		display: inline-block;
+		font-weight: bold;
+		position: absolute;
+		bottom: 25%;
+		left: 0;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}

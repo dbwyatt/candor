@@ -31,4 +31,17 @@ $(function() {
 		}
 	});
 
+	$('input[type="radio"][name="single_or_married"]').on('change', function() {
+		if ($(this).val() == 'married') {	
+			$('.male-or-female').hide();
+			$('.bed-type').hide();
+			$('input[name="male_or_female"]').prop('checked', false);
+			$('input[name="bed_type"]').prop('checked', false);
+		}
+		else {
+			$('.male-or-female').show();
+			$('.bed-type').show();
+		}
+	});
+
 });

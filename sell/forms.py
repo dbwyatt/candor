@@ -19,12 +19,13 @@ class PostForm(forms.Form):
     bed_type = forms.ChoiceField(choices=(('private', 'Private'), ('shared', 'Shared')), widget=forms.RadioSelect(attrs={'name': 'bed-type', 'id': 'bed-type'}))
     bed_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bed-number', 'id': 'bed-number'}))
     bath_number = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'bath-number', 'id': 'bath-number'}))
-    contracts = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'contracts', 'id': 'contracts'}))
+    # contracts = forms.DecimalField(widget=forms.NumberInput(attrs={'name': 'contracts', 'id': 'contracts'}))
+    roommate_number = forms.IntegerField(widget=forms.NumberInput(attrs={'name': 'roommate-number', 'id': 'roommate-number'}))
     leaving = forms.CharField(widget=forms.Textarea(attrs={'name': 'leaving', 'id': 'leaving'}))
     availability = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'name': 'availability', 'id': 'availability'}))
-    image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image', 'id': 'image', 'class': 'empty'}))
-    image2 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image2', 'id': 'image2', 'class': 'empty'}))
-    image3 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image3', 'id': 'image3', 'class': 'empty'}))
+    # image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image', 'id': 'image', 'class': 'empty'}))
+    # image2 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image2', 'id': 'image2', 'class': 'empty'}))
+    # image3 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'name': 'image3', 'id': 'image3', 'class': 'empty'}))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -32,16 +33,17 @@ class PostForm(forms.Form):
         self.init()
 
     def init(self):
-        self.fields['state'] = forms.ChoiceField(choices=(('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'),
-         ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('DC', 'District of Columbia'), ('FL', 'Florida'),
-         ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'),
-         ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'),
-         ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'),
-         ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'),
-         ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'),
-         ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
-         ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')), widget=forms.Select(attrs={'name': 'state', 'id': 'state'}))
+        # self.fields['state'] = forms.ChoiceField(choices=(('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'),
+        #  ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('DC', 'District of Columbia'), ('FL', 'Florida'),
+        #  ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'),
+        #  ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'),
+        #  ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'),
+        #  ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'),
+        #  ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'),
+        #  ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
+        #  ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')), widget=forms.Select(attrs={'name': 'state', 'id': 'state'}))
 
+        self.fields['state'] = forms.ChoiceField(choices=(('ID', 'Idaho'), ('UT', 'Utah')), widget=forms.Select(attrs={'name': 'state', 'id': 'state'}))
         self.fields['amenities'] = forms.MultipleChoiceField(required=False, choices=[(amenity.id, amenity.amenity) for amenity in smod.Amenity.objects.all()], widget=forms.CheckboxSelectMultiple(attrs={'name': 'amenity', 'id': 'amenity'}))
 
     def clean_title(self):

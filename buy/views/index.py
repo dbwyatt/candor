@@ -24,18 +24,24 @@ def process_request(request):
     params['environment'] = helpers.get_environment()
     request.session['active'] = 'buy'
 
+    params['contact'] = contactForm()
+
     # LocationSearch()
 
-    form = BuyForm()
+    # form = BuyForm()
 
-    if request.method == 'POST':
-        form = BuyForm(request.POST)
-        if form.is_valid():
-            posts = smod.Post.objects.all()
-            return HttpResponse()
+    # if request.method == 'POST':
+    #     form = BuyForm(request.POST)
+    #     if form.is_valid():
+    #         posts = smod.Post.objects.all()
+    #         return HttpResponse()
 
-    params['form'] = form
+    # params['form'] = form
 
+    params['posts'] = []
+    for post in smod.Post.objects.all():
+        params['posts'].append({'post': post, 'pictures': post.picture_set.all()})
+    print(params['posts'])
     return templater.render_to_response(request, 'index.html', params)
 
 
@@ -96,3 +102,10 @@ class BuyForm(forms.Form):
     amenities = forms.MultipleChoiceField(label='Amenities', required=False, widget=forms.SelectMultiple(attrs={'type': 'text', 'name': 'amenities', 'id': 'amenities'}), choices=[[amenity.id, amenity.amenity] for amenity in smod.Amenity.objects.all().order_by('amenity')])
     gender = forms.ChoiceField(label='Type', required=False, widget=forms.Select(attrs={'type': 'text', 'name': 'gender', 'id': 'gender'}), choices=[(0,'Male'),(1, 'Female')])
     friend_email = forms.EmailField(label='Friend Email', required=False, widget=forms.EmailInput(attrs={'type': 'email', 'name': 'friend-email', 'id': 'friend-email'}))
+
+
+class contactForm(forms.Form):
+    name = forms.CharField(label='Name', required=True, widget=forms.TextInput(attrs={'placeholder': 'Name', 'type': 'text', 'name': 'name', 'id': 'name'}))
+    email = forms.EmailField(label='Email', required=True, widget=forms.TextInput(attrs={'placeholder': 'Your email', 'type': 'email', 'name': 'email', 'id': 'contact-email'}))
+    subject = forms.CharField(label='Subject', required=True, widget=forms.TextInput(attrs={'placeholder': 'Subject', 'type': 'text', 'name': 'subject', 'id': 'subject'}))
+    message = forms.CharField(label='Message', required=True, widget=forms.Textarea(attrs={'placeholder': 'Message', 'type': 'text', 'name': 'message', 'id': 'message'}))

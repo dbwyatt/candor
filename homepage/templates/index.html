@@ -40,7 +40,37 @@
 			## <span class="space"></span>
 			<p class="description">We will sell your apartment contract for you!</p>
 			<span class="tagline">Pay only when it sells</span>
-			<a href="/sell/post/" class="start-here">Get Started</a>
+
+			%if 'user' not in request.session:
+				<a href="#" class="start-here">Get Started</a>
+			%else:
+				<a href="/sell/post/" class="start-here">Get Started</a>
+			%endif
+
+			%if 'user' not in request.session:
+				<div id="login-slide">
+                    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
+                    <div class="close">x</div>
+
+                    <div id="login-container">
+                        <span class="login-text">Login with your Google or Facebook account</span>
+                        <div class="btn-wrapper">    
+                            <div id="my-signin2" class="btn btn-block btn-social btn-google" data-onsuccess="onSignIn">
+                                <i class="fa fa-google"></i> Sign in with Google
+                            </div>
+
+                            <span class="spacer"></span>
+
+                            <a class="btn btn-block btn-social btn-facebook" data-onsuccess="onSignIn">
+                                <i class="fa fa-facebook"></i> Sign in with Facebook
+                            </a>
+                        </div>
+                    </div>
+
+                   	## <li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+                   	## <li><a href="https://accounts.google.com/o/oauth2/auth?client_id=267671914850-gtsdijk1ela2bc5076t6alla50m2t2ad&redirect_uri=${ request.META['wsgi.url_scheme']}://${ request.META['HTTP_HOST'] }&response_type=code&scope=openid+email+profile">Google</a></li>
+	            </div>
+			%endif
 		</div>
 	</div>
 

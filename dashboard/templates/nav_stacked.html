@@ -1,5 +1,9 @@
 <nav class="navbar-stacked ${ request.session['user']['menu_status'] }">
 	<ul>
+		<li class="toolbar-button buy tooltips" data-target="/buy/" title="Search">
+			<i class="fa fa-search fa-fw" style="position:relative;top:3px;"></i>
+			<span class="nav-text">Search</span>
+		</li>
 		<li class="toolbar-button post tooltips" data-target="/sell/post/" title="Post a new contract">
 			<i class="fa fa-plus fa-fw" style="position:relative;top:3px;"></i>
 			<span class="nav-text">Post New</span>

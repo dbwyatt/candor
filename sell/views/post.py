@@ -20,7 +20,7 @@ templater = get_renderer('sell')
 
 
 @view_function
-# @login_required()
+@login_required()
 def process_request(request):
     params = {}
     params['environment'] = helpers.get_environment()
@@ -30,10 +30,13 @@ def process_request(request):
     request.session['user']['menu_status'] = 'open'
     request.session.modified = True
 
-    form = PostForm(request)
+    form = PostForm(request, initial={'state': 'UT'})
 
     if request.method == 'POST':
+        files = request.FILES.getlist('myfiles')
+        # del request.FILES
         form = PostForm(request, request.POST)
+
         if form.is_valid():
             full_address = form.cleaned_data['address1'] + ' ' + form.cleaned_data['address2'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip'])
             search_address = form.cleaned_data['address1'] + ', ' + form.cleaned_data['city'] + ', ' + form.cleaned_data['state'] + ' ' + str(form.cleaned_data['zip']).replace(' ', '+')
@@ -49,7 +52,7 @@ def process_request(request):
                 state=form.cleaned_data['state'],
                 zip=form.cleaned_data['zip'],
                 latitude=parsed_geo['results'][0]['geometry']['location']['lat'] if len(parsed_geo['results']) > 0 else 0,
-                longtitude=parsed_geo['results'][0]['geometry']['location']['lng'] if len(parsed_geo['results']) > 0 else 0,
+                longitude=parsed_geo['results'][0]['geometry']['location']['lng'] if len(parsed_geo['results']) > 0 else 0,
                 housing_type=form.cleaned_data['housing_type'],
                 single_or_married=form.cleaned_data['single_or_married'],
                 male_or_female=form.cleaned_data['male_or_female'],
@@ -67,29 +70,37 @@ def process_request(request):
                 price=form.cleaned_data['price'],
                 deposit=form.cleaned_data['deposit'] if form.cleaned_data['deposit'] else 0,
                 bounty=form.cleaned_data['bounty'] if form.cleaned_data['bounty'] else 0,
-                contracts=form.cleaned_data['contracts'],
+                # contracts=form.cleaned_data['contracts'],
                 availability=form.cleaned_data['availability'],
                 leaving=form.cleaned_data['leaving'],
-                status='active'
+                status='active',
+                roommate_number=form.cleaned_data['roommate_number']
             )
 
             # TODO: Add Facebook link.
 
-            if request.FILES.get('image'):
-                picture = smod.Picture.objects.create(
+            for a_file in files:
+                smod.Picture.objects.create(
                     post=post,
-                    picture=save_and_return_uploaded_image(request.FILES['image'], request.session['user']['id']),
+                    file_name=a_file.name,
+                    attachment=a_file
                 )
-            if request.FILES.get('image2'):
-                picture = smod.Picture.objects.create(
-                    post=post,
-                    picture=save_and_return_uploaded_image(request.FILES['image2'], request.session['user']['id']),
-                )
-            if request.FILES.get('image3'):
-                picture = smod.Picture.objects.create(
-                    post=post,
-                    picture=save_and_return_uploaded_image(request.FILES['image3'], request.session['user']['id']),
-                )
+
+            # if request.FILES.get('image'):
+            #     picture = smod.Picture.objects.create(
+            #         post=post,
+            #         picture=save_and_return_uploaded_image(request.FILES['image'], request.session['user']['id']),
+            #     )
+            # if request.FILES.get('image2'):
+            #     picture = smod.Picture.objects.create(
+            #         post=post,
+            #         picture=save_and_return_uploaded_image(request.FILES['image2'], request.session['user']['id']),
+            #     )
+            # if request.FILES.get('image3'):
+            #     picture = smod.Picture.objects.create(
+            #         post=post,
+            #         picture=save_and_return_uploaded_image(request.FILES['image3'], request.session['user']['id']),
+            #     )
 
             # TODO: Implement videos.
 
@@ -98,7 +109,10 @@ def process_request(request):
                     apartment.amenity.add(smod.Amenity.objects.filter(id=amen).first())
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
-            return HttpResponseRedirect('/dashboard/')
+            return HttpResponseRedirect('/sell/post/')
+
+        else:
+            print(form.errors)
 
     params['form'] = form
 

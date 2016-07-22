@@ -1,158 +1,229 @@
 <%inherit file="/dashboard/templates/index.html" />
 <%!from datetime import datetime %>
-    
+	
 <%block name="content">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	
 
 
 	<div id="main-container">
-        
-    <!-- <img src="${STATIC_URL}/buy/media/apt.jpeg" alt="Apartment" style="height:154px; width:230.5px"> -->
+		
+	<!-- <img src="${STATIC_URL}/buy/media/apt.jpeg" alt="Apartment" style="height:154px; width:230.5px"> -->
 	
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
-        <!-- Input value fields with advanced search button -->
+		<!-- Input value fields with advanced search button -->
 		<div id="action-container" class="col-xs-12 col-md-12">
-            <div id="search-container" class="col-xs-12 col-md-12">    
-                <h1>Find Your Place</h1>
-                <form id="search-form" class="col-xs-12 col-md-7 col-lg-8 pull-right" method="POST" action="/buy/index.search/">
-                    <div id="Basic">    
-                        <div class="input-container col-xs-12 col-sm-2 col-md-2">
-                            ${ form['min_price'].errors }
-                            ${ form['min_price'] }
-                            <span for="${ form['min_price'].id_for_label }" class="label-float">${ form['min_price'].label }</span>
-                        </div>
-                        <div class="input-container col-xs-12 col-sm-2 col-md-2">
-                            ${ form['max_price'].errors }
-                            ${ form['max_price'] }
-                            <span for="${ form['max_price'].id_for_label }" class="label-float">${ form['max_price'].label }</span>
-                        </div>
-                        <div class="input-container col-xs-12 col-sm-5 col-md-4">
-                            ${ form['location'].errors }
-                            ${ form['location'] }
-                            <span for="${ form['location'].id_for_label }" class="label-float">${ form['location'].label }</span>
-                        </div>
-                        <button type="submit" class="btn btn-primary col-xs-12 col-sm-2 col-md-2">Search</button>
-                    </div>
 
-                    <p>
-                        <a id="AdvButton">Advanced Search</a>
-                        <a class="clear">Clear search</a>
-                    </p>
-                    
-                    <div id="Advanced">
-                        <div class="input-container left">
-                            ${ form['bath_number'].errors }
-                            ${ form['bath_number'] }
-                            <span for="${ form['bath_number'].id_for_label }" class="label-float">${ form['bath_number'].label }</span>
-                        </div>
-                        <div class="input-container left">
-                            ${ form['bed_number'].errors }
-                            ${ form['bed_number'] }
-                            <span for="${ form['bed_number'].id_for_label }" class="label-float">${ form['bed_number'].label }</span>
-                        </div>
-                        <div class="input-container left">
-                            ${ form['amenities'].errors }
-                            ${ form['amenities'] }
-                            <span for="${ form['amenities'].id_for_label }" class="label-float">${ form['amenities'].label }</span>
-                        </div>
-                        <div class="input-container left">
-                            ${ form['gender'].errors }
-                            ${ form['gender'] }
-                            <span for="${ form['gender'].id_for_label }" class="label-float">${ form['gender'].label }</span>
-                        </div>
-                        <div class="input-container left">
-                            ${ form['friend_email'].errors }
-                            ${ form['friend_email'] }
-                            <span for="${ form['friend_email'].id_for_label }" class="label-float">${ form['friend_email'].label }</span>
-                        </div>
-                    </div>
-                    <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
-                </form>
-            </div>
-            <div id="map-holder" class="col-xs-12 col-md-6">
-                <div id="map"></div>
-            </div>
-            <script>
-                // This example adds a search box to a map, using the Google Place Autocomplete
-                // feature. People can enter geographical searches. The search box will return a
-                // pick list containing a mix of places and predicted search terms.
+			%for post in posts:
+				<div class="contract-post col-sm-12 col-lg-9">
 
-                function initAutocomplete() {
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        center: new google.maps.LatLng(39, -95),
-                        zoom: 4,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    });
+					<ul>
+						<li class="col-xs-12 col-sm-12 col-md-2">
+							<div class="post-info">
+								<span class="title">${ post['post'].title }</span>
+								%for picture in post['pictures'][0:1]:
+									<img src="${ picture.attachment }" /><br>
+								%endfor
+								<button id="contact" class="btn btn-primary" data-toggle="modal" data-target="#contactModal">Contact Us</button>
+							</div>
+						</li>
+						<li class="col-xs-12 col-sm-6 col-md-2">    
+							<div class="post-info">
+								<label>Price</label>
+								<span class="price">$${ '{0:.0f}'.format(post['post'].price) }</span>
+							</div>
+						</li>
+						<li class="col-xs-12 col-sm-6 col-md-2">        
+							<div class="post-info">
+								<label>Deposit</label>
+								<span class="deposit">$${ '{0:.0f}'.format(post['post'].deposit) }</span>
+							</div>
+						</li>
+						<li class="col-xs-12 col-sm-6 col-md-2">        
+							<div class="post-info">
+								<label>Availability</label>
+								<span class="availability">${ datetime.strftime(post['post'].availability, '%B %d, %Y') }</span>
+							</div>
+						</li>
+						<li class="col-xs-12 col-sm-6 col-md-2">        
+							<div class="post-info">
+								<label>Housing Type</label>
+								<span class="housing-type">${ post['post'].apartment.housing_type }</span>
+							</div>
+						</li>
+						<li class="col-xs-12 col-sm-6 col-md-2">        
+							<div class="post-info">
+								<label>Type</label>
+								<span class="single_or_married">${ post['post'].apartment.single_or_married }</span>
+							</div>
+						</li>
+					</ul>
+					<hr>
+					<p class="description">${ post['post'].description }</p>
+				</div>
+			%endfor
+		##     <div id="search-container" class="col-xs-12 col-md-12">    
+		##         <h1>Find Your Place</h1>
+		##         <form id="search-form" class="col-xs-12 col-md-7 col-lg-8 pull-right" method="POST" action="/buy/index.search/">
+		##             <div id="Basic">    
+		##                 <div class="input-container col-xs-12 col-sm-2 col-md-2">
+		##                     ${ form['min_price'].errors }
+		##                     ${ form['min_price'] }
+		##                     <span for="${ form['min_price'].id_for_label }" class="label-float">${ form['min_price'].label }</span>
+		##                 </div>
+		##                 <div class="input-container col-xs-12 col-sm-2 col-md-2">
+		##                     ${ form['max_price'].errors }
+		##                     ${ form['max_price'] }
+		##                     <span for="${ form['max_price'].id_for_label }" class="label-float">${ form['max_price'].label }</span>
+		##                 </div>
+		##                 <div class="input-container col-xs-12 col-sm-5 col-md-4">
+		##                     ${ form['location'].errors }
+		##                     ${ form['location'] }
+		##                     <span for="${ form['location'].id_for_label }" class="label-float">${ form['location'].label }</span>
+		##                 </div>
+		##                 <button type="submit" class="btn btn-primary col-xs-12 col-sm-2 col-md-2">Search</button>
+		##             </div>
 
-                    var options = {
-                        types: ['(cities)'],
-                        componentRestrictions: {country: "us"}
-                    };
+		##             <p>
+		##                 <a id="AdvButton">Advanced Search</a>
+		##                 <a class="clear">Clear search</a>
+		##             </p>
+					
+		##             <div id="Advanced">
+		##                 <div class="input-container left">
+		##                     ${ form['bath_number'].errors }
+		##                     ${ form['bath_number'] }
+		##                     <span for="${ form['bath_number'].id_for_label }" class="label-float">${ form['bath_number'].label }</span>
+		##                 </div>
+		##                 <div class="input-container left">
+		##                     ${ form['bed_number'].errors }
+		##                     ${ form['bed_number'] }
+		##                     <span for="${ form['bed_number'].id_for_label }" class="label-float">${ form['bed_number'].label }</span>
+		##                 </div>
+		##                 <div class="input-container left">
+		##                     ${ form['amenities'].errors }
+		##                     ${ form['amenities'] }
+		##                     <span for="${ form['amenities'].id_for_label }" class="label-float">${ form['amenities'].label }</span>
+		##                 </div>
+		##                 <div class="input-container left">
+		##                     ${ form['gender'].errors }
+		##                     ${ form['gender'] }
+		##                     <span for="${ form['gender'].id_for_label }" class="label-float">${ form['gender'].label }</span>
+		##                 </div>
+		##                 <div class="input-container left">
+		##                     ${ form['friend_email'].errors }
+		##                     ${ form['friend_email'] }
+		##                     <span for="${ form['friend_email'].id_for_label }" class="label-float">${ form['friend_email'].label }</span>
+		##                 </div>
+		##             </div>
+		##             <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+		##         </form>
+		##     </div>
+		##     <div id="map-holder" class="col-xs-12 col-md-6">
+		##         <div id="map"></div>
+		##     </div>
+		##     <script>
+		##         // This example adds a search box to a map, using the Google Place Autocomplete
+		##         // feature. People can enter geographical searches. The search box will return a
+		##         // pick list containing a mix of places and predicted search terms.
 
-                    // Create the search box and link it to the UI element.
-                    var input = document.getElementById('location');
-                    var searchBox = new google.maps.places.SearchBox(input);
-                    // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+		##         function initAutocomplete() {
+		##             var map = new google.maps.Map(document.getElementById('map'), {
+		##                 center: new google.maps.LatLng(39, -95),
+		##                 zoom: 4,
+		##                 mapTypeId: google.maps.MapTypeId.ROADMAP
+		##             });
 
-                    // Bias the SearchBox results towards current map's viewport.
-                    map.addListener('bounds_changed', function() {
-                        searchBox.setBounds(map.getBounds());
-                    });
+		##             var options = {
+		##                 types: ['(cities)'],
+		##                 componentRestrictions: {country: "us"}
+		##             };
 
-                    var markers = [];
-                    // Listen for the event fired when the user selects a prediction and retrieve
-                    // more details for that place.
-                    searchBox.addListener('places_changed', function() {
-                        var places = searchBox.getPlaces();
+		##             // Create the search box and link it to the UI element.
+		##             var input = document.getElementById('location');
+		##             var searchBox = new google.maps.places.SearchBox(input);
+		##             // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-                        if (places.length == 0) {
-                            return;
-                        }
+		##             // Bias the SearchBox results towards current map's viewport.
+		##             map.addListener('bounds_changed', function() {
+		##                 searchBox.setBounds(map.getBounds());
+		##             });
 
-                        // Clear out the old markers.
-                        markers.forEach(function(marker) {
-                            marker.setMap(null);
-                        });
-                        markers = [];
+		##             var markers = [];
+		##             // Listen for the event fired when the user selects a prediction and retrieve
+		##             // more details for that place.
+		##             searchBox.addListener('places_changed', function() {
+		##                 var places = searchBox.getPlaces();
 
-                        // For each place, get the icon, name and location.
-                        var bounds = new google.maps.LatLngBounds();
-                        places.forEach(function(place) {
-                            var icon = {
-                            url: place.icon,
-                                size: new google.maps.Size(71, 71),
-                                origin: new google.maps.Point(0, 0),
-                                anchor: new google.maps.Point(17, 34),
-                                scaledSize: new google.maps.Size(25, 25)
-                            };
+		##                 if (places.length == 0) {
+		##                     return;
+		##                 }
 
-                            // Create a marker for each place.
-                            markers.push(new google.maps.Marker({
-                                map: map,
-                                icon: icon,
-                                title: place.name,
-                                position: place.geometry.location
-                            }));
+		##                 // Clear out the old markers.
+		##                 markers.forEach(function(marker) {
+		##                     marker.setMap(null);
+		##                 });
+		##                 markers = [];
 
-                            if (place.geometry.viewport) {
-                            // Only geocodes have viewport.
-                                bounds.union(place.geometry.viewport);
-                            } else {
-                                bounds.extend(place.geometry.location);
-                            }
-                        });
-                        map.fitBounds(bounds);
-                    });
-                }
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8AEmLuzv3CM8WJfE69VqybbF-Sz3LMA4&libraries=places&callback=initAutocomplete" async defer></script>
-        </div>
-            
+		##                 // For each place, get the icon, name and location.
+		##                 var bounds = new google.maps.LatLngBounds();
+		##                 places.forEach(function(place) {
+		##                     var icon = {
+		##                     url: place.icon,
+		##                         size: new google.maps.Size(71, 71),
+		##                         origin: new google.maps.Point(0, 0),
+		##                         anchor: new google.maps.Point(17, 34),
+		##                         scaledSize: new google.maps.Size(25, 25)
+		##                     };
+
+		##                     // Create a marker for each place.
+		##                     markers.push(new google.maps.Marker({
+		##                         map: map,
+		##                         icon: icon,
+		##                         title: place.name,
+		##                         position: place.geometry.location
+		##                     }));
+
+		##                     if (place.geometry.viewport) {
+		##                     // Only geocodes have viewport.
+		##                         bounds.union(place.geometry.viewport);
+		##                     } else {
+		##                         bounds.extend(place.geometry.location);
+		##                     }
+		##                 });
+		##                 map.fitBounds(bounds);
+		##             });
+		##         }
+		##     </script>
+		##     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8AEmLuzv3CM8WJfE69VqybbF-Sz3LMA4&libraries=places&callback=initAutocomplete" async defer></script>
+		## </div>
+		
+		<div id="contactModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Contact Us</h4>
+					</div>
+					<form id="contact-form" method="POST" action="/homepage/index.contact/">
+						<div class="modal-body">
+							<label>Send us a message here</label>
+							${ contact }
+							## <sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
+							<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<input type="submit" class="btn btn-primary send" value="Send" />
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		<footer>
-            Copyright &copy; ${ datetime.now().year } Candor Contracts
-        </footer>
+			Copyright &copy; ${ datetime.now().year } Candor Contracts
+		</footer>
 
 	</div>
 </%block>

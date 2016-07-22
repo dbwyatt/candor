@@ -5,7 +5,7 @@
 }
 
 // variables
-@navbar-color: rgba(255,255,255, 1);
+@navbar-color: rgba(255,255,255,.9);
 @main-blue: rgb(7, 23, 39);
 @light-blue: rgb(36, 68, 99);
 
@@ -72,6 +72,24 @@ body {
 
 	i {
 		margin-right: 10px;
+	}
+
+	a.social {
+	    padding: 19px 5px 20px!important;
+	    display: inline-block;
+
+	    img {
+	    	height: 30px;
+	    }
+	}
+
+	@media screen and (min-width: 768px) {
+		.social-links {
+		    position: absolute!important;
+		    top: 100%;
+		    left: 25px;
+		    z-index: 2;
+		}
 	}
 
 	.dropdown-image-container {

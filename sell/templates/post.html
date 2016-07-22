@@ -11,6 +11,8 @@
 
 			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >
 
+				${ form.errors }
+
 				<div class="post-input current" data-block="title" data-next="complex">
 					<label class="question">What is the title of this post?</label>
 					<div class="input-container">
@@ -91,7 +93,7 @@
 				</div>
 
 				<div class="post-input" data-block="bounty" data-next="housing">
-					<label class="question">Are you including a bounty?</label>
+					<label class="question">Are you including any monetary incentives for buying your contract? If so, how much?<br><sup>*Any non-monetary incentives you can include in the description</sup></label>
 					<div class="input-container">
 						${ form['bounty'].errors }
 						${ form['bounty'] }
@@ -101,24 +103,67 @@
 
 	        	<div class="post-input" data-block="housing" data-next="numbers">
 	        		<label class="question">What type of housing is this?</label>
-	        		<div class="input-container radio">
-	        			${ form['housing_type'].errors }
-	        			${ form['housing_type'] }
-	        			<br><br>
-	        			${ form['single_or_married'].errors }
-	        			${ form['single_or_married'] }
-	        			<br><br>
-	        			<!-- TODO: Gray this out if 'married is selected.' -->
-	        			${ form['male_or_female'].errors }
-	        			${ form['male_or_female'] }
+	        		<div class="input-container radio" style="text-align: left;">
+	        			<table class="table">
+	        				<tr>
+			        			${ form['housing_type'].errors }
+								%for value, text in form['housing_type'].field.choices:
+		        					<td style="width: 50%;">
+				        				<input value="${ value }" type='radio' name="housing_type" id="${ value }"
+				        					%if form['housing_type'] == value:
+				        						checked
+				        					%endif
+				        				/>
+										<label for="${ value }">${ text }</label>
+					        		</td>
+			        			%endfor
+			        		</tr>
+	        				<tr>
+			        			${ form['single_or_married'].errors }
+			        			%for value, text in form['single_or_married'].field.choices:
+		        					<td>
+				        				<input value="${ value }" type='radio' name="single_or_married" id="${ value }"/>
+										<label for="${ value }">${ text }</label>
+					        		</td>
+			        			%endfor
+			        		</tr>
+	        				<tr>
+			        			${ form['male_or_female'].errors }
+			         			%for value, text in form['male_or_female'].field.choices:
+		        					<td class="male-or-female">
+				        				<input value="${ value }" type='radio' name="male_or_female" id="${ value }"/>
+										<label for="${ value }">${ text }</label>
+					        		</td>
+			        			%endfor
+			        		</tr>
+			        		<tr>
+								<!-- TODO: Gray this out if 'married is selected.' -->
+								${ form['bed_type'].errors }
+								%for value, text in form['bed_type'].field.choices:
+									<td class="bed-type" style="width: 50%;">
+				        				<input value="${ value }" type='radio' name="bed_type" id="${ value }"/>
+										<label for="${ value }">${ text }</label>
+			        				</td>
+			        			%endfor
+		        			</tr>
+		        		</table>
 	        		</div>
 
-          			<label class="question">What is the bedroom type?</label>
-					<div class="input-container radio">
-						<!-- TODO: Gray this out if 'married is selected.' -->
-						${ form['bed_type'].errors }
-						${ form['bed_type'] }
-					</div>
+          			## <label class="question">What is the bedroom type?</label>
+					## <div class="input-container radio">
+					## 	<table class="table" style="text-align: left;">
+					## 		<tr>
+					## 			<!-- TODO: Gray this out if 'married is selected.' -->
+					## 			${ form['bed_type'].errors }
+					## 			%for value, text in form['bed_type'].field.choices:
+					## 				<td class="bed-type" style="width: 50%;">
+				 ##        				<input value="${ value }" type='radio' name="bed_type" id="${ value }"/>
+					## 					<label for="${ value }">${ text }</label>
+			  ##       				</td>
+			  ##       			%endfor
+		   ##      			</tr>
+		   ##      		</table>
+					## </div>
 				</div>
 
 				<div class="post-input" data-block="numbers" data-next="amenities">
@@ -136,17 +181,21 @@
 					</div>
 				</div>
 
-				<div class="post-input" data-block="amenities" data-next="contracts">
+				<div class="post-input" style="text-align:left;" data-block="amenities" data-next="contracts">
 					<label class="question">Check all the cool things your apartment has</label>
 					${ form['amenities'].errors }
-					${ form['amenities'] }
+		 			%for value, text in form['amenities'].field.choices:
+	    				<input value="${ value }" type='checkbox' name="amenities" id="${ value }"/>
+						<label for="${ value }">${ text }</label>
+						<br>
+	    			%endfor
 				</div>
 
 				<div class="post-input" data-block="contracts" data-next="leaving">
-					<label class="question">How many contracts are you selling?</label>
+					<label class="question">Do you have any roommates selling contracts? If so, how many?</label>
 					<div class="input-container">
-						${ form['contracts'].errors }
-						${ form['contracts'] }
+						${ form['roommate_number'].errors }
+						${ form['roommate_number'] }
 						<span class="label-float">Number of contracts</span>
 					</div>
 				</div>
@@ -172,21 +221,18 @@
 				<div class="post-input" data-block="images">
 					<label class="question">Do you have some pictures?</label>
 					<div class="input-container">
-						${ form['image'].errors }
-						${ form['image'] }
-						${ form['image2'].errors }
-						${ form['image2'] }
-						${ form['image3'].errors }
-						${ form['image3'] }
+						<input type="file" name="myfiles" multiple />
 
-						<input type="submit" value="Post" />
+						## <input type="submit" value="Post" />
+						<br><br><br>
+						<input type="submit" class="btn btn-success" value="Submit" />
 						<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
 					</div>
 				</div>
 
 			</form>
-			<button class="btn btn-default prev">&#10094; Go back</button>
-			<button class="btn btn-success next">Move on</button>
+			## <button class="btn btn-default prev">&#10094; Go back</button>
+			## <button class="btn btn-success next">Move on</button>
 		</div>
 
 		<footer>
