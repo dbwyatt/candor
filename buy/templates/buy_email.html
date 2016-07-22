@@ -1,0 +1,26 @@
+<%inherit file="base_ajax.htm" />
+<%!from datetime import datetime %>
+
+<%block name="content">
+	<b>From</b>: ${ sender }
+	<br>
+	<b>Email</b>: ${ sender_email }
+	<br><br>
+	${ message }
+	<br><br>
+
+	<span style="text-decoration: underline;"><b>Contract</b></span>
+
+	<br>
+	Owner: ${ post.owner.name}<br>
+	Owner Email: ${ post.owner.email }<br>
+	<br><br>
+	Title: ${ post.title }<br>
+	Price: $${ '{0:.0f}'.format(post.price) }<br>
+	Deposit: $${ '{0:.0f}'.format(post.deposit) }<br>
+	Availability: ${ datetime.strftime(post.availability, '%B %d, %Y') }<br>
+	Housing Type: ${ post.apartment.housing_type }<br>
+	Type: ${ post.apartment.single_or_married }<br>
+	Description: ${ post.description }
+
+</%block>

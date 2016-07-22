@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.http import HttpRequest
 from django_mako_plus.controller import view_function
 import homepage.models as hmod
+import sell.models as smod
 from django_mako_plus.controller.router import get_renderer
 import os, helpers, json
 from django.core.mail import send_mail
@@ -103,7 +104,14 @@ def contact(request):
             emailsubject = form.cleaned_data['subject']
             to_email = 'candorcontracts@gmail.com'
             from_email = form.cleaned_data['email']
-            emailbody = templater.render(request, 'contact_email.html', email)
+
+            if request.META['HTTP_REFERER'].index('/buy/'):
+                email['post'] = smod.Post.objects.get(id=request.POST.get('post-id'))
+                print(email['post'].title)
+                emailbody = templater.render(request, '/buy/templates/buy_email.html', email)
+            else:
+                emailbody = templater.render(request, 'contact_email.html', email)
+
             send_mail(emailsubject, emailbody, from_email, [to_email], html_message=emailbody, fail_silently=False)
 
             params = True
