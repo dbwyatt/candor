@@ -78,9 +78,17 @@
 		<div class="container">
 			<div class="col-sm-12 col-md-8 header-panel">
 				<h2 class="page-header slide">How does Candor work?</h2>
-				<p>When you get stuck in an apartment contract Candor is a tool that finds a tenant to take it and sells it to them. </p>
-				<p>The best part is you only pay Candor if we sell it for you!</p>
-				<a href="/sell/post/" class="btn">Sell your contract now</a>
+				<p>1. Post your contract on Candor and we'll post it out everywhere (the relevant Facebook groups, Craigslist, the bulletin board, Craiglist, run ads for it, etc.)</p>
+				<p>2. We'll send emails that guide you through every step of your apartment's specific selling process</p>
+				<p>3. Sit back, relax, you'll be notified of every legitimate buyer (we'll filter the scammers out for you and the real ones can call you directly)</p>
+				<p>4. Sell your contract!</p>
+
+				<p>ALL for only $7!</p>
+				%if 'user' not in request.session:
+					<a href="#" class="start-here btn">Sell your contract now</a>
+				%else:
+					<a href="/sell/post/" class="start-here btn">Sell your contract now</a>
+				%endif
 			</div>
 		</div>
 		<div class="container">
@@ -91,7 +99,7 @@
 				<div class="list-item col-sm-12 col-md-4 col-lg-4">
 					<span class="title bubble">Post your contract</span>
 					<div class="list-item-description">
-						To post your contract all you have to do is answer 7 basic questions and give us a bit of info so we can keep in touch. 
+						To post your contract all you have to do is answer a few basic questions and give us a bit of info so we can keep in touch. 
 					</div>
 				</div>
 				<div class="list-item col-sm-12 col-md-4 col-lg-4">
@@ -150,7 +158,11 @@
 		<div class="container">
 			<div class="col-sm-12 col-md-5 pull-right header-panel">
 				<h2 class="page-header">We'll find someone while your doing...<br>whatever you want</h2>
-				<a href="/sell/post" class="btn white">Sell your contract now</a>
+				%if 'user' not in request.session:
+					<a href="#" class="start-here btn white">Sell your contract now</a>
+				%else:
+					<a href="/sell/post/" class="start-here btn white">Sell your contract now</a>
+				%endif
 			</div>
 		</div>
 	</div>
