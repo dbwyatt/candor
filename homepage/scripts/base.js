@@ -1,5 +1,19 @@
 $(function() {
 
+	if(window.location.hash) {
+	  var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+	  if (hash == 'login') {
+	  	$('.start-here').click();
+	  }
+	  // hash found
+	} else {
+	  // No hash found
+	}
+
+	$('.btn-facebook').on('click', function() {
+		facebookLogin();
+	});
+
 	// $('select').select2();
 
 	$('a[href*=#]:not([href=#])').click(function() {
