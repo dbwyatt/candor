@@ -20,7 +20,7 @@ def login_required(redirect=None):
                 return view(request, *args, **kwargs)
             else:
                 if redirect is None:
-                    return HttpResponseRedirect('/accounts/login/')
+                    return HttpResponseRedirect('/homepage/#login')
                 else:
                     return HttpResponseRedirect(redirect)
         return wraps(view)(_decorator)
