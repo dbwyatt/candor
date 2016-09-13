@@ -55,6 +55,7 @@ def process_request(request):
             request.session['user']['last_login']['date'] = datetime.now().strftime("%Y-%m-%d")
             request.session['user']['last_login']['time'] = datetime.now().strftime("%I:%M %p")
             request.session['user']['logged_in'] = True
+            request.session['user']['method'] = user['method']
             request.session.modified = True
         else:
             del request.session['user']

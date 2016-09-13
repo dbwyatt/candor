@@ -74,19 +74,16 @@
             // console.log('Email: ' + profile.getEmail());
             // $('.sign-in').text('Welcome, ' + profile.getName());
             // $('#login-slide .close').trigger('click');
-            $.ajax({
-                type: 'POST',
-                url: '/homepage/',
-                data: {set: true, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail(), id_token: googleUser.getAuthResponse().id_token},
-                success: function(ret) {
-                    if (ret == 'True') {
-                        window.location = '/sell/post/';
-                    }
-                },
-                error: function(e) {
-                    console.log(e);
-                }
-            });
+
+            var set = true;
+            var csrf = $('[name="csrfmiddlewaretoken"]').val();
+            var name = profile.getName();
+            var image = profile.getImageUrl();
+            var email = profile.getEmail();
+            var id_token = googleUser.getAuthResponse().id_token;
+            var method = 'google';
+
+            setLogin(set, csrf, name, image, email, id_token, method);
         }
 
         function signOut() {
@@ -139,6 +136,19 @@
         // end Google login
 
         // start Facebook login
+
+        // Now that we've initialized the JavaScript SDK, we call 
+        // FB.getLoginStatus().  This function gets the state of the
+        // person visiting this page and can return one of three states to
+        // the callback you provide.  They can be:
+        //
+        // 1. Logged into your app ('connected')
+        // 2. Logged into Facebook, but not your app ('not_authorized')
+        // 3. Not logged into Facebook and can't tell if they are logged into
+        //    your app or not.
+        //
+        // These three cases are handled in the callback function.
+
         // This is called with the results from from FB.getLoginStatus().
           function statusChangeCallback(response) {
             console.log('statusChangeCallback');
@@ -149,16 +159,13 @@
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
               // Logged into your app and Facebook.
-              testAPI();
             } else if (response.status === 'not_authorized') {
               // The person is logged into Facebook, but not your app.
-              document.getElementById('status').innerHTML = 'Please log ' +
-                'into this app.';
+              facebookLogin();
             } else {
               // The person is not logged into Facebook, so we're not sure if
               // they are logged into this app or not.
-              document.getElementById('status').innerHTML = 'Please log ' +
-                'into Facebook.';
+              facebookLogin();
             }
           }
 
@@ -171,34 +178,91 @@
             });
           }
 
-          // Now that we've initialized the JavaScript SDK, we call 
-          // FB.getLoginStatus().  This function gets the state of the
-          // person visiting this page and can return one of three states to
-          // the callback you provide.  They can be:
-          //
-          // 1. Logged into your app ('connected')
-          // 2. Logged into Facebook, but not your app ('not_authorized')
-          // 3. Not logged into Facebook and can't tell if they are logged into
-          //    your app or not.
-          //
-          // These three cases are handled in the callback function.
-
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
-
-
-          // Here we run a very simple test of the Graph API after login is
-          // successful.  See statusChangeCallback() for when this call is made.
-          function testAPI() {
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-              console.log('Successful login for: ' + response.name);
-              document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name + '!';
+          function facebookLogin() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                 console.log('Welcome!  Fetching your information.... ');
+                 FB.api('/me', {fields: ['first_name', 'last_name', 'name', 'email', 'picture']}, function(response) {
+                   var set = true;
+                   var csrf = $('[name="csrfmiddlewaretoken"]').val();
+                   var name = response.name;
+                   var image = response.picture.data.url;
+                   var email = response.email;
+                   var id_token = response.id;
+                   var method = 'facebook';
+   
+                   setLogin(set, csrf, name, image, email, id_token, method);
+                 });
+                } else {
+                 console.log('User cancelled login or did not fully authorize.');
+                }
             });
-          }
+          };
         // end Facebook login
+
+          function facebookLogout() {
+            FB.getLoginStatus(function(response) {
+                console.log(response);
+                if (response.authResponse) {
+                    FB.logout(function(response) {
+                        // user is now logged out
+                        $.ajax({
+                            type: 'POST',
+                            url: '/homepage/',
+                            data: {set: false, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()},
+                            success: function(ret) {
+                                if (ret == 'True') {
+                                    window.location = '/homepage/';
+                                }
+                            },
+                            error: function(e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/homepage/',
+                        data: {set: false, csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()},
+                        success: function(ret) {
+                            if (ret == 'True') {
+                                window.location = '/homepage/';
+                            }
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    });
+                }
+            });
+          };
+
+          function signOutAll(method) {
+            if (method == 'google') {
+                signOut();
+            }
+            else if (method == 'facebook') {
+                facebookLogout();
+            }
+          }
+
+          function setLogin(set, csrfmiddlewaretoken, name, image, email, id_token, method) {
+            $.ajax({
+                type: 'POST',
+                url: '/homepage/',
+                data: {set: set, csrfmiddlewaretoken: csrfmiddlewaretoken, name: name, image: image, email: email, id_token: id_token, method: method},
+                success: function(ret) {
+                    if (ret == 'True') {
+                        window.location = '/sell/post/';
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+          };
     </script>
 
     <%block name="navigation">
@@ -279,7 +343,7 @@
                                         ## <li class="divider"></li>
                                         <li><a href="/accounts/"><i class="fa fa-user fa-fw"></i>Account</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#" onclick=signOut()><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
+                                        <li><a href="#" onclick="signOutAll( '${ request.session['user']['method'] }' )"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             %endif
