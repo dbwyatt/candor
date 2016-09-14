@@ -11,7 +11,7 @@ $(function() {
 	}
 
 	$('.btn-facebook').on('click', function() {
-		$(this).append('<i class="fa fa-spinner fa-fw fa-spin"></i>')
+		$(this).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
 		facebookLogin();
 	});
 
