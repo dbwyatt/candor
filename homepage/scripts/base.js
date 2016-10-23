@@ -10,7 +10,7 @@ $(function() {
 	  // No hash found
 	}
 
-	$('.btn-facebook').on('click', function() {
+	$('.btn-facebook.login').on('click', function() {
 		$(this).append('<i class="fa fa-spinner fa-fw fa-spin"></i>');
 		facebookLogin();
 	});

@@ -2,11 +2,18 @@
 <%!from datetime import datetime %>
 
 <%block name="content">
+
 	<div id="main-container">
 
 		<%include file="/dashboard/templates/nav_stacked.html" />
 
 		<div id="action-container">
+			%if 'success' in request.GET:
+				<div class="alert alert-success alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <strong>Success!</strong> Your contract has been posted.
+				</div>
+			%endif
 			<h1>Post a new contract</h1>
 
 			<form id="post-form" enctype="multipart/form-data" method="POST" action="" >

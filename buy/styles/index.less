@@ -92,7 +92,7 @@ h1 {
 	color: black;
 	float: none;
 	position: relative;
-	margin: 0 auto;
+	margin: 15px auto;
 
 	ul {
 		overflow: hidden;
@@ -140,11 +140,20 @@ h1 {
 				}
 			}
 
-			span {
+			span, > .title {
 				display: block;
 				font-size: 21px;
 				font-weight: 200;
+
+				&.availability {
+					// font-size: 1em;
+				}
 			}
+			> .title {
+				text-decoration: none;
+				font-weight: 400;
+			}
+
 		}
 	}
 }

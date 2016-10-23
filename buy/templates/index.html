@@ -14,53 +14,65 @@
 
 		<!-- Input value fields with advanced search button -->
 		<div id="action-container" class="col-xs-12 col-md-12">
-
 			%for post in posts:
 				<div class="contract-post col-sm-12 col-lg-9">
 
 					<ul>
 						<li class="col-xs-12 col-sm-12 col-md-2">
 							<div class="post-info">
-								<span class="title">${ post['post'].title }</span>
+								<a href="/buy/post/${ post['post'].id }" class="title">${ post['post'].title }</a>
 								%for picture in post['pictures'][0:1]:
-									<img src="${ picture.attachment }" /><br>
+									<img style="margin: 5px 0;" src="${ picture.attachment }" /><br>
 								%endfor
+								<a class="btn btn-success view" href="/buy/post/${ post['post'].id }">View Details</a>
+								<br><br>
 								<button class="btn btn-primary contact" data-toggle="modal" data-target="#contactModal" data-id="${ post['post'].id }">Contact Us</button>
+			                    <br><br>
+			                    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
+								<button class="btn btn-social btn-facebook" href="/buy/post/${ post['post'].id }">
+									<i class="fa fa-facebook"></i> Share
+								</button>
 							</div>
 						</li>
-						<li class="col-xs-12 col-sm-6 col-md-2">    
-							<div class="post-info">
-								<label>Price</label>
-								<span class="price">$${ '{0:.0f}'.format(post['post'].price) }</span>
-							</div>
-						</li>
-						<li class="col-xs-12 col-sm-6 col-md-2">        
-							<div class="post-info">
-								<label>Deposit</label>
-								<span class="deposit">$${ '{0:.0f}'.format(post['post'].deposit) }</span>
-							</div>
-						</li>
-						<li class="col-xs-12 col-sm-6 col-md-2">        
-							<div class="post-info">
-								<label>Availability</label>
-								<span class="availability">${ datetime.strftime(post['post'].availability, '%B %d, %Y') }</span>
-							</div>
-						</li>
-						<li class="col-xs-12 col-sm-6 col-md-2">        
-							<div class="post-info">
-								<label>Housing Type</label>
-								<span class="housing-type">${ post['post'].apartment.housing_type }</span>
-							</div>
-						</li>
-						<li class="col-xs-12 col-sm-6 col-md-2">        
-							<div class="post-info">
-								<label>Type</label>
-								<span class="single_or_married">${ post['post'].apartment.single_or_married }</span>
-							</div>
-						</li>
+						<ul>
+							<li class="col-xs-12 col-sm-6 col-md-2">    
+								<div class="post-info">
+									<label>Price</label>
+									<span class="price">$${ '{0:.0f}'.format(post['post'].price) }</span>
+								</div>
+							</li>
+							<li class="col-xs-12 col-sm-6 col-md-2">        
+								<div class="post-info">
+									<label>Deposit</label>
+									<span class="deposit">$${ '{0:.0f}'.format(post['post'].deposit) }</span>
+								</div>
+							</li>
+							<li class="col-xs-12 col-sm-6 col-md-2">        
+								<div class="post-info">
+									<label>Availability</label>
+									<span class="availability">${ datetime.strftime(post['post'].availability, '%B %d, %Y') }</span>
+								</div>
+							</li>
+							<li class="col-xs-12 col-sm-6 col-md-2">        
+								<div class="post-info">
+									<label>Housing Type</label>
+									<span class="housing-type">${ post['post'].apartment.housing_type }</span>
+								</div>
+							</li>
+							<li class="col-xs-12 col-sm-6 col-md-2">        
+								<div class="post-info">
+									<label>Type</label>
+									<span class="single_or_married">${ post['post'].apartment.single_or_married }</span>
+								</div>
+							</li>
+						</ul>
+						<ul style="display: block;">
+							<li style="display:block;">
+								<hr>
+								<p class="description">${ post['post'].description }</p>
+							</li>
+						</ul>
 					</ul>
-					<hr>
-					<p class="description">${ post['post'].description }</p>
 				</div>
 			%endfor
 		##     <div id="search-container" class="col-xs-12 col-md-12">    
@@ -199,32 +211,49 @@
 		##     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8AEmLuzv3CM8WJfE69VqybbF-Sz3LMA4&libraries=places&callback=initAutocomplete" async defer></script>
 		## </div>
 		
-		<div id="contactModal" class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Contact Us</h4>
-					</div>
-					<form id="contact-form" method="POST" action="/homepage/index.contact/">
-						<div class="modal-body">
-							${ contact }
-							## <sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
-							<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
-							<input type='hidden' name='post-id' id='post-id' value='' />
+			<div id="contactModal" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Contact Us</h4>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<input type="submit" class="btn btn-primary send" value="Send" />
-						</div>
-					</form>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		<footer>
-			Copyright &copy; ${ datetime.now().year } Candor Contracts
-		</footer>
+						<form id="contact-form" method="POST" action="/homepage/index.contact/">
+							<div class="modal-body">
+								${ contact }
+								## <sup>*Your email will not be used for anything other than to contact you when Candor is ready to be tested</sup>
+								<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+								<input type='hidden' name='post-id' id='post-id' value='' />
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<input type="submit" class="btn btn-primary send" value="Send" />
+							</div>
+						</form>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<footer>
+				Copyright &copy; ${ datetime.now().year } Candor Contracts
+			</footer>
 
+			<script>
+				$(function() {
+					$('.btn-facebook').each(function(i, e) {
+						$(e).on('click', function(event) {
+							console.log("https://www.candorcontracts.com" + $(this).attr('href'));
+							event.preventDefault();
+							FB.ui({
+							    method: 'share',
+							    display: 'popup',
+							    hashtag: '#candorcontracts',
+							    href: 'https://www.candorcontracts.com' + $(this).attr('href'),
+							}, function(response){});
+						});
+					});
+				});
+			</script>
+		</div>
 	</div>
 </%block>
 

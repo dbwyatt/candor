@@ -80,6 +80,7 @@ def process_request(request):
             # TODO: Add Facebook link.
 
             for a_file in files:
+                print(a_file)
                 smod.Picture.objects.create(
                     post=post,
                     file_name=a_file.name,
@@ -109,7 +110,7 @@ def process_request(request):
                     apartment.amenity.add(smod.Amenity.objects.filter(id=amen).first())
 
             # Redirect to dashboard. TODO: Need to provide confirmation.
-            return HttpResponseRedirect('/sell/post/')
+            return HttpResponseRedirect('/sell/post/?success')
 
         else:
             print(form.errors)
