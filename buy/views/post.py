@@ -21,8 +21,8 @@ templater = get_renderer('buy')
 @login_required()
 def process_request(request):
     params = {}
-    print(helpers.get_settings_environment())
-    params['environment'] = helpers.get_settings_environment()
+    # print(helpers.get_settings_environment())
+    # params['environment'] = helpers.get_settings_environment()
     
     request.session['active'] = 'buy'
 
