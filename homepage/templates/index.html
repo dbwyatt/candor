@@ -1,7 +1,7 @@
 <%inherit file="base.htm" />
 
 <%block name="title">
-	<title>Candor Contracts</title>
+	<title>Candor</title>
 </%block>
 
 <%block name="content">
@@ -9,9 +9,9 @@
     	<img src="${ STATIC_URL }homepage/media/candor.png" style="width: 130px; height: auto; display: inline-block;"/>
     	<span class="brand-text" style="color:#FFFFFF;font-size:18px;line-height: 20px;">
             % if environment != '/var/www/candor':
-                Candor Contracts Dev
+                Candor
             % else:
-                Candor Contracts
+                Candor
             % endif
         </span>
    	</a>
@@ -31,7 +31,7 @@
 			</video>
 		</div>
 		<div class="overlay">
-			<span class="award">Top 20 finalst in 2015 Utah Entrepreneurship challenge</span>
+			<span class="award">Top 20 finalst in Utah Entrepreneurship challenge</span>
 			## <div id="candor-container">
 			## 	<img src="${ STATIC_URL }homepage/media/candor.png" />
 			## 	<span id="candor">Candor</span>
@@ -39,7 +39,7 @@
 			## </div>
 			## <span class="space"></span>
 			<p class="description">We will sell your apartment contract for you!</p>
-			<span class="tagline">Pay only when it sells</span>
+			<span class="tagline">For free</span>
 
 			%if 'user' not in request.session:
 				<a href="#" class="start-here">Get Started</a>
@@ -78,12 +78,12 @@
 		<div class="container">
 			<div class="col-sm-12 col-md-8 header-panel">
 				<h2 class="page-header slide">How does Candor work?</h2>
-				<p>1. Post your contract on Candor and we'll post it out everywhere (the relevant Facebook groups, Craigslist, the bulletin board, Craiglist, run ads for it, etc.)</p>
+				<p>1. Post your contract on Candor and we'll help you share it out everywhere, Candor itself, the relevant Facebook groups, Craigslist, the bulletin board, etc.</p>
 				<p>2. We'll send emails that guide you through every step of your apartment's specific selling process</p>
 				<p>3. Sit back, relax, you'll be notified of every legitimate buyer (we'll filter the scammers out for you and the real ones can call you directly)</p>
 				<p>4. Sell your contract!</p>
 
-				<p>ALL for only $7!</p>
+				<p>All for free</p>
 				%if 'user' not in request.session:
 					<a href="#" class="start-here btn">Sell your contract now</a>
 				%else:
@@ -99,19 +99,19 @@
 				<div class="list-item col-sm-12 col-md-4 col-lg-4">
 					<span class="title bubble">Post your contract</span>
 					<div class="list-item-description">
-						To post your contract all you have to do is answer a few basic questions and give us a bit of info so we can keep in touch. 
+						Answer a few basic questions about your apartment contract.
 					</div>
 				</div>
 				<div class="list-item col-sm-12 col-md-4 col-lg-4">
 					<span class="title bubble">We sell it for you</span>
 					<div class="list-item-description">
-						Kick back and relax and let candor do the work matching you to a buyer, we'll shoot you an email when there is a match.
+						Relax and let Candor do the work matching you to a buyer.
 					</div>
 				</div>
 				<div class="list-item col-sm-12 col-md-4 col-lg-4">
-					<span class="title bubble">Pay $20 when it sells</span>
+					<span class="title bubble">Get notified of buyers</span>
 					<div class="list-item-description">
-						The best part is you only pay when it is sold, and you can cancel at any time.
+						We'll shoot you an email when there is a match.
 					</div>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 			<div class="col-sm-12 col-md-6 pull-right header-panel">
 				<h2 class="page-header slide">About Us</h2>
 					<p>We're BYU and BYU-I Students (probably like you) with a vision of making buying and selling apartment contracts incredibly easy and risk free. So we created Candor.</p>
-					<p>The first apartment contract selling service (that we are aware of).</p>
+					<p>The first apartment contract selling service that does the work for you.</p>
 					<p>We're here to serve you. If you want our long winded introduction go ahead and click the button...</p>
 				<a href="#" class="btn white">Our story</a>
 			</div>
@@ -171,11 +171,11 @@
 		<div id="contact" class="container">
 			<h2 class="page-header">Contact Us</h2>
 			<div class="col-sm-12 col-md-6">
-				We would love to hear from you! If you have a great idea that would help you to sell your contract easier or just want to say hi, send us a message. This may look like a normal contact us form, but it’s not, because we actually want you to contact us. Seriously. Give us a call or send us a message.
+				We would love to hear from you! Whether you just want to say hi, or to tell us how awesome Candor is, send us a message. This may look like a normal contact us form, but it’s not, because we actually want you to contact us. Seriously. Give us a call or send us a message.
 				<br><br>
 				<b>Email</b> - <a href="mailto:support@candorcontracts.com">support@candorcontracts.com</a>
 				<br>
-				<b>Phone</b> - (801) 960-2140
+				<b>Phone</b> - (801) 472-8537
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<form id="contact-form" method="POST" action="/homepage/index.contact/">
