@@ -12,6 +12,8 @@ from functools import wraps
 def get_environment():
     return os.path.dirname(os.path.dirname(__file__))
 
+def get_settings_environment():
+    return settings.ENVIRONMENT
 
 def login_required(redirect=None):
     def _login_required(view):

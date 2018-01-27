@@ -1,5 +1,6 @@
 from django.db import models
 from homepage import models as hmod
+import os
 
 
 class Post(models.Model):
@@ -45,12 +46,13 @@ class School(models.Model):
 class Amenity(models.Model):
     amenity = models.TextField(blank=False, null=False)
 
+def content_file_name(instance, filename):
+    return os.path.join(*["sell/media/post_images", filename])
 
 class Picture(models.Model):
     post = models.ForeignKey(Post)
     file_name = models.CharField(blank=False, null=False, max_length=100)
-    attachment = models.FileField(upload_to='post_images')
-
+    attachment = models.FileField(upload_to=content_file_name)
 
 class Video(models.Model):
     post = models.ForeignKey(Post)

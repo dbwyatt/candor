@@ -3,6 +3,7 @@
 	
 <%block name="content">
 	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
 	
 
 
@@ -22,13 +23,12 @@
 							<div class="post-info">
 								<a href="/buy/post/${ post['post'].id }" class="title">${ post['post'].title }</a>
 								%for picture in post['pictures'][0:1]:
-									<img style="margin: 5px 0;" src="${ picture.attachment }" /><br>
+									<img style="margin: 5px 0;" src="${ STATIC_URL }${ picture.attachment }" /><br>
 								%endfor
 								<a class="btn btn-success view" href="/buy/post/${ post['post'].id }">View Details</a>
 								<br><br>
 								<button class="btn btn-primary contact" data-toggle="modal" data-target="#contactModal" data-id="${ post['post'].id }">Contact Us</button>
 			                    <br><br>
-			                    <link type="text/css" rel="stylesheet" href="${ STATIC_URL }homepage/styles/bootstrap-social.css" />
 								<button class="btn btn-social btn-facebook" href="/buy/post/${ post['post'].id }">
 									<i class="fa fa-facebook"></i> Share
 								</button>

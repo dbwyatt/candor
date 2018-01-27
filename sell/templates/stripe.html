@@ -1,0 +1,37 @@
+<%inherit file="/dashboard/templates/index.html" />
+<%!from datetime import datetime %>
+
+<%block name="content">
+	<div id="main-container">
+
+		<%include file="/dashboard/templates/nav_stacked.html" />
+
+    	<h1>Pay Us Some Money</h1>
+
+		<div id="action-container">
+      <!-- Change this action argument to the correct app. -->
+			<form action="/sell/stripe" method="POST">
+        <!-- Consult this documentation for more details about checkout.js: https://stripe.com/docs/checkout -->
+        <!-- checkout.js must be called from a site with SSL/TLS. -->
+        <!-- Look at this page for card numbers you can test with: https://stripe.com/docs/testing#cards -->
+				<script
+					src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+					data-key="pk_test_styOsgNMxnD7BYFiyTelvb9W"
+					data-image="${ STATIC_URL }homepage/media/candor.png"
+					data-name="Candor Contracts"
+					data-description="Contract Sale"
+					data-amount="2000"
+					data-locale="auto">
+				</script>
+				<input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+			</form>
+		</div>
+
+		<footer>Copyright &copy; ${ datetime.now().year } Candor Contracts</footer>
+
+	</div>
+</%block>
+
+<%block name="footer">
+	<div></div>
+</%block>

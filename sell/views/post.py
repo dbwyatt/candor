@@ -80,7 +80,8 @@ def process_request(request):
             # TODO: Add Facebook link.
 
             for a_file in files:
-                print(a_file)
+                print('line 83')
+                print(a_file.name)
                 smod.Picture.objects.create(
                     post=post,
                     file_name=a_file.name,
